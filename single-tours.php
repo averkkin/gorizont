@@ -16,32 +16,33 @@ $hero_description = carbon_get_post_meta($tour_id, 'tour_hero_description');
 $way = 'echo get_template_directory_uri();';
 ?>
 
-    <section class="hero">
+<main id="primary" class="site-main">
+    <section class="hero" aria-labelledby="tour-title">
         <div class="container inner">
             <div class="hero__content">
                 <div class="hero__heading">
-                    <h1 class="h1"><?php the_title(); ?></h1>
+                    <h1 id="tour-title" class="h1"><?php the_title(); ?></h1>
                     <?php the_content(); ?>
                 </div>
                 <div class="hero__buttons">
                     <div class="actions">
-                        <a href="#login-form" rel="modal:open"><button class="button">выбрать маршрут</button></a>
-                        <button class="button button--outline">написать в WhatsApp</button>
+                        <a class="button" href="#login-form" rel="modal:open">выбрать маршрут</a>
+                        <button type="button" class="button button--outline">написать в WhatsApp</button>
                     </div>
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/icons/Arrow-Down-Circle.svg" alt="Arrow Down" class="hero__arrow-down">
+                    <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/Arrow-Down-Circle.svg'); ?>" alt="" class="hero__arrow-down" aria-hidden="true">
                 </div>
             </div>
         </div>
         <div class="bg-blur-matrix"></div>
         <div class="bg-blur-gradient"></div>
-        <img src="<?php echo get_the_post_thumbnail_url($tour_id, 'full'); ?>" alt="Горы" width="1920" height="847" class="background">
+        <img src="<?php echo esc_url(get_the_post_thumbnail_url($tour_id, 'full')); ?>" alt="" width="1920" height="847" class="background" aria-hidden="true">
     </section>
 
     <div class="single-tour__inner">
-        <section class="tour-description container">
+        <section class="tour-description container" aria-labelledby="tour-description-title">
             <div class="inner">
                 <div class="tour-description__content">
-                    <h2 class="h2">Описание тура</h2>
+                    <h2 id="tour-description-title" class="h2">Описание тура</h2>
                     <div class="tour-description__text">
                         <?php if (!empty($hero_description)) : ?>
                             <?php echo wp_kses_post(wpautop($hero_description)); ?>
@@ -50,39 +51,30 @@ $way = 'echo get_template_directory_uri();';
                         <?php endif; ?>
                     </div>
                 </div>
-                <div class="tour-description__meta-grid">
+                <dl class="tour-description__meta-grid">
                     <div class="group-meta">
-                        <span class="line-meta"></span>
-                        <div class="group">
-                            <span class="key">Продолжительность:</span>
-                            <span class="value"><?php echo esc_html($duration); ?></span>
-                        </div>
+                        <dt class="key">Продолжительность:</dt>
+                        <dd class="value"><?php echo esc_html($duration); ?></dd>
                     </div>
                     <div class="group-meta">
-                        <span class="line-meta"></span>
-                        <div class="group">
-                            <span class="key">Сложность:</span>
-                            <span class="value"><?php echo esc_html($difficulty); ?></span>
-                        </div>
+                        <dt class="key">Сложность:</dt>
+                        <dd class="value"><?php echo esc_html($difficulty); ?></dd>
                     </div>
                     <div class="group-meta">
-                        <span class="line-meta"></span>
-                        <div class="group">
-                            <span class="key">Формат:</span>
-                            <span class="value"><?php echo esc_html($format); ?></span>
-                        </div>
+                        <dt class="key">Формат:</dt>
+                        <dd class="value"><?php echo esc_html($format); ?></dd>
                     </div>
-                </div>
+                </dl>
             </div>
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/img/icons/bg-pattern.svg" class="bg-pattern">
+            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/bg-pattern.svg'); ?>" alt="" class="bg-pattern" aria-hidden="true">
         </section>
         <div class="bg-white"></div>
     </div>
 
-    <section class="tour-timeline">
+    <section class="tour-timeline" aria-labelledby="tour-timeline-title">
         <div class="container">
-            <h2 class="h2">Программа по дням</h2>
-            <div class="timeline">
+            <h2 id="tour-timeline-title" class="h2">Программа по дням</h2>
+            <ol class="timeline">
                 <?php
                 $program = carbon_get_post_meta($tour_id, 'tour_program');
                 if (!empty($program)) :
@@ -101,7 +93,7 @@ $way = 'echo get_template_directory_uri();';
                         $day_images_count = count($day_images);
                         $day_slider_id = 'timeline-gallery-' . $day_index;
                         ?>
-                        <div class="timeline__item">
+                        <li class="timeline__item">
                             <div class="timeline__content">
                                 <span class="day-num"><?php echo esc_html($day['day_number']); ?></span>
                                 <h3 class="h3"><?php echo esc_html($day['day_title']); ?></h3>
@@ -134,13 +126,13 @@ $way = 'echo get_template_directory_uri();';
 
                                             <div class="glide__arrows">
                                                 <button type="button" class="glide__arrow glide__arrow--left" data-glide-dir="<" aria-label="Предыдущий слайд">
-                                                    <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                                                         <path d="M17 7H1M1 7L7 1M1 7L7 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                     </svg>
                                                 </button>
 
                                                 <button type="button" class="glide__arrow glide__arrow--right" data-glide-dir=">" aria-label="Следующий слайд">
-                                                    <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                                                         <path d="M1 7H17M17 7L11 1M17 7L11 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                     </svg>
                                                 </button>
@@ -148,7 +140,7 @@ $way = 'echo get_template_directory_uri();';
 
                                             <div class="glide__bullets" data-glide-el="controls[nav]">
                                                 <?php foreach ($day_images as $image_index => $image_id) : ?>
-                                                    <button class="glide__bullet" data-glide-dir="=<?php echo esc_attr($image_index); ?>" aria-label="Перейти к слайду <?php echo esc_attr($image_index + 1); ?>"></button>
+                                                    <button type="button" class="glide__bullet" data-glide-dir="=<?php echo esc_attr($image_index); ?>" aria-label="Перейти к слайду <?php echo esc_attr($image_index + 1); ?>"></button>
                                                 <?php endforeach; ?>
                                             </div>
                                         </div>
@@ -159,52 +151,52 @@ $way = 'echo get_template_directory_uri();';
                                     <?php endif; ?>
                                 </div>
                             <?php endif; ?>
-                        </div>
+                        </li>
                     <?php endforeach;
                 endif; ?>
-            </div>
+            </ol>
         </div>
     </section>
 
-    <section class="tour-conditions">
+    <section class="tour-conditions" aria-labelledby="tour-conditions-title">
         <div class="tour-conditions__inner container">
-            <h2 class="h2">Условия участия</h2>
+            <h2 id="tour-conditions-title" class="h2">Условия участия</h2>
             <div class="conditions-grid">
-                <div class="included">
+                <section class="included">
                     <h3 class="h3">Включено в стоимость</h3>
                     <ul>
                         <?php
                         $included = carbon_get_post_meta($tour_id, 'tour_included');
                         $included_lines = explode("\n", str_replace("\r", "", $included));
                         foreach ($included_lines as $line) {
-                            if (!empty(trim($line))) echo '<li><span class="box"><img src="' . get_template_directory_uri() . '/assets/img/icons/check.svg"></span>' . esc_html($line) . '</li>';
+                            if (!empty(trim($line))) echo '<li><span class="box" aria-hidden="true"><img src="' . esc_url(get_template_directory_uri() . '/assets/img/icons/check.svg') . '" alt=""></span>' . esc_html($line) . '</li>';
                         }
                         ?>
                     </ul>
-                </div>
-                <div class="excluded">
-                    <h3>Исключено</h3>
+                </section>
+                <section class="excluded">
+                    <h3 class="h3">Исключено</h3>
                     <ul>
                         <?php
                         $excluded = carbon_get_post_meta($tour_id, 'tour_excluded');
                         $excluded_lines = explode("\n", str_replace("\r", "", $excluded));
                         foreach ($excluded_lines as $line) {
-                            if (!empty(trim($line))) echo '<li><span class="box"><img src="' . get_template_directory_uri() . '/assets/img/icons/close.svg"></span>' . esc_html($line) . '</li>';;
+                            if (!empty(trim($line))) echo '<li><span class="box" aria-hidden="true"><img src="' . esc_url(get_template_directory_uri() . '/assets/img/icons/close.svg') . '" alt=""></span>' . esc_html($line) . '</li>';
                         }
                         ?>
                     </ul>
-                </div>
+                </section>
             </div>
             <div class="price-block">
                 <div class="price-block__grid">
                     <span class="price-block__label">Стоимость</span>
                     <span class="price-block__value">от <span><?php echo esc_html($price); ?>₽</span> за участника</span>
                 </div>
-                <button class="button price-block__button">забронировать экскурсию</button>
+                <button type="button" class="button price-block__button">забронировать экскурсию</button>
             </div>
         </div>
 
-        <img src="<?= get_template_directory_uri(); ?>/assets/img/icons/bg-pattern-lines.svg" alt="" class="tour-conditions__bg">
+        <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/bg-pattern-lines.svg'); ?>" alt="" class="tour-conditions__bg" aria-hidden="true">
 
     </section>
 
@@ -305,10 +297,10 @@ $reviews_archive_url = get_post_type_archive_link('reviews');
 ?>
 
 <?php if ($reviews_query->have_posts()) : ?>
-    <section class="tour-reviews">
+    <section class="tour-reviews" aria-labelledby="tour-reviews-title">
         <div class="container">
             <div class="tour-reviews__header">
-                <h2 class="h2">Мы ценим ваше доверие</h2>
+                <h2 id="tour-reviews-title" class="h2">Мы ценим ваше доверие</h2>
                 <?php if (!empty($reviews_archive_url)) : ?>
                     <a class="button tour-reviews__button" href="<?php echo esc_url($reviews_archive_url); ?>">смотреть все отзывы</a>
                 <?php endif; ?>
@@ -336,7 +328,7 @@ $reviews_archive_url = get_post_type_archive_link('reviews');
                                 <?php endif; ?>
                             </div>
                             <div class="review-card__meta">
-                                <div class="review-card__stars" aria-label="<?php echo esc_attr($rating); ?> из 5">
+                                <div class="review-card__stars" role="img" aria-label="<?php echo esc_attr($rating); ?> из 5">
                                     <?php for ($star_index = 1; $star_index <= 5; $star_index++) : ?>
                                         <svg class="review-card__star" viewBox="0 0 15 15" aria-hidden="true" focusable="false">
                                             <path d="M7.5 0.5L9.35 5.34L14.5 5.62L10.48 8.86L11.84 13.5L7.5 10.7L3.16 13.5L4.52 8.86L0.5 5.62L5.65 5.34L7.5 0.5Z" fill="<?php echo $star_index <= $rating ? 'currentColor' : '#14141420'; ?>"/>
@@ -374,9 +366,9 @@ if (is_array($more_info)) {
 ?>
 
 <?php if (!empty($more_info_sections)) : ?>
-    <section class="more-info">
+    <section class="more-info" aria-labelledby="more-info-title">
         <div class="more-info__inner container">
-            <h2 class="h2">Дополнительная информация</h2>
+            <h2 id="more-info-title" class="h2">Дополнительная информация</h2>
             <div class="more-info__content">
                 <ul>
                     <?php foreach ($more_info_sections as $section) : ?>
@@ -399,6 +391,8 @@ if (is_array($more_info)) {
         </div>
     </section>
 <?php endif; ?>
+
+</main>
 
 <?php wp_reset_postdata(); ?>
 

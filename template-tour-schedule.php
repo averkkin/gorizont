@@ -13,6 +13,9 @@ $hero_args = array(
         'bg'    => carbon_get_post_meta($page_id, 'hero_bg'),
 );
 
+?>
+<main id="primary" class="site-main">
+<?php
 get_template_part('template-parts/hero-block', null, $hero_args);
 
 // 2. Получаем тип туров для фильтрации WP_Query (выездные/местные туры или экскурсии)
@@ -22,20 +25,20 @@ $tour_type = carbon_get_post_meta($page_id, 'tour_type_filter');
 $section_title = get_the_title();
 ?>
 
-    <section class="tour-schedule">
+    <section class="tour-schedule" aria-labelledby="tour-schedule-title">
         <div class="container inner">
             <header class="tour-schedule__header">
-                <h2 class="h2"><?php echo esc_html($section_title); ?> <img src="<?php echo get_template_directory_uri(); ?>/assets/img/icons/line-decor.svg" class="h2-decor"></h2>
+                <h2 id="tour-schedule-title" class="h2"><?php echo esc_html($section_title); ?> <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/line-decor.svg'); ?>" alt="" class="h2-decor" aria-hidden="true"></h2>
 
                 <div class="tour-filter">
                     <ul>
-                        <li class="active" data-filter="all">Все</li>
-                        <li data-filter="popular">Популярные туры</li>
-                        <li data-filter="3">3-х дневные</li>
-                        <li data-filter="5">5-ти дневные</li>
-                        <li data-filter="7">7-ми дневные</li>
+                        <li class="active" data-filter="all"><button type="button" aria-pressed="true">Все</button></li>
+                        <li data-filter="popular"><button type="button" aria-pressed="false">Популярные туры</button></li>
+                        <li data-filter="3"><button type="button" aria-pressed="false">3-х дневные</button></li>
+                        <li data-filter="5"><button type="button" aria-pressed="false">5-ти дневные</button></li>
+                        <li data-filter="7"><button type="button" aria-pressed="false">7-ми дневные</button></li>
                     </ul>
-                    <div class="search">Поиск</div>
+                    <button type="button" class="search">Поиск</button>
                 </div>
             </header>
 
@@ -47,6 +50,7 @@ $section_title = get_the_title();
             </div>
         </div>
     </section>
+</main>
 
 <?php
 get_footer();

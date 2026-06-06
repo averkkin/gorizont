@@ -440,6 +440,13 @@ svg * {
   bottom: 0;
   z-index: 3;
   pointer-events: none;
+}
+@media (width <= 47.99875rem) {
+  .bg-blur-gradient {
+    height: inherit;
+  }
+}
+.bg-blur-gradient {
   background: linear-gradient(to bottom, transparent 0%, rgba(48, 40, 34, 0.4) 40%, rgba(48, 40, 34, 0.8) 75%, #302822 100%);
 }
 
@@ -584,6 +591,7 @@ button[aria-label]::before {
 }
 .button:hover {
   background-color: var(--color-accent-hover);
+  color: var(--color-dark);
 }
 .button--outline {
   background-color: transparent;
@@ -798,13 +806,13 @@ button[aria-label]::before {
     gap: 0.3125rem;
   }
 }
-.footer__menu h4 {
+.footer__menu .h4 {
   letter-spacing: 0.1875rem;
   color: var(--color-light-30);
   text-transform: uppercase;
 }
 @media (width <= 47.99875rem) {
-  .footer__menu h4 {
+  .footer__menu .h4 {
     font-size: 0.875rem;
   }
 }
@@ -838,8 +846,8 @@ button[aria-label]::before {
 .hero__heading .h1 {
   font-size: clamp(2rem, 0.7107438017rem + 5.2892561983vw, 6rem);
 }
-.hero__heading .p {
-  max-width: 33.75rem;
+.hero__heading p {
+  max-width: 43.75rem;
 }
 .hero__buttons {
   display: flex;
@@ -1496,6 +1504,7 @@ button[aria-label]::before {
   display: flex;
   flex-direction: column;
   gap: clamp(0.9375rem, 0.6353305785rem + 1.2396694215vw, 1.875rem);
+  max-width: 56.25rem;
 }
 .tour-description__text p {
   font-size: clamp(0.875rem, 0.7541322314rem + 0.4958677686vw, 1.25rem);
@@ -1508,28 +1517,30 @@ button[aria-label]::before {
 }
 .tour-description__meta-grid .group-meta {
   flex: 1;
-  display: flex;
-  gap: clamp(0.9375rem, 0.6353305785rem + 1.2396694215vw, 1.875rem);
+  display: grid;
+  grid-template-columns: clamp(0.1875rem, 0.0666322314rem + 0.4958677686vw, 0.5625rem) 1fr;
+  grid-template-rows: auto auto;
+  column-gap: clamp(0.9375rem, 0.6353305785rem + 1.2396694215vw, 1.875rem);
+  row-gap: clamp(0.9375rem, 0.8367768595rem + 0.4132231405vw, 1.25rem);
   line-height: 130%;
 }
-.tour-description__meta-grid .group-meta .line-meta {
-  width: clamp(0.1875rem, 0.0666322314rem + 0.4958677686vw, 0.5625rem);
-  min-width: clamp(0.1875rem, 0.0666322314rem + 0.4958677686vw, 0.5625rem);
-  height: 100%;
+.tour-description__meta-grid .group-meta::before {
+  content: "";
+  grid-column: 1;
+  grid-row: 1/-1;
+  width: 100%;
   background-color: var(--color-light);
   border-radius: 0.1875rem;
 }
-.tour-description__meta-grid .group-meta .group {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(0.9375rem, 0.8367768595rem + 0.4132231405vw, 1.25rem);
+.tour-description__meta-grid .group-meta .key, .tour-description__meta-grid .group-meta .value {
+  grid-column: 2;
 }
-.tour-description__meta-grid .group-meta .group .key {
+.tour-description__meta-grid .group-meta .key {
   font-size: clamp(0.875rem, 0.673553719rem + 0.826446281vw, 1.5rem);
   opacity: 0.5;
   font-weight: 600;
 }
-.tour-description__meta-grid .group-meta .group .value {
+.tour-description__meta-grid .group-meta .value {
   font-size: clamp(1rem, 0.597107438rem + 1.652892562vw, 2.25rem);
   font-weight: 600;
 }
@@ -1571,6 +1582,7 @@ button[aria-label]::before {
   display: flex;
   flex-direction: column;
   gap: var(--timeline-gap);
+  list-style: none;
 }
 .timeline__item {
   position: relative;
@@ -1837,7 +1849,7 @@ button[aria-label]::before {
 }
 .tour-conditions .conditions-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: clamp(1.25rem, 0.847107438rem + 1.652892562vw, 2.5rem);
 }
 .tour-conditions .conditions-grid .included, .tour-conditions .conditions-grid .excluded {
@@ -1849,9 +1861,14 @@ button[aria-label]::before {
   padding: clamp(1.5625rem, 0.8574380165rem + 2.8925619835vw, 3.75rem);
 }
 .tour-conditions .conditions-grid .included ul, .tour-conditions .conditions-grid .excluded ul {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: clamp(0.625rem, 0.5242768595rem + 0.4132231405vw, 0.9375rem);
+}
+@media (width <= 63.99875rem) {
+  .tour-conditions .conditions-grid .included ul, .tour-conditions .conditions-grid .excluded ul {
+    grid-template-columns: 1fr;
+  }
 }
 .tour-conditions .conditions-grid .included ul li, .tour-conditions .conditions-grid .excluded ul li {
   display: flex;
@@ -2193,6 +2210,11 @@ button[aria-label]::before {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(1.5rem, 0.9762396694rem + 2.1487603306vw, 3.125rem);
+}
+@media (width <= 63.99875rem) {
+  .more-info__content ul {
+    grid-template-columns: 1fr;
+  }
 }
 .more-info__content ul li {
   display: flex;

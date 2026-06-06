@@ -22,9 +22,12 @@ class Header {
     }
 
     onBurgerButtonClick = () => {
-        this.burgerButtonElement.classList.toggle(this.stateClasses.isActive)
-        this.overlayElement.classList.toggle(this.stateClasses.isActive)
-        document.documentElement.classList.toggle(this.stateClasses.isLock)
+        const isActive = this.burgerButtonElement.classList.toggle(this.stateClasses.isActive)
+
+        this.overlayElement.classList.toggle(this.stateClasses.isActive, isActive)
+        document.documentElement.classList.toggle(this.stateClasses.isLock, isActive)
+        this.burgerButtonElement.setAttribute('aria-expanded', String(isActive))
+        this.burgerButtonElement.setAttribute('aria-label', isActive ? 'Закрыть меню' : 'Открыть меню')
     }
 
     bindEvents() {

@@ -35,23 +35,23 @@ if ($tours_loop->have_posts()) :
         }
         ?>
 
-        <div class="tour-schedule__tour">
+        <article class="tour-schedule__tour">
             <div class="content">
                 <div class="tour-schedule__head">
                     <span class="title">Дата</span>
-                    <span class="date"><?php echo esc_html($tour_date); ?></span>
+                    <time class="date"><?php echo esc_html($tour_date); ?></time>
                 </div>
                 <div class="tour-schedule__info">
 
                     <div class="heading">
                         <div class="tour-header">
-                            <div class="level">
+                            <div class="level" aria-label="<?php echo esc_attr(sprintf('Сложность: %d из 5', $tour_difficulty)); ?>">
                                 <span>Сложность:</span>
-                                <div class="levels">
+                                <div class="levels" aria-hidden="true">
                                     <?php
                                     for ($i = 1; $i <= 5; $i++) {
                                         $class = ($i > $tour_difficulty) ? ' class="disable"' : '';
-                                        echo '<img src="' . get_template_directory_uri() . '/assets/img/icons/level.svg" alt="level"' . $class . '>';
+                                        echo '<img src="' . esc_url(get_template_directory_uri() . '/assets/img/icons/level.svg') . '" alt=""' . $class . '>';
                                     }
                                     ?>
                                 </div>
@@ -62,13 +62,13 @@ if ($tours_loop->have_posts()) :
                     </div>
 
                     <div class="actions">
-                        <a href="<?php the_permalink(); ?>"><button class="button">узнать больше</button></a>
-                        <button class="button button--outline">написать в WhatsApp</button>
+                        <a class="button" href="<?php the_permalink(); ?>">узнать больше</a>
+                        <button type="button" class="button button--outline">написать в WhatsApp</button>
                     </div>
                 </div>
             </div>
             <img src="<?php echo esc_url($tour_cover); ?>" class="cover" alt="<?php the_title_attribute(); ?>">
-        </div>
+        </article>
 
     <?php
     endwhile;

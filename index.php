@@ -15,8 +15,21 @@
 get_header();
 ?>
 
-	<!-- #main -->
+		<main id="primary" class="site-main">
+			<h1 class="visually-hidden"><?php echo esc_html(single_post_title('', false) ?: __('Публикации', 'gorizont')); ?></h1>
+			<?php
+			if ( have_posts() ) :
+				while ( have_posts() ) :
+					the_post();
+					get_template_part( 'template-parts/content', get_post_type() );
+				endwhile;
+
+				the_posts_navigation();
+			else :
+				get_template_part( 'template-parts/content', 'none' );
+			endif;
+			?>
+		</main><!-- #main -->
 
 <?php
 get_footer();
-

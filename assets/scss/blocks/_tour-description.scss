@@ -57,32 +57,37 @@
     gap: fluid(40, 20);
 
     & .group-meta {
-      display: flex;
-      gap: fluid(30, 15);
+      flex: 1;
+      display: grid;
+      grid-template-columns: fluid(9, 3) 1fr;
+      grid-template-rows: auto auto;
+      column-gap: fluid(30, 15);
+      row-gap: fluid(20, 15);
       line-height: 130%;
 
-      & .line-meta {
-        width: fluid(9, 3);
-        min-width: fluid(9, 3);
-        height: inherit;
+      &::before {
+        content: '';
+        grid-column: 1;
+        grid-row: 1 / -1;
+        width: 100%;
         background-color: var(--color-light);
         border-radius: rem(3);
       }
 
-      & .group {
-        display: flex;
-        flex-direction: column;
-        gap: fluid(20, 15);
+      & .key,
+      & .value {
+        grid-column: 2;
+      }
 
-        & .key {
-          @include fluid-text(24, 14);
-          opacity: 0.5;
-          font-weight: 600;
-        }
-        & .value {
-          @include fluid-text(36, 16);
-          font-weight: 600;
-        }
+      & .key {
+        @include fluid-text(24, 14);
+        opacity: 0.5;
+        font-weight: 600;
+      }
+
+      & .value {
+        @include fluid-text(36, 16);
+        font-weight: 600;
       }
     }
   }
