@@ -28,6 +28,22 @@ if ($tours_loop->have_posts()) :
         $tour_date       = carbon_get_post_meta($tour_id, 'tour_start_date'); // Например: "28 июня 2026"
         $tour_difficulty = intval(carbon_get_post_meta($tour_id, 'tour_difficulty_stars')); // Число от 1 до 5
         $tour_cover      = get_the_post_thumbnail_url($tour_id, 'large');
+        $tour_type       = carbon_get_post_meta($tour_id, 'tour_type');
+        $tour_duration   = carbon_get_post_meta($tour_id, 'tour_duration');
+        $tour_duration_days = carbon_get_post_meta($tour_id, 'tour_duration_days');
+        $is_popular      = carbon_get_post_meta($tour_id, 'is_popular') ? '1' : '0';
+        $duration_days_count = 0;
+
+        if (preg_match('/\d+/', (string) $tour_duration_days, $duration_matches)) {
+            $duration_days_count = (int) $duration_matches[0];
+        } elseif (is_numeric($tour_duration)) {
+            $duration_days_count = (int) $tour_duration;
+        } elseif ($tour_duration === 'other') {
+            $duration_days_count = 1;
+        }
+
+        $search_text     = trim(get_the_title() . ' ' . get_the_excerpt() . ' ' . $tour_date . ' ' . $tour_duration_days);
+        $search_text     = function_exists('mb_strtolower') ? mb_strtolower($search_text, 'UTF-8') : strtolower($search_text);
 
         // Fallback на дефолтную картинку, если в посте нет миниатюры
         if (!$tour_cover) {
@@ -35,7 +51,14 @@ if ($tours_loop->have_posts()) :
         }
         ?>
 
-        <article class="tour-schedule__tour">
+        <article
+                class="tour-schedule__tour"
+                data-tour-type="<?php echo esc_attr($tour_type); ?>"
+                data-tour-duration="<?php echo esc_attr($tour_duration); ?>"
+                data-tour-duration-days="<?php echo esc_attr($duration_days_count); ?>"
+                data-tour-popular="<?php echo esc_attr($is_popular); ?>"
+                data-tour-search="<?php echo esc_attr($search_text); ?>"
+        >
             <div class="content">
                 <div class="tour-schedule__head">
                     <span class="title">Дата</span>

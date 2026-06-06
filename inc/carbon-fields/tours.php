@@ -111,6 +111,12 @@ function crb_attach_single_tour_fields() {
             Field::make('textarea', 'tour_included', 'Что включено (каждый пункт с новой строки)'),
             Field::make('textarea', 'tour_excluded', 'Что НЕ включено (каждый пункт с новой строки)'),
             Field::make('text', 'tour_price', 'Стоимость от (цифра или строка, например: 25 000)'),
+            Field::make('select', 'tour_currency', 'Валюта стоимости')
+                ->add_options(array(
+                    'rub' => '₽',
+                    'usd' => '$',
+                ))
+                ->set_default_value('rub'),
 
             // 4. Галерея тура
             Field::make('media_gallery', 'tour_gallery', 'Галерея картинок'),

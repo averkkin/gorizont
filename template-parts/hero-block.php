@@ -14,7 +14,7 @@ $bg    = !empty($args['bg']) ? $args['bg'] : get_template_directory_uri() . '/as
             </div>
             <div class="hero__buttons">
                 <div class="actions">
-                    <a class="button" href="#login-form" rel="modal:open">выбрать маршрут</a>
+                    <a class="button" href="#login-form" rel="modal:open">подобрать маршрут</a>
                     <button type="button" class="button button--outline">написать в WhatsApp</button>
                 </div>
                 <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/Arrow-Down-Circle.svg'); ?>" alt="" class="hero__arrow-down" aria-hidden="true">

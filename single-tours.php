@@ -11,7 +11,13 @@ $duration   = carbon_get_post_meta($tour_id, 'tour_duration_days');
 $difficulty = carbon_get_post_meta($tour_id, 'tour_difficulty');
 $format     = carbon_get_post_meta($tour_id, 'tour_format');
 $price      = carbon_get_post_meta($tour_id, 'tour_price');
+$currency   = carbon_get_post_meta($tour_id, 'tour_currency');
 $hero_description = carbon_get_post_meta($tour_id, 'tour_hero_description');
+$currency_symbols = array(
+    'rub' => '₽',
+    'usd' => '$',
+);
+$currency_symbol = isset($currency_symbols[$currency]) ? $currency_symbols[$currency] : $currency_symbols['rub'];
 
 $way = 'echo get_template_directory_uri();';
 ?>
@@ -110,8 +116,8 @@ $way = 'echo get_template_directory_uri();';
                                 </div>
                             </div>
 
-                            <?php if (!empty($day_images)) : ?>
-                                <div class="timeline__image">
+                            <div class="timeline__image">
+                                <?php if (!empty($day_images)) : ?>
                                     <?php if ($day_images_count > 1) : ?>
                                         <div class="glide timeline-gallery" id="<?php echo esc_attr($day_slider_id); ?>" data-js-glide-slider>
                                             <div class="glide__track" data-glide-el="track">
@@ -149,8 +155,10 @@ $way = 'echo get_template_directory_uri();';
                                     <?php else : ?>
                                         <img src="<?php echo esc_url($day_images[0]); ?>" alt="<?php echo esc_attr($day['day_title']); ?>" class="timeline-gallery__img">
                                     <?php endif; ?>
-                                </div>
-                            <?php endif; ?>
+                                <?php else : ?>
+                                    <div class="timeline-gallery__placeholder" aria-hidden="true"></div>
+                                <?php endif; ?>
+                            </div>
                         </li>
                     <?php endforeach;
                 endif; ?>
@@ -190,7 +198,7 @@ $way = 'echo get_template_directory_uri();';
             <div class="price-block">
                 <div class="price-block__grid">
                     <span class="price-block__label">Стоимость</span>
-                    <span class="price-block__value">от <span><?php echo esc_html($price); ?>₽</span> за участника</span>
+                    <span class="price-block__value">от <span><?php echo esc_html($price . $currency_symbol); ?></span> за участника</span>
                 </div>
                 <button type="button" class="button price-block__button">забронировать экскурсию</button>
             </div>

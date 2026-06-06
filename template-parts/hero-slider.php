@@ -10,7 +10,7 @@
                             <p class="hero-slide__p p">Восхождения под руководством опытных инструкторов. Мы научим вас подниматься выше —&nbsp;и&nbsp;по склонам, и по жизни</p>
                         </div>
                         <div class="hero-slide__buttons">
-                            <a class="button" href="#login-form" rel="modal:open">выбрать тур</a>
+                            <a class="button" href="/tours-direct">выбрать тур</a>
                             <button type="button" class="button button--outline">написать в WhatsApp</button>
                         </div>
                     </div>

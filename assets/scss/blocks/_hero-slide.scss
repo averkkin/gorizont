@@ -129,7 +129,7 @@
   }
 
   &__arrow-right {
-    left: fluid(70, 20);
+    //left: fluid(70, 20);
 
     @include laptop {
       left: rem(65);

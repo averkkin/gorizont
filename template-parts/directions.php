@@ -7,7 +7,7 @@
                 <h2 class="h2 direction__h2">Походы и восхождения для всех уровней подготовки</h2>
                 <p class="p direction__p">Восхождения в горах Восточного Саяна, а&nbsp;также туры на Кавказ, Памир, и на вершины по&nbsp;всему миру.</p>
             </div>
-            <a class="button" href="#develop-form" rel="modal:open">смотреть туры</a>
+            <a class="button" href="/tours-direct">смотреть туры</a>
             <span class="direction__count" aria-hidden="true">01</span>
         </div>
         <div class="direction__image">

@@ -21,7 +21,7 @@
                 <div class="content">
                     <h2 class="h2">Расписание выездных туров</h2>
                     <div class="action">
-                        <a href="#develop-form" rel="modal:open">Смотреть расписание</a>
+                        <a href="/tour-schedule">Смотреть расписание</a>
                         <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/arrow-right-link.svg'); ?>" alt="" aria-hidden="true">
                     </div>
                 </div>

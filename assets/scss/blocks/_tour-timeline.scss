@@ -14,6 +14,9 @@
 
 .timeline {
   --timeline-gap: #{fluid(90, 40)};
+  --timeline-dot-size: #{rem(24)};
+  --timeline-line-width: #{rem(10)};
+  --timeline-marker-top: #{rem(28)};
 
   position: relative;
   display: flex;
@@ -32,10 +35,10 @@
     &::after {
       content: '';
       position: absolute;
-      left: rem(7);
-      top: calc(rem(28) + rem(12));
+      left: calc((var(--timeline-dot-size) - var(--timeline-line-width)) / 2);
+      top: calc(var(--timeline-marker-top) + var(--timeline-dot-size) / 2);
       height: calc(100% + var(--timeline-gap));
-      width: rem(10);
+      width: var(--timeline-line-width);
       background-color: #F3B249;
       z-index: 1;
     }
@@ -48,9 +51,9 @@
       content: '';
       position: absolute;
       left: 0;
-      top: rem(28);
-      width: rem(24);
-      height: rem(24);
+      top: var(--timeline-marker-top);
+      width: var(--timeline-dot-size);
+      height: var(--timeline-dot-size);
       border-radius: 50%;
       background-color: var(--color-dark, #1A1A1A);
       z-index: 2;
@@ -142,6 +145,13 @@
     border-radius: rem(24);
   }
 
+  &__placeholder {
+    width: 100%;
+    aspect-ratio: 500 / 280;
+    border-radius: rem(24);
+    background-color: #E8E8E8;
+  }
+
   .glide__arrows {
     position: absolute;
     top: 50%;
@@ -189,13 +199,7 @@
   }
 
   .glide__bullets {
-    position: absolute;
-    left: 50%;
-    bottom: rem(16);
-    display: flex;
-    gap: rem(8);
-    transform: translateX(-50%);
-    z-index: 2;
+    display: none;
   }
 
   .glide__bullet {
@@ -236,20 +240,12 @@
 @include mobile {
   .timeline {
     --timeline-gap: #{rem(50)};
+    --timeline-marker-top: 0;
 
     &__item {
-      flex-direction: column-reverse;
+      flex-direction: column;
       gap: rem(20);
       padding-left: rem(30);
-
-      &::after {
-        top: calc(rem(5) + rem(12));
-        left: rem(7);
-      }
-
-      &::before {
-        top: rem(5);
-      }
     }
 
     &__image {
@@ -262,21 +258,11 @@
 @include mobile-s {
   .timeline {
     --timeline-gap: #{rem(40)};
+    --timeline-dot-size: #{rem(18)};
+    --timeline-line-width: #{rem(6)};
 
     &__item {
       padding-left: rem(26);
-
-      &::before {
-        width: rem(18);
-        height: rem(18);
-        top: rem(7);
-      }
-
-      &::after {
-        left: rem(6);
-        top: calc(rem(7) + rem(9));
-        width: rem(6);
-      }
     }
 
     &__content {

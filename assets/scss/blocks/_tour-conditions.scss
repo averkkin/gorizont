@@ -77,6 +77,23 @@
 
           border-radius: rem(10);
           background-color: #ffffff05;
+
+          @include mobile {
+            img {
+              width: rem(14);
+              height: auto;
+            }
+          }
+        }
+      }
+    }
+
+    .excluded {
+
+      @include mobile {
+        ul li .box img {
+          width: rem(10);
+          height: auto;
         }
       }
     }
