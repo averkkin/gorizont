@@ -1,0 +1,79 @@
+@use '../helpers/index' as *;
+
+.hero {
+  height: fluid(830, 500);
+
+  overflow: hidden;
+  z-index: 1;
+  position: relative;
+  padding-block: fluid(110, 60);
+
+  .inner {
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    z-index: 4;
+  }
+
+  &__content {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: fluid(70, 30);
+    z-index: 2;
+    position: relative;
+  }
+
+  &__heading {
+    display: flex;
+    flex-direction: column;
+    gap: fluid(55, 20);
+
+    .h1 {
+      @include fluid-text(96, 32);
+    }
+
+    p {
+      max-width: rem(700);
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: rem(24);
+
+    .actions {
+      display: flex;
+      gap: fluid(15, 10);
+
+      @include mobile {
+        flex-direction: column;
+      }
+    }
+
+    @include mobile {
+      align-items: stretch;
+      flex-direction: column;
+
+      .hero__arrow-down {
+        display: none;
+      }
+    }
+
+  }
+
+  .background {
+    height: 100%;
+    width: 100%;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    object-fit: cover;
+    z-index: 1;
+  }
+}

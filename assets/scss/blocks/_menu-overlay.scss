@@ -1,0 +1,43 @@
+@use '../helpers/index' as *;
+
+.nav-toggle {
+  position: relative;
+  padding: 10px;
+  background: transparent;
+  border: 1px solid transparent;
+  margin: 7px 0;
+  z-index: 99999;
+}
+
+.nav-toggle:focus {
+  outline-width: 0;
+}
+
+.nav-toggle [class*='bar-'] {
+  background: #FFFFFF;
+  display: block;
+  transform: rotate(0deg);
+  transition: .2s ease all;
+  border-radius: 8px;
+  height: rem(3);
+  width: rem(40);
+  margin-bottom: rem(7);
+}
+
+.nav-toggle .bar-bot {
+  margin-bottom: 0;
+}
+
+.is-active .bar-top {
+  transform: rotate(45deg);
+  -webkit-transform-origin: 15% 15%;
+  transform-origin: 15% 15%;
+}
+.is-active .bar-mid {
+  opacity: 0;
+}
+.is-active .bar-bot {
+  transform: rotate(-45deg);
+  -webkit-transform-origin: 15% 95%;
+  transform-origin: 15% 95%;
+}

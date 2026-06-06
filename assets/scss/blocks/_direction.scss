@@ -1,0 +1,132 @@
+@use '../helpers/index' as *;
+
+.direction {
+  display: flex;
+  flex-direction: column;
+  gap: fluid(100, 50);
+  justify-content: space-between;
+  padding-block: fluid(130, 120);
+  background-repeat: repeat;
+  object-position: center;
+  object-fit: cover;
+
+
+  &--inner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    &:nth-child(n+2) {
+      padding-top: fluid(120, 60);
+    }
+
+    @include mobile {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: rem(40);
+      width: 100%;
+    }
+
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: fluid(60, 30);
+    max-width: fluid(680, 300);
+    position: relative;
+
+    @include mobile {
+      max-width: 100%;
+    }
+
+  }
+
+  &__heading {
+    display: flex;
+    flex-direction: column;
+    gap: fluid(30,20);
+  }
+
+  &__p {
+    opacity: 0.7;
+    max-width: fluid(460, 300);
+  }
+
+  &__image {
+
+    @include mobile {
+      width: 100%;
+    }
+
+    img {
+      border-radius: fluid(30, 15);
+      object-position: center;
+      object-fit: cover;
+
+      @include laptop {
+        width: rem(380);
+      }
+
+      @include tablet {
+        width: rem(280);
+      }
+
+      @include mobile {
+        width: 100%;
+        height: rem(280);
+      }
+    }
+  }
+
+  &__count {
+    @include fluid-text(286, 96);
+    position: absolute;
+    color: var(--color-light);
+    opacity: 0.03;
+    top: -120px;
+    left: -80px;
+    font-weight: 600;
+
+    @include mobile {
+      top: -55px;
+      left: -30px;
+    }
+  }
+
+  &__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: rem(3);
+    opacity: 0.3;
+    display: flex;
+    flex-direction: row;
+    gap: fluid(20, 10);
+    align-items: center;
+
+    &::before {
+      content: "";
+      display: block;
+      position: relative;
+      background-color: var(--color-light);
+      border-radius: 10px;
+      height: rem(3);
+      width: rem(45);
+    }
+
+    @include mobile {
+      font-size: rem(12);
+      letter-spacing: rem(1);
+    }
+  }
+
+  &__pattern {
+    position: absolute;
+    z-index: 0;
+
+    svg path {
+      stroke: #2E2621 !important;
+    }
+  }
+
+}

@@ -1,0 +1,46 @@
+@use '../helpers/index' as *;
+
+.modal {
+  display: none;
+  color: var(--color-dark);
+  min-width: fluid(300, 260);
+  width: fit-content;
+  height: fit-content;
+  padding: fluid(60,25);
+  position: relative;
+  margin: 0 auto;
+  z-index: 99;
+  border-radius: fluid(30, 15);
+  box-shadow: 0 0 35px #00000010;
+
+  &--inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: fluid(40, 25);
+  }
+  &__heading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: rem(15);
+  }
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: fluid(20,15);
+
+    button {
+      width: 100%;
+    }
+  }
+
+  &__h3 {
+    color: var(--color-dark);
+  }
+
+  &__p {
+    opacity: 0.7;
+  }
+}

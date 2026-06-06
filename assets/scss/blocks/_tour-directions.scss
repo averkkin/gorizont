@@ -1,0 +1,97 @@
+@use '../helpers/index' as *;
+
+.tour-directions {
+  display: flex;
+  overflow: hidden;
+  position: relative;
+
+  &__items {
+    display: flex;
+    gap: rem(20);
+    z-index: 1;
+    padding-block: fluid(110, 60);
+
+    @include tablet {
+      flex-direction: column;
+    }
+  }
+
+  &__item {
+    height: fluid(585, 300);
+    position: relative;
+    overflow: hidden;
+    border-radius: fluid(30, 20);
+
+    .background {
+      width: 100%;
+      height: 100%;
+
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  &__inner {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+
+    padding: fluid(50, 25);
+
+    .total-tour {
+      @include fluid-text(32, 16);
+
+      padding-block: fluid(10, 6);
+      padding-inline: fluid(20, 15);
+      border: 1px solid #FFFFFF50;
+      width: fit-content;
+      border-radius: rem(20);
+      font-weight: 500;
+    }
+
+    .h2 {
+      @include fluid-text(64, 24);
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: fluid(44, 25);
+    }
+
+    .action {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      a {
+        @include fluid-text(18, 14);
+        color: var(--color-accent);
+      }
+
+      img {
+        opacity: 0.3;
+      }
+    }
+  }
+
+  &__background {
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    z-index: 0;
+
+    object-fit: cover;
+    object-position: bottom;
+  }
+}

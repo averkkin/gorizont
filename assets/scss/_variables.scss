@@ -1,0 +1,45 @@
+@use 'helpers/index' as *;
+
+:root {
+  --color-light: #FFFFFF;
+  --color-light-10: #FFFFFF10;
+  --color-light-30: #FFFFFF30;
+
+  --color-dark: #141414;
+  --color-dark-10: #14141410;
+  --color-dark-15: #14141415;
+  --color-dark-20: #14141420;
+  --color-dark-40: #14141440;
+
+  --color-brown: #302822;
+
+  --color-gray-50: #7E7E81;
+  --color-gray-60: #98989A;
+
+  --color-accent: #F8C471;
+  --color-accent-hover: #f6cc88;
+  --color-red: #FF5500;
+
+  --gradient: linear-gradient(
+                  45deg,
+                  var(--color-dark-15) 64%,
+                  var(--color-accent) 136%
+  );
+
+  --border: #{rem(1)} solid var(--color-dark-15);
+
+  --shadow: 0 0 0 #{rem(3)} #191919;
+
+  --font-family-base: 'Manrope', sans-serif;
+
+  --container-width: #{rem(1440)};
+  --container-padding-x: #{rem(16)};
+
+  --transition-duration: 0.2s;
+
+  --100vw: calc(100vw - var(--scrollbar-width));
+
+  @include laptop {
+    --container-width: #{rem(1280)};
+  }
+}

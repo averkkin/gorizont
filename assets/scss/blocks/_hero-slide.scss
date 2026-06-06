@@ -1,0 +1,153 @@
+@use '../helpers/index' as *;
+
+.hero-slide {
+  position: relative;
+  height: fluid(847, 400);
+
+  @include mobile {
+    height: rem(520);
+  }
+
+  &--inner{
+    display: flex;
+    flex-direction: column;
+    gap: fluid(70, 30);
+    height: 100%;
+    justify-content: end;
+    padding-bottom: fluid(140, 10);
+    padding-left: fluid(240, 30);
+    z-index: 2;
+
+    @include laptop {
+      padding-left: rem(180);
+    }
+
+    @include mobile {
+      padding-left: var(--container-padding-x);
+      width: 100%;
+    }
+  }
+
+  &__heading {
+    display: flex;
+    flex-direction: column;
+    gap: fluid(35,24);
+  }
+
+  &__background {
+    top: 0;
+    left: 0;
+    width: 100%;
+    object-fit: cover;
+    object-position: bottom;
+    pointer-events: none;
+    position: absolute;
+    z-index: 0;
+
+    @include mobile {
+      height: rem(300);
+    }
+  }
+
+  &__h1 {
+    position: relative;
+    z-index: 1;
+    max-width: fluid(840, 300);
+    @include mobile {
+      max-width: 100%;
+    }
+  }
+
+  &__p {
+    position: relative;
+    z-index: 1;
+    max-width: fluid(540, 300);
+
+    @include mobile {
+      max-width: 100%;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+    gap: fluid(15, 10);
+    position: relative;
+    z-index: 1;
+
+    @include mobile {
+      flex-direction: column;
+      width: 100%;
+    }
+  }
+
+  &__controls {
+    @include mobile {
+      margin-top: rem(14);
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      position: relative;
+    }
+  }
+
+  &__arrow {
+    position: absolute;
+    bottom: fluid(120, 30);
+
+    svg path {
+      fill: none;
+      stroke: var(--color-light);
+    }
+
+    &:hover svg path {
+      stroke: var(--color-accent);
+    }
+
+    @include mobile {
+      position: relative;
+      bottom: 0;
+    }
+  }
+
+  &__counter {
+    @include fluid-text(18, 14);
+    opacity: 0.3;
+    position: absolute;
+    bottom: fluid(190, 80);
+    font-weight: 600;
+    left: rem(25);
+
+    @include mobile {
+      position: relative;
+      margin-top: rem(24);
+      margin-right: rem(14);
+      bottom: 0;
+      left: 0;
+    }
+  }
+
+  &__arrow-right {
+    left: fluid(70, 20);
+
+    @include laptop {
+      left: rem(65);
+    }
+
+    @include mobile {
+      position: relative;
+      left: 0;
+    }
+  }
+
+  &__arrow-down {
+    position: absolute;
+    right: 0;
+
+    @include tablet {
+      display: none;
+    }
+  }
+
+}

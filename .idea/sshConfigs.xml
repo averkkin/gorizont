@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" host="31.207.76.168" id="54becea3-cb38-4db9-a734-a4571d4abafe" port="22" nameFormat="DESCRIPTIVE" username="root" useOpenSSHConfig="true" />
+      <sshConfig authType="PASSWORD" connectionConfig="{&quot;serverAliveInterval&quot;:300}" id="01161dde-37b4-4506-a996-f748221a0ff1" customName="cm22250" nameFormat="CUSTOM" username="cm22250" useOpenSSHConfig="true">
+        <option name="customName" value="cm22250" />
+      </sshConfig>
+    </configs>
+  </component>
+</project>

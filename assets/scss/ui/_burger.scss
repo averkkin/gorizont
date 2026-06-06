@@ -1,0 +1,7 @@
+@use '../helpers/index' as *;
+
+.burger {
+  @include tablet-above {
+    display: none;
+  }
+}

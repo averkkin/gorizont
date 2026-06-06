@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="285b546d-949a-4e4c-81b9-e51cb2668c85" name="cm22250">
+        <fileTransfer accessType="SFTP" sshConfigId="01161dde-37b4-4506-a996-f748221a0ff1" sshConfig="cm22250">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="f7e4dc8d-13f0-429d-911d-a8e4d1971b4c" name="31.207.76.168">
+        <fileTransfer rootFolder="/var/www/gorizont/wp-content/themes/gorizont-wp" accessType="SFTP" host="31.207.76.168" port="22" sshConfigId="54becea3-cb38-4db9-a734-a4571d4abafe" sshConfig="root@31.207.76.168:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" isUseRsync="true" isUseSudo="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

@@ -1,0 +1,7 @@
+@use '../helpers/index' as *;
+
+.logo img {
+  @include laptop {
+    width: rem(64);
+  }
+}

@@ -1,0 +1,143 @@
+@use '../helpers/index' as *;
+
+.tour-reviews {
+  color: var(--color-dark);
+  background-color: var(--color-light);
+  padding-block: fluid(120, 72);
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: rem(32);
+    margin-bottom: fluid(72, 36);
+
+    @include tablet {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  .h2 {
+    max-width: rem(665);
+    color: var(--color-dark);
+    font-size: fluid(96, 40);
+    line-height: 0.95;
+  }
+
+  &__button {
+    flex-shrink: 0;
+    min-width: rem(350);
+
+    @include mobile {
+      width: 100%;
+      min-width: 0;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: rem(40);
+
+    @include laptop {
+      grid-template-columns: repeat(3, 1fr);
+      gap: rem(24);
+    }
+
+    @include tablet {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+.review-card {
+  min-height: rem(355);
+  display: flex;
+  flex-direction: column;
+  gap: fluid(30, 15);
+  padding: rem(37);
+  border-radius: rem(20);
+  color: #2E2E2E;
+  background-color: #F2F2F2;
+
+  @include laptop {
+    padding: rem(30);
+  }
+
+  @include mobile {
+    min-height: auto;
+    padding: rem(24);
+  }
+
+  &__author {
+    display: flex;
+    align-items: center;
+    column-gap: rem(24);
+    margin-top: auto;
+  }
+
+  &__avatar {
+    @include square(fluid(95, 72));
+
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 50%;
+    background-color: #EBEBEB;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+  &__placeholder {
+    @include flex-center;
+
+    width: 100%;
+    height: 100%;
+    color: var(--color-light);
+    background-color: var(--color-brown);
+    font-size: rem(32);
+    font-weight: 600;
+  }
+
+  &__name {
+    color: #535333;
+    margin-top: rem(8);
+    font-size: rem(20);
+    line-height: 1.35;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+
+  &__stars {
+    display: flex;
+    column-gap: rem(3);
+    color: #FFCC00;
+  }
+
+  &__star {
+    @include square(rem(15));
+  }
+
+  &__text {
+    @include fluid-text(18, 14);
+    max-width: rem(355);
+    line-height: 1.35;
+    font-weight: 600;
+    letter-spacing: 0;
+
+    p {
+      margin: 0;
+      font-size: inherit;
+      line-height: inherit;
+    }
+  }
+}

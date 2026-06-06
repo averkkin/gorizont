@@ -1,0 +1,123 @@
+@use '../helpers/index' as *;
+
+.tour-gallery {
+  width: 100%;
+
+  padding-block: fluid(100, 70);
+  background-color: var(--color-light, #FFFFFF);
+  overflow: hidden;
+
+  .h2 {
+    @include fluid-text(96, 36);
+    color: var(--color-dark);
+    margin-bottom: fluid(56, 30);
+  }
+}
+
+.gallery-slider {
+  width: 100%;
+
+  position: relative;
+  margin: 0 auto;
+
+  .glide__track {
+    border-radius: rem(24);
+  }
+
+  .gallery-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__img {
+      width: 100%;
+      height: auto;
+      max-height: rem(540);
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+  .glide__arrows {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    width: 100%;
+    pointer-events: none;
+    display: flex;
+    justify-content: space-between;
+    z-index: 3;
+  }
+
+  .glide__arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: rem(48);
+    height: rem(32);
+    background: transparent;
+    border: 1px solid rgba(26, 26, 26, 0.4);
+    border-radius: rem(100);
+    color: var(--color-dark, #1A1A1A);
+    cursor: pointer;
+    pointer-events: auto;
+    transition: all 0.3s ease;
+
+    &--left {
+      transform: translateX(calc(-100% - rem(50)));
+    }
+    &--right {
+      transform: translateX(calc(100% + rem(50)));
+    }
+
+    &:hover {
+      background-color: var(--color-dark, #1A1A1A);
+      color: #FFFFFF;
+      border-color: var(--color-dark, #1A1A1A);
+    }
+
+    svg {
+      width: rem(18);
+      height: rem(14);
+      transition: stroke 0.3s ease;
+    }
+  }
+
+  .glide__bullets {
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: rem(12);
+    z-index: 2;
+  }
+
+  .glide__bullet {
+    width: rem(24);
+    height: rem(4);
+    background-color: rgba(26, 26, 26, 0.2);
+    border: none;
+    border-radius: rem(5);
+    padding: 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &--active {
+      background-color: var(--color-accent);
+    }
+  }
+}
+
+@media (max-width: 1300px) {
+  .gallery-slider {
+    .glide__arrows {
+      display: none;
+    }
+    .glide__bullets {
+      bottom: -25px;
+    }
+  }
+}

@@ -1,0 +1,84 @@
+@use '../helpers/index' as *;
+
+.footer {
+  background-color: var(--color-dark);
+  padding-block: fluid(45, 30);
+  display: flex;
+  flex-direction: column;
+  gap: fluid(110, 60);
+
+  @include mobile {
+    flex-direction: column;
+
+  }
+
+  &__head {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    @include mobile {
+      flex-direction: column;
+      gap: rem(50);
+    }
+  }
+
+  &__mobile-head {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__logo img {
+    width: rem(96);
+  }
+
+  &__down {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    @include mobile {
+      flex-direction: column;
+      gap: rem(10);
+    }
+
+    p {
+      color: var(--color-light-30);
+      font-size: rem(12);
+      font-weight: 600;
+    }
+  }
+
+  &__menu {
+    display: flex;
+    flex-direction: column;
+    gap: fluid(40, 10);
+
+    @include mobile {
+      nav ul {
+        display: flex;
+        flex-direction: column;
+        gap: rem(5);
+      }
+    }
+
+    h4 {
+      letter-spacing: rem(3);
+      color: var(--color-light-30);
+      text-transform: uppercase;
+
+      @include mobile {
+        font-size: rem(14);
+      }
+    }
+  }
+
+
+}
+

@@ -1,0 +1,22 @@
+@use '../helpers/index' as *;
+
+.input {
+  @include fluid-text(18, 14);
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-inline: fluid(30, 20);
+  width: 100%;
+  padding-block: fluid(18, 14);
+  background-color: var(--color-dark-10);
+  color: var(--color-dark);
+  font-weight: 600;
+  border-radius: fluid(15, 12);
+  border: 1px solid #00000000;
+  transition: border-color 0.2s ease-in;
+
+  &:focus {
+    border-color: var(--color-dark-20);
+  }
+}

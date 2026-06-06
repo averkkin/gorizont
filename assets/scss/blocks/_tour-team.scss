@@ -1,0 +1,11 @@
+@use '../helpers/index' as *;
+
+.tour-team {
+  color: var(--color-dark);
+  padding-block: fluid(140, 70);
+  background-color: var(--color-light);
+
+  .h2 {
+    color: var(--color-dark);
+  }
+}

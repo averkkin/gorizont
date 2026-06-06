@@ -1,0 +1,114 @@
+@use '../helpers/index' as *;
+
+.tour-description {
+  width: 100%;
+  height: fit-content;
+  z-index: 2;
+
+  background: linear-gradient(to bottom, #F8CE8B, #FFC971);
+  border-radius: fluid(40, 20);
+  padding: fluid(90, 25);
+  color: var(--color-dark);
+  position: relative;
+  overflow: hidden;
+
+  & .bg-pattern {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+
+    object-fit: cover;
+    z-index: 2;
+  }
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+    gap: fluid(80, 30);
+    position: relative;
+    z-index: 3;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: fluid(45, 25);
+
+    .h2 {
+      @include fluid-text(64, 24);
+      color: var(--color-dark);
+    }
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: fluid(30, 15);
+    max-width: rem(900);
+    p {
+      @include fluid-text(20, 14);
+    }
+  }
+
+  &__meta-grid {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: fluid(40, 20);
+
+    & .group-meta {
+      display: flex;
+      gap: fluid(30, 15);
+      line-height: 130%;
+
+      & .line-meta {
+        width: fluid(9, 3);
+        min-width: fluid(9, 3);
+        height: inherit;
+        background-color: var(--color-light);
+        border-radius: rem(3);
+      }
+
+      & .group {
+        display: flex;
+        flex-direction: column;
+        gap: fluid(20, 15);
+
+        & .key {
+          @include fluid-text(24, 14);
+          opacity: 0.5;
+          font-weight: 600;
+        }
+        & .value {
+          @include fluid-text(36, 16);
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  @include tablet {
+    &__meta-grid {
+      flex-wrap: wrap;
+    }
+
+    &__meta-grid .group-meta {
+      min-width: calc(50% - rem(20));
+    }
+  }
+
+  @include mobile {
+    .bg-pattern {
+      height: 45%;
+      object-position: bottom center;
+    }
+
+    &__meta-grid {
+      flex-direction: column;
+    }
+
+    &__meta-grid .group-meta {
+      min-width: 0;
+    }
+  }
+}

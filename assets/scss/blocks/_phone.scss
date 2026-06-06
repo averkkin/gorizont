@@ -1,0 +1,22 @@
+@use '../helpers/index' as *;
+
+.phone {
+  display: flex;
+  flex-direction: column;
+  gap: rem(3);
+  align-items: flex-end;
+  transition: 0.2s ease-in-out;
+
+  &__tel {
+    @include fluid-text(16, 14);
+    font-weight: 600;
+  }
+  &__callback {
+    font-size: rem(14);
+    color: var(--color-accent);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

@@ -1,0 +1,9 @@
+@use '../helpers/index' as *;
+
+.single-tour {
+
+  &__inner {
+    width: 100%;
+    position: relative;
+  }
+}
