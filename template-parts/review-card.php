@@ -6,7 +6,7 @@
 
 $review_id     = get_the_ID();
 $review_author = get_the_title();
-$screenshot_id = (int) carbon_get_post_meta($review_id, 'review_screenshot');
+$screenshot_id = gorizont_review_screenshot_id($review_id);
 $caption       = carbon_get_post_meta($review_id, 'review_caption');
 
 if ($screenshot_id) :
@@ -42,15 +42,21 @@ if ($screenshot_id) :
     $rating = (int) carbon_get_post_meta($review_id, 'review_rating');
     $rating = max(1, min(5, $rating ?: 5));
     $review_initial = function_exists('mb_substr') ? mb_substr($review_author, 0, 1) : substr($review_author, 0, 1);
+    $review_text = carbon_get_post_meta($review_id, 'review_text');
+    $avatar_id = (int) carbon_get_post_meta($review_id, 'review_avatar') ?: (int) get_post_thumbnail_id($review_id);
     ?>
     <article class="review-card">
         <div class="review-card__text">
-            <?php the_content(); ?>
+            <?php if (!empty($review_text)) : ?>
+                <?php echo wpautop(esc_html($review_text)); ?>
+            <?php else : ?>
+                <?php the_content(); ?>
+            <?php endif; ?>
         </div>
         <div class="review-card__author">
             <div class="review-card__avatar">
-                <?php if (has_post_thumbnail()) : ?>
-                    <?php echo get_the_post_thumbnail($review_id, 'thumbnail'); ?>
+                <?php if ($avatar_id) : ?>
+                    <?php echo wp_get_attachment_image($avatar_id, 'thumbnail', false, array('alt' => $review_author)); ?>
                 <?php else : ?>
                     <span class="review-card__placeholder"><?php echo esc_html($review_initial); ?></span>
                 <?php endif; ?>

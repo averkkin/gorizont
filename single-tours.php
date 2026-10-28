@@ -291,6 +291,7 @@ $reviews_args = array(
     'post_type'      => 'reviews',
     'posts_per_page' => 12,
     'post_status'    => 'publish',
+    'orderby'        => gorizont_reviews_orderby(),
 );
 
 if (!empty($selected_review_ids)) {
