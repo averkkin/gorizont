@@ -289,7 +289,7 @@ if (!empty($selected_reviews)) {
 
 $reviews_args = array(
     'post_type'      => 'reviews',
-    'posts_per_page' => 6,
+    'posts_per_page' => 12,
     'post_status'    => 'publish',
 );
 
@@ -312,41 +312,33 @@ $reviews_archive_url = get_post_type_archive_link('reviews');
                 <?php endif; ?>
             </div>
 
-            <div class="tour-reviews__grid">
-                <?php while ($reviews_query->have_posts()) : $reviews_query->the_post(); ?>
-                    <?php
-                    $review_id = get_the_ID();
-                    $rating = (int) carbon_get_post_meta($review_id, 'review_rating');
-                    $rating = max(1, min(5, $rating ?: 5));
-                    $review_author = get_the_title();
-                    $review_initial = function_exists('mb_substr') ? mb_substr($review_author, 0, 1) : substr($review_author, 0, 1);
-                    ?>
-                    <article class="review-card">
-                        <div class="review-card__text">
-                            <?php the_content(); ?>
-                        </div>
-                        <div class="review-card__author">
-                            <div class="review-card__avatar">
-                                <?php if (has_post_thumbnail()) : ?>
-                                    <?php echo get_the_post_thumbnail($review_id, 'thumbnail'); ?>
-                                <?php else : ?>
-                                    <span class="review-card__placeholder"><?php echo esc_html($review_initial); ?></span>
-                                <?php endif; ?>
-                            </div>
-                            <div class="review-card__meta">
-                                <div class="review-card__stars" role="img" aria-label="<?php echo esc_attr($rating); ?> из 5">
-                                    <?php for ($star_index = 1; $star_index <= 5; $star_index++) : ?>
-                                        <svg class="review-card__star" viewBox="0 0 15 15" aria-hidden="true" focusable="false">
-                                            <path d="M7.5 0.5L9.35 5.34L14.5 5.62L10.48 8.86L11.84 13.5L7.5 10.7L3.16 13.5L4.52 8.86L0.5 5.62L5.65 5.34L7.5 0.5Z" fill="<?php echo esc_attr($star_index <= $rating ? 'currentColor' : '#14141420'); ?>"/>
-                                        </svg>
-                                    <?php endfor; ?>
-                                </div>
-                                <h3 class="review-card__name"><?php echo esc_html($review_author); ?></h3>
-                            </div>
-                        </div>
-                    </article>
-                <?php endwhile; ?>
+            <div class="glide reviews-slider" id="reviews-slider-<?php echo esc_attr($tour_id); ?>" data-js-reviews-slider>
+                <div class="glide__track" data-glide-el="track">
+                    <ul class="glide__slides">
+                        <?php while ($reviews_query->have_posts()) : $reviews_query->the_post(); ?>
+                            <li class="glide__slide reviews-slider__slide">
+                                <?php get_template_part('template-parts/review-card'); ?>
+                            </li>
+                        <?php endwhile; ?>
+                    </ul>
+                </div>
+
+                <div class="reviews-slider__controls">
+                    <button type="button" class="reviews-slider__arrow" data-js-reviews-prev aria-label="Предыдущий отзыв">
+                        <svg width="18" height="14" viewBox="0 0 18 14" fill="none" aria-hidden="true">
+                            <path d="M17 7H1M1 7L7 1M1 7L7 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="reviews-slider__progress" aria-hidden="true"><span data-js-reviews-progress></span></div>
+                    <button type="button" class="reviews-slider__arrow" data-js-reviews-next aria-label="Следующий отзыв">
+                        <svg width="18" height="14" viewBox="0 0 18 14" fill="none" aria-hidden="true">
+                            <path d="M1 7H17M17 7L11 1M17 7L11 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
+            <?php wp_reset_postdata(); ?>
+            <?php get_template_part('template-parts/review-lightbox'); ?>
         </div>
     </section>
 <?php endif; ?>

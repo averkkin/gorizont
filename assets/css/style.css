@@ -323,7 +323,7 @@ svg * {
   );
   --border: 0.0625rem solid var(--color-dark-15);
   --shadow: 0 0 0 0.1875rem #191919;
-  --font-family-base: 'Manrope', sans-serif;
+  --font-family-base: "Manrope", sans-serif;
   --container-width: 90rem;
   --container-padding-x: 1rem;
   --transition-duration: 0.2s;
@@ -2149,26 +2149,8 @@ button[aria-label]::before {
     min-width: 0;
   }
 }
-.tour-reviews__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2.5rem;
-}
-@media (width <= 90.06125rem) {
-  .tour-reviews__grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-  }
-}
-@media (width <= 63.99875rem) {
-  .tour-reviews__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media (width <= 47.99875rem) {
-  .tour-reviews__grid {
-    grid-template-columns: 1fr;
-  }
+.tour-reviews--page {
+  padding-top: clamp(3rem, 1.9524793388rem + 4.2975206612vw, 6.25rem);
 }
 
 .review-card {
@@ -2251,6 +2233,249 @@ button[aria-label]::before {
   margin: 0;
   font-size: inherit;
   line-height: inherit;
+}
+
+.reviews-slider .glide__track {
+  overflow: hidden;
+}
+.reviews-slider .glide__slides {
+  align-items: stretch;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.reviews-slider__slide {
+  display: flex;
+  height: auto;
+}
+.reviews-slider__slide > * {
+  width: 100%;
+}
+.reviews-slider__controls {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: clamp(1.75rem, 1.347107438rem + 1.652892562vw, 3rem);
+}
+.reviews-slider__arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  width: 3.5rem;
+  height: 2.25rem;
+  border: var(--border);
+  border-color: var(--color-dark-40);
+  border-radius: 6.25rem;
+  color: var(--color-dark);
+  background: transparent;
+  cursor: pointer;
+  transition-duration: var(--transition-duration);
+}
+.reviews-slider__arrow svg {
+  width: 1.125rem;
+  height: 0.875rem;
+}
+@media (any-hover: hover) {
+  .reviews-slider__arrow:hover {
+    color: var(--color-light);
+    border-color: var(--color-dark);
+    background-color: var(--color-dark);
+  }
+}
+@media (any-hover: none) {
+  .reviews-slider__arrow:active {
+    color: var(--color-light);
+    border-color: var(--color-dark);
+    background-color: var(--color-dark);
+  }
+}
+.reviews-slider__arrow:disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+.reviews-slider__progress {
+  position: relative;
+  flex-grow: 1;
+  height: 0.25rem;
+  overflow: hidden;
+  border-radius: 0.3125rem;
+  background-color: var(--color-dark-10);
+}
+.reviews-slider__progress span {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: 0;
+  border-radius: inherit;
+  background-color: var(--color-accent);
+  transition: left 0.4s ease, width 0.4s ease;
+}
+
+.reviews-wall {
+  columns: 3;
+  column-gap: 2.5rem;
+}
+@media (width <= 90.06125rem) {
+  .reviews-wall {
+    column-gap: 1.5rem;
+  }
+}
+@media (width <= 63.99875rem) {
+  .reviews-wall {
+    columns: 2;
+  }
+}
+@media (width <= 47.99875rem) {
+  .reviews-wall {
+    columns: 1;
+  }
+}
+.reviews-wall__item {
+  break-inside: avoid;
+  margin-bottom: clamp(1.5rem, 1.1776859504rem + 1.3223140496vw, 2.5rem);
+}
+.reviews-wall .review-shot__img {
+  max-height: none;
+  aspect-ratio: auto;
+}
+
+.review-shot {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0.75rem;
+  border-radius: 1.25rem;
+  background-color: #F2F2F2;
+}
+.review-shot__open {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 0.75rem;
+  background-color: var(--color-brown);
+  cursor: zoom-in;
+}
+.review-shot__open::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 5rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.3490196078), transparent);
+  opacity: 0;
+  transition-duration: var(--transition-duration);
+}
+@media (any-hover: hover) {
+  .review-shot__open:hover::after,
+  .review-shot__open:hover .review-shot__zoom {
+    opacity: 1;
+  }
+}
+@media (any-hover: none) {
+  .review-shot__open:active::after,
+  .review-shot__open:active .review-shot__zoom {
+    opacity: 1;
+  }
+}
+.review-shot__open:focus-visible {
+  outline: 0.125rem solid var(--color-accent);
+  outline-offset: 0.125rem;
+}
+.review-shot__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  object-position: top;
+}
+.review-shot__zoom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  z-index: 1;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  color: var(--color-dark);
+  background-color: var(--color-accent);
+  opacity: 0;
+  transition-duration: var(--transition-duration);
+}
+.review-shot__zoom svg {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+@media (any-hover: none) {
+  .review-shot__zoom {
+    opacity: 1;
+  }
+}
+.review-shot__meta {
+  padding-inline: 0.75rem;
+  padding-bottom: 0.5rem;
+}
+.review-shot__name {
+  color: #535333;
+  font-size: 1.25rem;
+  line-height: 1.35;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.review-shot__caption {
+  margin: 0.25rem 0 0;
+  color: var(--color-gray-50);
+  font-size: 0.875rem;
+  line-height: 1.35;
+}
+
+.review-lightbox {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: fit-content;
+  max-width: min(35rem, 100vw - 2rem);
+  max-height: calc(100dvh - 2rem);
+  padding: 0;
+  overflow: auto;
+  border: 0;
+  border-radius: 1.25rem;
+  background-color: var(--color-brown);
+}
+.review-lightbox::backdrop {
+  background-color: rgba(20, 20, 20, 0.8);
+}
+.review-lightbox__img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.review-lightbox__close {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  top: 0.75rem;
+  z-index: 1;
+  float: right;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 0.75rem 0.75rem -3.25rem 0;
+  border: 0;
+  border-radius: 50%;
+  color: var(--color-dark);
+  background-color: var(--color-accent);
+  cursor: pointer;
+}
+.review-lightbox__close svg {
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
 .more-info {

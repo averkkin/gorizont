@@ -40,5 +40,18 @@ function crb_attach_review_fields() {
                     '4' => '4 из 5',
                     '5' => '5 из 5',
                 ) ),
+            Field::make( 'image', 'review_screenshot', 'Скриншот отзыва' )
+                ->set_help_text( 'Скрин сообщения из мессенджера. Если заполнен, в блоке отзывов выводится скрин вместо текста.' ),
+            Field::make( 'text', 'review_caption', 'Подпись под скрином' )
+                ->set_help_text( 'Например: Казбек, июль 2025' ),
         ) );
+}
+
+add_action( 'pre_get_posts', 'gorizont_reviews_archive_query' );
+function gorizont_reviews_archive_query( $query ) {
+    if ( is_admin() || ! $query->is_main_query() || ! $query->is_post_type_archive( 'reviews' ) ) {
+        return;
+    }
+
+    $query->set( 'posts_per_page', 24 );
 }

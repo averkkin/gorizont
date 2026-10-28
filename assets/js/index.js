@@ -89,6 +89,102 @@ const initGlideSliders = () => {
     })
 }
 
+const initReviewsSliders = () => {
+    if (typeof Glide === 'undefined') {
+        return
+    }
+
+    document.querySelectorAll('[data-js-reviews-slider]').forEach((sliderElement) => {
+        if (!sliderElement.id || sliderElement.dataset.glideInitialized === 'true') {
+            return
+        }
+
+        const slidesCount = sliderElement.querySelectorAll('.glide__slide').length
+        const prevElement = sliderElement.querySelector('[data-js-reviews-prev]')
+        const nextElement = sliderElement.querySelector('[data-js-reviews-next]')
+        const progressElement = sliderElement.querySelector('[data-js-reviews-progress]')
+
+        const slider = new Glide(`#${sliderElement.id}`, {
+            type: 'slider',
+            bound: true,
+            rewind: false,
+            perView: 3,
+            gap: 40,
+            animationDuration: 600,
+            breakpoints: {
+                1440: { perView: 3, gap: 24 },
+                1023: { perView: 2, gap: 24 },
+                767: { perView: 1.15, gap: 16 },
+            },
+        })
+
+        const getPerView = () => Math.min(slidesCount, slider.settings.perView)
+
+        const updateControls = () => {
+            const perView = getPerView()
+            const maxIndex = Math.max(0, Math.ceil(slidesCount - perView))
+            const index = Math.min(slider.index, maxIndex)
+
+            if (prevElement) {
+                prevElement.disabled = index <= 0
+            }
+
+            if (nextElement) {
+                nextElement.disabled = index >= maxIndex
+            }
+
+            if (progressElement && slidesCount > 0) {
+                progressElement.style.width = `${(perView / slidesCount) * 100}%`
+                progressElement.style.left = `${(index / slidesCount) * 100}%`
+            }
+
+            sliderElement.querySelector('.reviews-slider__controls').hidden = slidesCount <= perView
+        }
+
+        slider.on(['mount.after', 'run.after', 'resize'], updateControls)
+        slider.mount()
+        sliderElement.dataset.glideInitialized = 'true'
+
+        prevElement?.addEventListener('click', () => slider.go('<'))
+        nextElement?.addEventListener('click', () => slider.go('>'))
+    })
+}
+
+const initReviewLightbox = () => {
+    const lightboxElement = document.querySelector('[data-js-review-lightbox]')
+
+    if (!lightboxElement || typeof lightboxElement.showModal !== 'function') {
+        return
+    }
+
+    const imageElement = lightboxElement.querySelector('[data-js-review-lightbox-img]')
+
+    document.addEventListener('click', (event) => {
+        const openElement = event.target.closest('[data-js-review-open]')
+
+        if (!openElement) {
+            return
+        }
+
+        const previewElement = openElement.querySelector('img')
+
+        imageElement.src = openElement.dataset.full
+        imageElement.alt = previewElement ? previewElement.alt : ''
+        lightboxElement.showModal()
+        lightboxElement.scrollTop = 0
+    })
+
+    lightboxElement.addEventListener('click', (event) => {
+        if (event.target === lightboxElement || event.target.closest('[data-js-review-close]')) {
+            lightboxElement.close()
+        }
+    })
+
+    lightboxElement.addEventListener('close', () => {
+        imageElement.removeAttribute('src')
+    })
+}
+
 const initTourScheduleFilters = () => {
     document.querySelectorAll('.tour-schedule').forEach((scheduleElement) => {
         const filterElement = scheduleElement.querySelector('[data-js-tour-filter]')
@@ -186,6 +282,8 @@ const initTourScheduleFilters = () => {
 const initPage = () => {
     new Header()
     initGlideSliders()
+    initReviewsSliders()
+    initReviewLightbox()
     initTourScheduleFilters()
 }
 
