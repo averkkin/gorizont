@@ -11,7 +11,7 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<header class="entry-header">
-		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+		<h1 class="entry-title"><?php echo esc_html( get_the_title() ); ?></h1>
 	</header><!-- .entry-header -->
 
 	<?php gorizont_post_thumbnail(); ?>

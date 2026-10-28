@@ -46,20 +46,41 @@ const initGlideSliders = () => {
             return
         }
 
+        const isHeroSlider = sliderElement.classList.contains('hero-glide')
         const slider = new Glide(`#${sliderElement.id}`, {
             type: 'carousel',
             startAt: 0,
             perView: 1,
             gap: 0,
             focusAt: 'center',
-            autoplay: false,
+            autoplay: isHeroSlider ? 3000 : false,
             animationDuration: 600,
         })
 
+        const currentSlideElement = sliderElement.querySelector('#current')
+        const totalSlidesElement = sliderElement.querySelector('#total')
+        const updateCounter = () => {
+            if (!currentSlideElement || !totalSlidesElement) {
+                return
+            }
+
+            currentSlideElement.textContent = String(slider.index + 1).padStart(2, '0')
+        }
+
+        if (totalSlidesElement) {
+            totalSlidesElement.textContent = String(sliderElement.querySelectorAll('.glide__slide').length).padStart(2, '0')
+        }
+
+        slider.on(['mount.after', 'run'], updateCounter)
         slider.mount()
+        updateCounter()
         sliderElement.dataset.glideInitialized = 'true'
 
         sliderElement.querySelectorAll('.glide__arrows [data-glide-dir]').forEach((arrowElement) => {
+            if (arrowElement.closest('[data-glide-el]')) {
+                return
+            }
+
             arrowElement.addEventListener('click', (event) => {
                 event.preventDefault()
                 slider.go(arrowElement.dataset.glideDir)

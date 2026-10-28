@@ -17,27 +17,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-
-    <!-- Glide.js CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.core.min.css">
-
-    <!-- Опционально тема -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.theme.min.css">
-
-    <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
-
-		<?php wp_head(); ?>
+			<?php wp_head(); ?>
 </head>
 
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
-<form id="login-form" class="modal" aria-labelledby="login-form-title">
+<form id="login-form" class="modal" method="post" action="" aria-labelledby="login-form-title">
     <div class="modal--inner">
         <div class="modal__heading">
             <h2 id="login-form-title" class="h3 modal__h3">Оставьте заявку</h2>
@@ -53,7 +39,7 @@
     </div>
 </form>
 
-<form id="develop-form" class="modal" aria-labelledby="develop-form-title">
+<form id="develop-form" class="modal" method="post" action="" aria-labelledby="develop-form-title">
     <div class="modal--inner">
         <div class="modal__heading">
             <h2 id="develop-form-title" class="h3 modal__h3">Раздел в разработке</h2>

@@ -7,11 +7,11 @@
                 <h2 class="h2 direction__h2">Походы и восхождения для всех уровней подготовки</h2>
                 <p class="p direction__p">Восхождения в горах Восточного Саяна, а&nbsp;также туры на Кавказ, Памир, и на вершины по&nbsp;всему миру.</p>
             </div>
-            <a class="button" href="/tours-direct">смотреть туры</a>
+            <a class="button" href="<?php echo esc_url(home_url('/tours-direct')); ?>">смотреть туры</a>
             <span class="direction__count" aria-hidden="true">01</span>
         </div>
         <div class="direction__image">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/img/images/mountaineering.jpg" alt="Альпинизм" width="560" height="616">
+            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/images/mountaineering.jpg'); ?>" alt="Альпинизм" width="560" height="616">
         </div>
     </article>
 

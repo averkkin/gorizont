@@ -1,6 +1,11 @@
 <?php
 // Принимаем тип тура из аргументов (переданных через get_template_part)
 $current_tour_type = !empty($args['tour_type']) ? $args['tour_type'] : 'all';
+$allowed_tour_types = array('all', 'local_tours', 'intl_tours', 'local_excursions', 'intl_excursions');
+
+if (!in_array($current_tour_type, $allowed_tour_types, true)) {
+    $current_tour_type = 'all';
+}
 
 $query_args = array(
         'post_type'      => 'tours',
@@ -79,13 +84,13 @@ if ($tours_loop->have_posts()) :
                                     ?>
                                 </div>
                             </div>
-                            <h3 class="title"><?php the_title(); ?></h3>
+                            <h3 class="title"><?php echo esc_html(get_the_title()); ?></h3>
                         </div>
                         <p class="subtitle"><?php echo esc_html(get_the_excerpt()); ?></p>
                     </div>
 
                     <div class="actions">
-                        <a class="button" href="<?php the_permalink(); ?>">узнать больше</a>
+                        <a class="button" href="<?php echo esc_url(get_permalink()); ?>">узнать больше</a>
                         <button type="button" class="button button--outline">написать в WhatsApp</button>
                     </div>
                 </div>

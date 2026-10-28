@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Custom template tags for this theme
  *
@@ -133,7 +137,7 @@ if ( ! function_exists( 'gorizont_post_thumbnail' ) ) :
 
 		<?php else : ?>
 
-			<a class="post-thumbnail" href="<?php the_permalink(); ?>" aria-hidden="true" tabindex="-1">
+			<a class="post-thumbnail" href="<?php echo esc_url( get_permalink() ); ?>" aria-hidden="true" tabindex="-1">
 				<?php
 					the_post_thumbnail(
 						'post-thumbnail',

@@ -18,8 +18,6 @@ $currency_symbols = array(
     'usd' => '$',
 );
 $currency_symbol = isset($currency_symbols[$currency]) ? $currency_symbols[$currency] : $currency_symbols['rub'];
-
-$way = 'echo get_template_directory_uri();';
 ?>
 
 <main id="primary" class="site-main">
@@ -27,7 +25,7 @@ $way = 'echo get_template_directory_uri();';
         <div class="container inner">
             <div class="hero__content">
                 <div class="hero__heading">
-                    <h1 id="tour-title" class="h1"><?php the_title(); ?></h1>
+                    <h1 id="tour-title" class="h1"><?php echo esc_html(get_the_title()); ?></h1>
                     <?php the_content(); ?>
                 </div>
                 <div class="hero__buttons">
@@ -339,7 +337,7 @@ $reviews_archive_url = get_post_type_archive_link('reviews');
                                 <div class="review-card__stars" role="img" aria-label="<?php echo esc_attr($rating); ?> из 5">
                                     <?php for ($star_index = 1; $star_index <= 5; $star_index++) : ?>
                                         <svg class="review-card__star" viewBox="0 0 15 15" aria-hidden="true" focusable="false">
-                                            <path d="M7.5 0.5L9.35 5.34L14.5 5.62L10.48 8.86L11.84 13.5L7.5 10.7L3.16 13.5L4.52 8.86L0.5 5.62L5.65 5.34L7.5 0.5Z" fill="<?php echo $star_index <= $rating ? 'currentColor' : '#14141420'; ?>"/>
+                                            <path d="M7.5 0.5L9.35 5.34L14.5 5.62L10.48 8.86L11.84 13.5L7.5 10.7L3.16 13.5L4.52 8.86L0.5 5.62L5.65 5.34L7.5 0.5Z" fill="<?php echo esc_attr($star_index <= $rating ? 'currentColor' : '#14141420'); ?>"/>
                                         </svg>
                                     <?php endfor; ?>
                                 </div>

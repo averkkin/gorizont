@@ -8,7 +8,7 @@ get_header();
 
 ?>
 <main id="primary" class="site-main">
-    <h1 class="visually-hidden"><?php the_title(); ?></h1>
+    <h1 class="visually-hidden"><?php echo esc_html(get_the_title()); ?></h1>
 <?php
 get_template_part('template-parts/tour-directions');
 ?>
