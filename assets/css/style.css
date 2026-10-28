@@ -2239,7 +2239,7 @@ button[aria-label]::before {
   overflow: hidden;
 }
 .reviews-slider .glide__slides {
-  align-items: flex-start;
+  align-items: center;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -2247,9 +2247,29 @@ button[aria-label]::before {
 .reviews-slider__slide {
   display: flex;
   height: auto;
+  padding-inline: 0.75rem;
+  transform: scale(0.82);
+  opacity: 0.55;
+  transition: transform 0.6s ease, opacity 0.6s ease;
 }
 .reviews-slider__slide > * {
   width: 100%;
+}
+.reviews-slider__slide .review-shot__open {
+  cursor: pointer;
+}
+.reviews-slider__slide.glide__slide--active {
+  transform: scale(1);
+  opacity: 1;
+}
+.reviews-slider__slide.glide__slide--active .review-shot__open {
+  cursor: zoom-in;
+}
+@media (width <= 47.99875rem) {
+  .reviews-slider__slide {
+    padding-inline: 0.375rem;
+    transform: scale(0.88);
+  }
 }
 .reviews-slider__controls {
   display: flex;
@@ -2289,10 +2309,6 @@ button[aria-label]::before {
     border-color: var(--color-dark);
     background-color: var(--color-dark);
   }
-}
-.reviews-slider__arrow:disabled {
-  opacity: 0.3;
-  pointer-events: none;
 }
 .reviews-slider__progress {
   position: relative;

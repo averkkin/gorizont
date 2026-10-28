@@ -299,7 +299,6 @@ if (!empty($selected_review_ids)) {
 }
 
 $reviews_query = new WP_Query($reviews_args);
-$reviews_archive_url = get_post_type_archive_link('reviews');
 ?>
 
 <?php if ($reviews_query->have_posts()) : ?>
@@ -307,9 +306,6 @@ $reviews_archive_url = get_post_type_archive_link('reviews');
         <div class="container">
             <div class="tour-reviews__header">
                 <h2 id="tour-reviews-title" class="h2">Мы ценим ваше доверие</h2>
-                <?php if (!empty($reviews_archive_url)) : ?>
-                    <a class="button tour-reviews__button" href="<?php echo esc_url($reviews_archive_url); ?>">смотреть все отзывы</a>
-                <?php endif; ?>
             </div>
 
             <div class="glide reviews-slider" id="reviews-slider-<?php echo esc_attr($tour_id); ?>" data-js-reviews-slider>

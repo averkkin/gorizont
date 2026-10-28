@@ -103,50 +103,61 @@ const initReviewsSliders = () => {
         const prevElement = sliderElement.querySelector('[data-js-reviews-prev]')
         const nextElement = sliderElement.querySelector('[data-js-reviews-next]')
         const progressElement = sliderElement.querySelector('[data-js-reviews-progress]')
+        const controlsElement = sliderElement.querySelector('.reviews-slider__controls')
+
+        if (slidesCount < 2) {
+            if (controlsElement) {
+                controlsElement.hidden = true
+            }
+            return
+        }
 
         const slider = new Glide(`#${sliderElement.id}`, {
-            type: 'slider',
-            bound: true,
-            rewind: false,
+            type: 'carousel',
+            startAt: 0,
             perView: 3,
-            gap: 40,
+            focusAt: 'center',
+            gap: 0,
             animationDuration: 600,
             breakpoints: {
-                1440: { perView: 3, gap: 24 },
-                1023: { perView: 2, gap: 24 },
-                767: { perView: 1.15, gap: 16 },
+                1023: { perView: 2 },
+                767: { perView: 1.35 },
             },
         })
 
-        const getPerView = () => Math.min(slidesCount, slider.settings.perView)
-
-        const updateControls = () => {
-            const perView = getPerView()
-            const maxIndex = Math.max(0, Math.ceil(slidesCount - perView))
-            const index = Math.min(slider.index, maxIndex)
-
-            if (prevElement) {
-                prevElement.disabled = index <= 0
+        const updateProgress = () => {
+            if (!progressElement) {
+                return
             }
 
-            if (nextElement) {
-                nextElement.disabled = index >= maxIndex
-            }
-
-            if (progressElement && slidesCount > 0) {
-                progressElement.style.width = `${(perView / slidesCount) * 100}%`
-                progressElement.style.left = `${(index / slidesCount) * 100}%`
-            }
-
-            sliderElement.querySelector('.reviews-slider__controls').hidden = slidesCount <= perView
+            progressElement.style.width = `${100 / slidesCount}%`
+            progressElement.style.left = `${(slider.index / slidesCount) * 100}%`
         }
 
-        slider.on(['mount.after', 'run.after', 'resize'], updateControls)
+        slider.on(['mount.after', 'run'], updateProgress)
         slider.mount()
         sliderElement.dataset.glideInitialized = 'true'
 
         prevElement?.addEventListener('click', () => slider.go('<'))
         nextElement?.addEventListener('click', () => slider.go('>'))
+
+        // Клик по боковому слайду сдвигает его в центр, а не открывает скрин
+        sliderElement.addEventListener('click', (event) => {
+            const slideElement = event.target.closest('.glide__slide')
+
+            if (!slideElement || slideElement.classList.contains('glide__slide--active')) {
+                return
+            }
+
+            event.preventDefault()
+            event.stopPropagation()
+
+            const sliderRect = sliderElement.getBoundingClientRect()
+            const slideRect = slideElement.getBoundingClientRect()
+            const isLeft = slideRect.left + slideRect.width / 2 < sliderRect.left + sliderRect.width / 2
+
+            slider.go(isLeft ? '<' : '>')
+        }, true)
     })
 }
 
