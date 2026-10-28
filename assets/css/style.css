@@ -2239,7 +2239,7 @@ button[aria-label]::before {
   overflow: hidden;
 }
 .reviews-slider .glide__slides {
-  align-items: stretch;
+  align-items: flex-start;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -2337,7 +2337,6 @@ button[aria-label]::before {
 }
 .reviews-wall .review-shot__img {
   max-height: none;
-  aspect-ratio: auto;
 }
 
 .review-shot {
@@ -2388,7 +2387,7 @@ button[aria-label]::before {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 4/5;
+  max-height: 35rem;
   object-fit: cover;
   object-position: top;
 }
