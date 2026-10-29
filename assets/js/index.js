@@ -346,6 +346,12 @@ const initLeadForms = () => {
                 }
                 status.textContent = 'Спасибо! Мы скоро свяжемся с вами'
                 form.reset()
+                setTimeout(() => {
+                    if (form.classList.contains('modal') && window.jQuery?.modal) {
+                        window.jQuery.modal.close()
+                    }
+                    status.textContent = ''
+                }, 2000)
             } catch (error) {
                 status.classList.add('is-error')
                 status.textContent = error.message || 'Ошибка отправки'

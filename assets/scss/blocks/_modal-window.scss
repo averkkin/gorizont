@@ -1,5 +1,10 @@
 @use '../helpers/index' as *;
 
+// Затемнение с формой поверх всех блоков страницы и шапки (у jquery-modal по умолчанию z-index: 1)
+.jquery-modal.blocker {
+  z-index: 1000;
+}
+
 .modal {
   display: none;
   color: var(--color-dark);

@@ -1275,6 +1275,10 @@ button[aria-label]::before {
   transform-origin: 15% 95%;
 }
 
+.jquery-modal.blocker {
+  z-index: 1000;
+}
+
 .modal {
   display: none;
   color: var(--color-dark);
