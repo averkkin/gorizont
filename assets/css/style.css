@@ -2717,12 +2717,14 @@ button[aria-label]::before {
 }
 @media (any-hover: hover) {
   .legal-list__link:hover {
+    color: var(--color-dark);
     background-color: var(--color-accent);
     border-color: var(--color-accent);
   }
 }
 @media (any-hover: none) {
   .legal-list__link:active {
+    color: var(--color-dark);
     background-color: var(--color-accent);
     border-color: var(--color-accent);
   }
@@ -2769,11 +2771,13 @@ button[aria-label]::before {
 }
 @media (any-hover: hover) {
   .legal-doc__nav a:hover {
+    color: var(--color-dark);
     text-decoration: underline;
   }
 }
 @media (any-hover: none) {
   .legal-doc__nav a:active {
+    color: var(--color-dark);
     text-decoration: underline;
   }
 }
@@ -2826,6 +2830,16 @@ button[aria-label]::before {
 .legal-doc__content a {
   text-decoration: underline;
   text-underline-offset: 0.15em;
+}
+@media (any-hover: hover) {
+  .legal-doc__content a:hover {
+    color: var(--color-gray-50);
+  }
+}
+@media (any-hover: none) {
+  .legal-doc__content a:active {
+    color: var(--color-gray-50);
+  }
 }
 .legal-doc__content table {
   width: 100%;

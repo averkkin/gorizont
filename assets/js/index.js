@@ -300,6 +300,7 @@ const initLeadForms = () => {
             const data = new FormData(form)
             data.append('action', 'gorizont_lead')
             data.append('page', window.location.href)
+            data.append('form', form.id)
             button.disabled = true
             status.classList.remove('is-error')
             status.textContent = 'Отправляем...'

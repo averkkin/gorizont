@@ -127,7 +127,15 @@ function gorizont_handle_lead() {
     $token = gorizont_contact( 'telegram_bot_token' );
     $chat  = gorizont_contact( 'telegram_chat_id' );
 
-    $text = "Новая заявка с сайта\nИмя: {$name}\nТелефон: {$phone}" . ( $page ? "\nСтраница: {$page}" : '' );
+    $forms = array(
+        'login-form'   => 'Оставьте заявку',
+        'develop-form' => 'Раздел в разработке',
+    );
+    $form  = $forms[ sanitize_key( wp_unslash( $_POST['form'] ?? '' ) ) ] ?? '';
+
+    $text = "Новая заявка с сайта\nИмя: {$name}\nТелефон: {$phone}"
+        . ( $form ? "\nФорма: {$form}" : '' )
+        . ( $page ? "\nСтраница: {$page}" : '' );
 
     $sent = false;
     if ( $token && $chat ) {

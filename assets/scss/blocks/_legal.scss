@@ -107,6 +107,7 @@
     }
 
     @include hover {
+      color: var(--color-dark);
       background-color: var(--color-accent);
       border-color: var(--color-accent);
     }
@@ -152,6 +153,7 @@
 
     a {
       @include hover {
+        color: var(--color-dark);
         text-decoration: underline;
       }
     }
@@ -215,6 +217,10 @@
     a {
       text-decoration: underline;
       text-underline-offset: 0.15em;
+
+      @include hover {
+        color: var(--color-gray-50);
+      }
     }
 
     table {
