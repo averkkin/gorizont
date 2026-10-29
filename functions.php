@@ -189,5 +189,10 @@ require get_template_directory() . '/inc/carbon-fields/index.php';
  */
 require get_template_directory() . '/inc/contacts.php';
 
+/**
+ * Раздел «Юридические документы»
+ */
+require get_template_directory() . '/inc/legal.php';
+
 
 add_filter('show_admin_bar', '__return_false');
