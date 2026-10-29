@@ -184,5 +184,10 @@ require get_template_directory() . '/inc/template-functions.php';
  */
 require get_template_directory() . '/inc/carbon-fields/index.php';
 
+/**
+ * Контакты и приём заявок в Telegram
+ */
+require get_template_directory() . '/inc/contacts.php';
+
 
 add_filter('show_admin_bar', '__return_false');

@@ -25,6 +25,20 @@
     }
   }
 
+  &__contacts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: rem(10) fluid(40, 20);
+    margin-top: calc(-1 * #{fluid(60, 30)});
+  }
+
+  &__contact {
+    font-weight: 600;
+    @include hover {
+      text-decoration: underline;
+    }
+  }
+
   &__mobile-head {
     display: flex;
     width: 100%;

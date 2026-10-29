@@ -23,7 +23,7 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
-<form id="login-form" class="modal" method="post" action="" aria-labelledby="login-form-title">
+<form id="login-form" class="modal" method="post" action="" data-js-lead-form aria-labelledby="login-form-title">
     <div class="modal--inner">
         <div class="modal__heading">
             <h2 id="login-form-title" class="h3 modal__h3">Оставьте заявку</h2>
@@ -34,12 +34,14 @@
             <input id="login-name" name="name" type="text" class="input" placeholder="Ваше имя" autocomplete="name">
             <label class="visually-hidden" for="login-phone">Ваш номер телефона</label>
             <input id="login-phone" name="phone" type="tel" class="input" placeholder="Ваш номер телефона" autocomplete="tel">
+            <input type="text" name="website" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
             <button type="submit" class="button">Отправить</button>
+            <p class="modal__status" role="status" data-js-lead-status></p>
         </div>
     </div>
 </form>
 
-<form id="develop-form" class="modal" method="post" action="" aria-labelledby="develop-form-title">
+<form id="develop-form" class="modal" method="post" action="" data-js-lead-form aria-labelledby="develop-form-title">
     <div class="modal--inner">
         <div class="modal__heading">
             <h2 id="develop-form-title" class="h3 modal__h3">Раздел в разработке</h2>
@@ -50,7 +52,9 @@
             <input id="develop-name" name="name" type="text" class="input" placeholder="Ваше имя" autocomplete="name">
             <label class="visually-hidden" for="develop-phone">Ваш номер телефона</label>
             <input id="develop-phone" name="phone" type="tel" class="input" placeholder="Ваш номер телефона" autocomplete="tel">
+            <input type="text" name="website" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
             <button type="submit" class="button">Отправить</button>
+            <p class="modal__status" role="status" data-js-lead-status></p>
         </div>
     </div>
 </form>
@@ -72,7 +76,7 @@
             </ul>
         </nav>
         <div class="phone">
-            <a href="tel:+79999999999" class="phone__tel">+7(999)999-99-99</a>
+            <a href="<?php echo esc_attr(gorizont_phone_href(gorizont_phone())); ?>" class="phone__tel"><?php echo esc_html(gorizont_phone()); ?></a>
             <a href="#login-form" rel="modal:open" class="phone__callback">Связаться с нами</a>
         </div>
 

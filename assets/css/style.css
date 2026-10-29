@@ -787,6 +787,25 @@ button[aria-label]::before {
     gap: 3.125rem;
   }
 }
+.footer__contacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem clamp(1.25rem, 0.847107438rem + 1.652892562vw, 2.5rem);
+  margin-top: calc(-1 * clamp(1.875rem, 1.270661157rem + 2.479338843vw, 3.75rem));
+}
+.footer__contact {
+  font-weight: 600;
+}
+@media (any-hover: hover) {
+  .footer__contact:hover {
+    text-decoration: underline;
+  }
+}
+@media (any-hover: none) {
+  .footer__contact:active {
+    text-decoration: underline;
+  }
+}
 .footer__mobile-head {
   display: flex;
   width: 100%;
@@ -1275,6 +1294,13 @@ button[aria-label]::before {
 }
 .modal__p {
   opacity: 0.7;
+}
+.modal__status {
+  min-height: 1.2em;
+  font-size: 0.875rem;
+}
+.modal__status.is-error {
+  color: #b32d2e;
 }
 
 .tour-directions {

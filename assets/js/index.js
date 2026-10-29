@@ -290,7 +290,40 @@ const initTourScheduleFilters = () => {
     })
 }
 
+const initLeadForms = () => {
+    document.querySelectorAll('[data-js-lead-form]').forEach((form) => {
+        const status = form.querySelector('[data-js-lead-status]')
+        const button = form.querySelector('button[type="submit"]')
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault()
+            const data = new FormData(form)
+            data.append('action', 'gorizont_lead')
+            data.append('page', window.location.href)
+            button.disabled = true
+            status.classList.remove('is-error')
+            status.textContent = 'Отправляем...'
+
+            try {
+                const response = await fetch(window.gorizontLead.url, {method: 'POST', body: data})
+                const result = await response.json()
+                if (!result.success) {
+                    throw new Error(result.data?.message || 'Ошибка отправки')
+                }
+                status.textContent = 'Спасибо! Мы скоро свяжемся с вами'
+                form.reset()
+            } catch (error) {
+                status.classList.add('is-error')
+                status.textContent = error.message || 'Ошибка отправки'
+            } finally {
+                button.disabled = false
+            }
+        })
+    })
+}
+
 const initPage = () => {
+    initLeadForms()
     new Header()
     initGlideSliders()
     initReviewsSliders()

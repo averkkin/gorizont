@@ -20,7 +20,7 @@
 	                    </a>
 	                </div>
 	                <div class="phone">
-	                    <a href="tel:+79999999999" class="phone__tel">+7(999)999-99-99</a>
+	                    <a href="<?php echo esc_attr(gorizont_phone_href(gorizont_phone())); ?>" class="phone__tel"><?php echo esc_html(gorizont_phone()); ?></a>
 	                    <a href="#login-form" rel="modal:open" class="phone__callback">Связаться с нами</a>
 	                </div>
 	            </div>
@@ -54,9 +54,15 @@
 	            </div>
 
 	            <div class="phone hidden-mobile">
-	                <a href="tel:+79999999999" class="phone__tel">+7(999)999-99-99</a>
+	                <a href="<?php echo esc_attr(gorizont_phone_href(gorizont_phone())); ?>" class="phone__tel"><?php echo esc_html(gorizont_phone()); ?></a>
 	                <a href="#login-form" rel="modal:open"  class="phone__callback">Связаться с нами</a>
 	            </div>
+	        </div>
+	        <div class="footer__contacts container">
+	            <a class="footer__contact" href="mailto:<?php echo esc_attr(gorizont_email()); ?>"><?php echo esc_html(gorizont_email()); ?></a>
+	            <?php foreach (gorizont_contact_people() as $person) : ?>
+	                <a class="footer__contact" href="<?php echo esc_attr(gorizont_phone_href($person['phone'])); ?>"><?php echo esc_html($person['phone']); ?> <?php echo esc_html($person['name']); ?></a>
+	            <?php endforeach; ?>
 	        </div>
 	        <div class="footer__down container">
 	            <p class="footer-info">© Центр туризма «Горизонт». <time datetime="<?php echo esc_attr(wp_date('Y')); ?>"><?php echo esc_html(wp_date('Y')); ?></time></p>
