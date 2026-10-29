@@ -8,10 +8,16 @@
   &__breadcrumbs {
     display: flex;
     flex-wrap: wrap;
+    align-items: baseline;
     gap: rem(8);
     margin-bottom: fluid(60, 32);
     font-size: rem(14);
     color: var(--color-gray-50);
+
+    // у span глобально line-height: 110%, а у ссылок другой — из-за этого крошки «плыли»
+    > * {
+      line-height: 1.4;
+    }
 
     a {
       @include hover {

@@ -2624,10 +2624,14 @@ button[aria-label]::before {
 .legal__breadcrumbs {
   display: flex;
   flex-wrap: wrap;
+  align-items: baseline;
   gap: 0.5rem;
   margin-bottom: clamp(2rem, 1.4359504132rem + 2.3140495868vw, 3.75rem);
   font-size: 0.875rem;
   color: var(--color-gray-50);
+}
+.legal__breadcrumbs > * {
+  line-height: 1.4;
 }
 @media (any-hover: hover) {
   .legal__breadcrumbs a:hover {
