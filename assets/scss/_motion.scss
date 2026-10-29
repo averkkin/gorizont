@@ -1,0 +1,146 @@
+@use 'helpers/index' as *;
+
+// Анимации сайта: спокойные, короткие, без зацикливания (кроме стрелки в хиро).
+// При prefers-reduced-motion длительности обнуляются в _normalize, а скролл-появление не включается в JS.
+
+:root {
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes motion-rise {
+  from {
+    opacity: 0;
+    transform: translateY(#{rem(24)});
+  }
+}
+
+@keyframes motion-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes motion-settle {
+  from {
+    transform: scale(1.06);
+  }
+}
+
+@keyframes motion-pop {
+  from {
+    opacity: 0;
+    transform: translateY(#{rem(16)}) scale(0.97);
+  }
+}
+
+@keyframes motion-bob {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(#{rem(6)});
+  }
+}
+
+// Появление блоков при прокрутке. Атрибут data-reveal ставит JS и снимает после показа,
+// поэтому без JS всё видно сразу, а после показа не мешает ховерам
+// Показанный блок возвращается к своим родным opacity/transform (например, у полупрозрачных счётчиков)
+.has-motion [data-reveal] {
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+  transition-delay: var(--reveal-delay, 0s);
+
+  &:not(.is-revealed) {
+    opacity: 0;
+    transform: translateY(#{rem(28)});
+  }
+}
+
+// Картинки направлений: проявляются и слегка «оседают»
+.has-motion [data-reveal='image'] {
+  img {
+    transition: transform 1.4s var(--ease-out);
+    transition-delay: var(--reveal-delay, 0s);
+  }
+
+  &:not(.is-revealed) {
+    transform: none;
+
+    img {
+      transform: scale(1.08);
+    }
+  }
+}
+
+// Хиро: текст и кнопки поднимаются по очереди
+.glide__slide--active .hero-slide__heading > *,
+.glide__slide--active .hero-slide__buttons,
+.hero__heading > *,
+.hero__buttons {
+  animation: motion-rise 0.9s var(--ease-out) both;
+}
+
+.glide__slide--active .hero-slide__heading > :nth-child(2),
+.hero__heading > :nth-child(2) {
+  animation-delay: 0.12s;
+}
+
+.glide__slide--active .hero-slide__buttons,
+.hero__buttons {
+  animation-delay: 0.24s;
+}
+
+.hero .background {
+  animation: motion-settle 1.8s var(--ease-out) both;
+}
+
+.hero__arrow-down {
+  animation: motion-bob 2.4s ease-in-out 1.2s infinite;
+}
+
+// Кнопки: лёгкий подъём при наведении и отклик при нажатии
+.button {
+  transition-property: background-color, color, border-color, transform, box-shadow;
+
+  @include hover {
+    transform: translateY(#{rem(-2)});
+    box-shadow: 0 rem(8) rem(24) rem(-12) var(--color-accent);
+  }
+
+  &:active {
+    transform: translateY(0) scale(0.98);
+  }
+}
+
+// Картинки направлений: мягкий зум при наведении
+.direction__image {
+  overflow: hidden;
+  border-radius: fluid(30, 15);
+
+  img {
+    transition: transform 1s var(--ease-out);
+  }
+
+  @include hover(false) {
+    img {
+      transform: scale(1.03);
+    }
+  }
+}
+
+// Модальные окна
+.modal {
+  animation: motion-pop 0.45s var(--ease-out) both;
+}
+
+.review-lightbox[open] {
+  animation: motion-pop 0.4s var(--ease-out) both;
+
+  &::backdrop {
+    animation: motion-fade 0.3s ease both;
+  }
+}
+
+// Расписание: при смене фильтра карточки появляются заново
+.tour-schedule__grid.is-filtering .tour-schedule__tour {
+  animation: motion-rise 0.5s var(--ease-out) both;
+}

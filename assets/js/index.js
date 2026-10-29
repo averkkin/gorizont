@@ -279,6 +279,12 @@ const initTourScheduleFilters = () => {
                 })
 
                 applyFilters()
+
+                // Перезапускаем анимацию появления карточек
+                const gridElement = scheduleElement.querySelector('.tour-schedule__grid')
+                gridElement?.classList.remove('is-filtering')
+                void gridElement?.offsetWidth
+                gridElement?.classList.add('is-filtering')
             })
         })
 
@@ -362,7 +368,80 @@ const initLeadForms = () => {
     })
 }
 
+// Блоки, которые мягко появляются при прокрутке. Хиро анимируется отдельно, в CSS
+const revealSelectors = [
+    '.direction__content > *',
+    '.tour-directions__item',
+    '.tour-schedule__header',
+    '.tour-schedule__tour',
+    '.tour-description__content > *',
+    '.tour-timeline .h2',
+    '.timeline__item',
+    '.tour-conditions .h2',
+    '.conditions-grid > *',
+    '.price-block',
+    '.tour-reviews__header',
+    '.reviews-slider',
+    '.reviews-wall__item',
+    '.more-info__content > *',
+    '.legal__header',
+    '.legal-list__item',
+    '.footer__head',
+    '.footer__down',
+]
+
+const initMotion = () => {
+    if (window.jQuery?.modal) {
+        Object.assign(window.jQuery.modal.defaults, {fadeDuration: 200, fadeDelay: 0.4})
+    }
+
+    if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return
+    }
+
+    const elements = document.querySelectorAll(revealSelectors.join(','))
+    const images = document.querySelectorAll('.direction__image')
+
+    elements.forEach((element) => {
+        element.dataset.reveal = ''
+    })
+    images.forEach((element) => {
+        element.dataset.reveal = 'image'
+    })
+    document.documentElement.classList.add('has-motion')
+
+    const observer = new IntersectionObserver((entries) => {
+        // Блоки, попавшие в экран одновременно, появляются по очереди
+        let order = 0
+
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) {
+                return
+            }
+
+            const element = entry.target
+            const delay = Math.min(order, 4) * 0.09
+            order += 1
+
+            element.style.setProperty('--reveal-delay', `${delay}s`)
+            element.classList.add('is-revealed')
+            observer.unobserve(element)
+
+            // После показа убираем служебные атрибуты, чтобы не мешать ховерам и фильтрам
+            setTimeout(() => {
+                delete element.dataset.reveal
+                element.classList.remove('is-revealed')
+                element.style.removeProperty('--reveal-delay')
+            }, (delay + 1.5) * 1000)
+        })
+    }, {rootMargin: '0px 0px -8% 0px'})
+
+    elements.forEach((element) => observer.observe(element))
+    images.forEach((element) => observer.observe(element))
+}
+
 const initPage = () => {
+    initMotion()
     initLeadForms()
     new Header()
     initGlideSliders()
