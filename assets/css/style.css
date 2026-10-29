@@ -787,25 +787,6 @@ button[aria-label]::before {
     gap: 3.125rem;
   }
 }
-.footer__contacts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.625rem clamp(1.25rem, 0.847107438rem + 1.652892562vw, 2.5rem);
-  margin-top: calc(-1 * clamp(1.875rem, 1.270661157rem + 2.479338843vw, 3.75rem));
-}
-.footer__contact {
-  font-weight: 600;
-}
-@media (any-hover: hover) {
-  .footer__contact:hover {
-    text-decoration: underline;
-  }
-}
-@media (any-hover: none) {
-  .footer__contact:active {
-    text-decoration: underline;
-  }
-}
 .footer__mobile-head {
   display: flex;
   width: 100%;
@@ -839,7 +820,7 @@ button[aria-label]::before {
   gap: clamp(0.625rem, 0.020661157rem + 2.479338843vw, 2.5rem);
 }
 @media (width <= 47.99875rem) {
-  .footer__menu nav ul {
+  .footer__menu ul {
     display: flex;
     flex-direction: column;
     gap: 0.3125rem;
