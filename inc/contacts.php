@@ -53,6 +53,8 @@ function gorizont_register_contacts_options() {
             ),
             Field::make( 'text', 'telegram_bot_token', 'Токен бота' ),
             Field::make( 'text', 'telegram_chat_id', 'ID чата для заявок' ),
+            Field::make( 'text', 'lead_emails', 'Почта для заявок' )
+                ->set_help_text( 'Каждая заявка дублируется на эту почту. Можно несколько адресов через запятую. Если пусто — на почту из вкладки «Контакты».' ),
         ) );
 }
 
@@ -134,12 +136,6 @@ function gorizont_handle_lead() {
     $form   = $forms[ sanitize_key( wp_unslash( $_POST['form'] ?? '' ) ) ] ?? '';
     $source = mb_substr( sanitize_text_field( wp_unslash( $_POST['source'] ?? '' ) ), 0, 200 );
 
-    $text = "Новая заявка с сайта\nИмя: {$name}\nТелефон: {$phone}"
-        . ( $form ? "\nФорма: {$form}" : '' )
-        . ( $source ? "\nКнопка: {$source}" : '' )
-        . ( $page ? "\nСтраница: {$page}" : '' );
-
-    // Для Telegram — то же самое, но с разметкой и названием страницы вместо адреса
     $page_title = '';
     if ( $page ) {
         $post_id    = url_to_postid( $page );
@@ -158,6 +154,16 @@ function gorizont_handle_lead() {
         . ( $page ? "\n📄 Страница: <a href=\"" . esc_url( $page ) . '">' . esc_html( $page_title ) . '</a>' : '' )
         . "\n🕒 " . wp_date( 'd.m.Y, H:i' );
 
+    $text = "Новая заявка с сайта\n\nИмя: {$name}\nТелефон: {$phone}\n"
+        . ( $form ? "\nФорма: {$form}" : '' )
+        . ( $source ? "\nКнопка: {$source}" : '' )
+        . ( $page ? "\nСтраница: {$page_title}\n{$page}" : '' )
+        . "\nВремя: " . wp_date( 'd.m.Y, H:i' );
+
+    // Заявка уходит и в Telegram, и на почту; достаточно, чтобы дошла хотя бы одним путём
+    $emails    = array_filter( array_map( 'trim', explode( ',', gorizont_contact( 'lead_emails', gorizont_email() ) ) ), 'is_email' );
+    $mail_sent = $emails && wp_mail( $emails, "Заявка с сайта: {$name}, {$phone}", $text );
+
     $sent = false;
     if ( $token && $chat ) {
         $response = wp_remote_post( "https://api.telegram.org/bot{$token}/sendMessage", array(
@@ -172,12 +178,7 @@ function gorizont_handle_lead() {
         $sent = ! is_wp_error( $response ) && wp_remote_retrieve_response_code( $response ) === 200;
     }
 
-    // Запасной вариант: если Telegram недоступен, заявка не теряется, а приходит на почту
-    if ( ! $sent ) {
-        $sent = wp_mail( gorizont_email(), 'Заявка с сайта', $text );
-    }
-
-    if ( ! $sent ) {
+    if ( ! $sent && ! $mail_sent ) {
         wp_send_json_error( array( 'message' => 'Не удалось отправить, позвоните нам' ), 500 );
     }
 
