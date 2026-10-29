@@ -71,20 +71,21 @@
   }
 }
 
-// Хиро: текст и кнопки поднимаются по очереди
-.glide__slide--active .hero-slide__heading > *,
-.glide__slide--active .hero-slide__buttons,
+// Хиро: текст и кнопки поднимаются по очереди. В слайдере — только при загрузке:
+// при перелистывании подъём текста спорит с горизонтальным движением слайда
+.hero-glide:not([data-motion-done]) .glide__slide--active .hero-slide__heading > *,
+.hero-glide:not([data-motion-done]) .glide__slide--active .hero-slide__buttons,
 .hero__heading > *,
 .hero__buttons {
   animation: motion-rise 0.9s var(--ease-out) both;
 }
 
-.glide__slide--active .hero-slide__heading > :nth-child(2),
+.hero-glide:not([data-motion-done]) .glide__slide--active .hero-slide__heading > :nth-child(2),
 .hero__heading > :nth-child(2) {
   animation-delay: 0.12s;
 }
 
-.glide__slide--active .hero-slide__buttons,
+.hero-glide:not([data-motion-done]) .glide__slide--active .hero-slide__buttons,
 .hero__buttons {
   animation-delay: 0.24s;
 }

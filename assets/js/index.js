@@ -72,6 +72,13 @@ const initGlideSliders = () => {
         }
 
         slider.on(['mount.after', 'run'], updateCounter)
+
+        // Текст хиро анимируется только при загрузке, при листании — нет
+        if (isHeroSlider) {
+            slider.on('run', () => {
+                sliderElement.dataset.motionDone = ''
+            })
+        }
         slider.mount()
         updateCounter()
         sliderElement.dataset.glideInitialized = 'true'
