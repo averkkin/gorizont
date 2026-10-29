@@ -290,7 +290,39 @@ const initTourScheduleFilters = () => {
     })
 }
 
+const cleanText = (element) => (element?.textContent || '').replace(/\s+/g, ' ').trim()
+
+// Откуда открыли форму: текст кнопки и блок, в котором она стоит
+const getLeadSource = (link) => {
+    let place = ''
+
+    if (link.closest('header')) {
+        place = 'шапка сайта'
+    } else if (link.closest('footer')) {
+        place = 'подвал сайта'
+    } else {
+        for (let parent = link.parentElement; parent && parent !== document.body; parent = parent.parentElement) {
+            const heading = parent.querySelector('h1:not(.visually-hidden), h2:not(.visually-hidden)')
+            if (heading) {
+                place = `блок «${cleanText(heading)}»`
+                break
+            }
+        }
+    }
+
+    return `«${cleanText(link)}»` + (place ? `, ${place}` : '')
+}
+
 const initLeadForms = () => {
+    document.addEventListener('click', (event) => {
+        const link = event.target.closest('a[rel="modal:open"]')
+        const form = link && document.querySelector(link.getAttribute('href'))
+
+        if (form?.matches('[data-js-lead-form]')) {
+            form.dataset.source = getLeadSource(link)
+        }
+    }, true)
+
     document.querySelectorAll('[data-js-lead-form]').forEach((form) => {
         const status = form.querySelector('[data-js-lead-status]')
         const button = form.querySelector('button[type="submit"]')
@@ -301,6 +333,7 @@ const initLeadForms = () => {
             data.append('action', 'gorizont_lead')
             data.append('page', window.location.href)
             data.append('form', form.id)
+            data.append('source', form.dataset.source || '')
             button.disabled = true
             status.classList.remove('is-error')
             status.textContent = 'Отправляем...'

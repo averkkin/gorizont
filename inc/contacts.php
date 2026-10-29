@@ -131,10 +131,12 @@ function gorizont_handle_lead() {
         'login-form'   => 'Оставьте заявку',
         'develop-form' => 'Раздел в разработке',
     );
-    $form  = $forms[ sanitize_key( wp_unslash( $_POST['form'] ?? '' ) ) ] ?? '';
+    $form   = $forms[ sanitize_key( wp_unslash( $_POST['form'] ?? '' ) ) ] ?? '';
+    $source = mb_substr( sanitize_text_field( wp_unslash( $_POST['source'] ?? '' ) ), 0, 200 );
 
     $text = "Новая заявка с сайта\nИмя: {$name}\nТелефон: {$phone}"
         . ( $form ? "\nФорма: {$form}" : '' )
+        . ( $source ? "\nКнопка: {$source}" : '' )
         . ( $page ? "\nСтраница: {$page}" : '' );
 
     // Для Telegram — то же самое, но с разметкой и названием страницы вместо адреса
@@ -152,6 +154,7 @@ function gorizont_handle_lead() {
         . '👤 ' . esc_html( $name ) . "\n"
         . '📞 ' . esc_html( $phone ) . "\n"
         . ( $form ? "\n📝 Форма: " . esc_html( $form ) : '' )
+        . ( $source ? "\n🖱 Кнопка: " . esc_html( $source ) : '' )
         . ( $page ? "\n📄 Страница: <a href=\"" . esc_url( $page ) . '">' . esc_html( $page_title ) . '</a>' : '' )
         . "\n🕒 " . wp_date( 'd.m.Y, H:i' );
 
