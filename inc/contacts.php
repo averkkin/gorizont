@@ -137,11 +137,34 @@ function gorizont_handle_lead() {
         . ( $form ? "\nФорма: {$form}" : '' )
         . ( $page ? "\nСтраница: {$page}" : '' );
 
+    // Для Telegram — то же самое, но с разметкой и названием страницы вместо адреса
+    $page_title = '';
+    if ( $page ) {
+        $post_id    = url_to_postid( $page );
+        $page_title = $post_id ? get_the_title( $post_id ) : '';
+        if ( ! $page_title ) {
+            $path       = trim( (string) wp_parse_url( $page, PHP_URL_PATH ), '/' );
+            $page_title = $path === '' ? 'Главная' : urldecode( $path );
+        }
+    }
+
+    $html = "🔔 <b>Новая заявка</b>\n\n"
+        . '👤 ' . esc_html( $name ) . "\n"
+        . '📞 ' . esc_html( $phone ) . "\n"
+        . ( $form ? "\n📝 Форма: " . esc_html( $form ) : '' )
+        . ( $page ? "\n📄 Страница: <a href=\"" . esc_url( $page ) . '">' . esc_html( $page_title ) . '</a>' : '' )
+        . "\n🕒 " . wp_date( 'd.m.Y, H:i' );
+
     $sent = false;
     if ( $token && $chat ) {
         $response = wp_remote_post( "https://api.telegram.org/bot{$token}/sendMessage", array(
             'timeout' => 10,
-            'body'    => array( 'chat_id' => $chat, 'text' => $text ),
+            'body'    => array(
+                'chat_id'                  => $chat,
+                'text'                     => $html,
+                'parse_mode'               => 'HTML',
+                'disable_web_page_preview' => 'true',
+            ),
         ) );
         $sent = ! is_wp_error( $response ) && wp_remote_retrieve_response_code( $response ) === 200;
     }
