@@ -80,7 +80,7 @@
         <nav class="header__nav" aria-label="Основная навигация">
             <ul>
                 <li><a href="<?php echo esc_url(home_url('/#mountaineering')); ?>">Направления</a></li>
-                <li><a href="#develop-form" rel="modal:open">Контакты</a></li>
+                <li><a href="#contacts">Контакты</a></li>
             </ul>
         </nav>
         <div class="phone">

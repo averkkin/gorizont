@@ -11,7 +11,7 @@
 
 ?>
 
-		<footer class="footer">
+		<footer class="footer" id="contacts">
 	        <div class="footer__head container">
 	            <div class="footer__mobile-head visible-mobile">
 	                <div class="logo footer__logo">
@@ -48,7 +48,7 @@
                     <ul>
                         <li><a href="#develop-form" rel="modal:open">Отзывы</a></li>
                         <li><a href="#develop-form" rel="modal:open">Команда</a></li>
-                        <li><a href="#develop-form" rel="modal:open">Контакты</a></li>
+                        <li><a href="#contacts">Контакты</a></li>
                     </ul>
                 </nav>
 	            </div>
