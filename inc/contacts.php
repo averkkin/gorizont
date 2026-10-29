@@ -162,7 +162,9 @@ function gorizont_handle_lead() {
 
     // Заявка уходит и в Telegram, и на почту; достаточно, чтобы дошла хотя бы одним путём
     $emails    = array_filter( array_map( 'trim', explode( ',', gorizont_contact( 'lead_emails', gorizont_email() ) ) ), 'is_email' );
-    $mail_sent = $emails && wp_mail( $emails, "Заявка с сайта: {$name}, {$phone}", $text );
+    $mail_sent = $emails && wp_mail( $emails, "Заявка с сайта: {$name}, {$phone}", $text, array(
+        'From: Горизонт | Заявки <noreply@' . wp_parse_url( home_url(), PHP_URL_HOST ) . '>',
+    ) );
 
     $sent = false;
     if ( $token && $chat ) {
