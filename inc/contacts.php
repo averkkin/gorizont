@@ -52,6 +52,19 @@ function gorizont_phone_href( $phone ) {
     return 'tel:' . preg_replace( '/[^\d+]/', '', $phone );
 }
 
+/**
+ * +79642710683 → +7 (964) 271-06-83. Номера другого вида выводятся как введены.
+ */
+function gorizont_phone_format( $phone ) {
+    $digits = preg_replace( '/\D/', '', $phone );
+
+    if ( strlen( $digits ) !== 11 || ! in_array( $digits[0], array( '7', '8' ), true ) ) {
+        return $phone;
+    }
+
+    return sprintf( '+7 (%s) %s-%s-%s', substr( $digits, 1, 3 ), substr( $digits, 4, 3 ), substr( $digits, 7, 2 ), substr( $digits, 9, 2 ) );
+}
+
 function gorizont_phone() {
     return gorizont_contact( 'contact_phone', '8(3952)93-90-93' );
 }

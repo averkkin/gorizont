@@ -787,6 +787,34 @@ button[aria-label]::before {
     gap: 3.125rem;
   }
 }
+.footer__contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem !important;
+}
+.footer__person {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+.footer__person a {
+  font-weight: 600;
+  white-space: nowrap;
+}
+@media (any-hover: hover) {
+  .footer__person a:hover {
+    color: var(--color-accent);
+  }
+}
+@media (any-hover: none) {
+  .footer__person a:active {
+    color: var(--color-accent);
+  }
+}
+.footer__person-name {
+  font-size: 0.75rem;
+  color: var(--color-light-30);
+}
 .footer__mobile-head {
   display: flex;
   width: 100%;

@@ -55,11 +55,17 @@
 
 	            <div class="footer__menu">
 	                <h2 class="h4 footer__h4">Контакты</h2>
-	                <ul>
+	                <ul class="footer__contacts">
 	                    <?php foreach (gorizont_contact_people() as $person) : ?>
-	                        <li><a href="<?php echo esc_attr(gorizont_phone_href($person['phone'])); ?>"><?php echo esc_html($person['phone']); ?> — <?php echo esc_html($person['name']); ?></a></li>
+	                        <li class="footer__person">
+	                            <span class="footer__person-name"><?php echo esc_html($person['name']); ?></span>
+	                            <a href="<?php echo esc_attr(gorizont_phone_href($person['phone'])); ?>"><?php echo esc_html(gorizont_phone_format($person['phone'])); ?></a>
+	                        </li>
 	                    <?php endforeach; ?>
-	                    <li><a href="mailto:<?php echo esc_attr(gorizont_email()); ?>"><?php echo esc_html(gorizont_email()); ?></a></li>
+	                    <li class="footer__person">
+	                        <span class="footer__person-name">Почта</span>
+	                        <a href="mailto:<?php echo esc_attr(gorizont_email()); ?>"><?php echo esc_html(gorizont_email()); ?></a>
+	                    </li>
 	                </ul>
 	            </div>
 

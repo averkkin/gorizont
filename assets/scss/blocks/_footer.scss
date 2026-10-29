@@ -25,6 +25,32 @@
     }
   }
 
+  &__contacts {
+    display: flex;
+    flex-direction: column;
+    gap: rem(14) !important;
+  }
+
+  &__person {
+    display: flex;
+    flex-direction: column;
+    gap: rem(2);
+
+    a {
+      font-weight: 600;
+      white-space: nowrap;
+
+      @include hover {
+        color: var(--color-accent);
+      }
+    }
+  }
+
+  &__person-name {
+    font-size: rem(12);
+    color: var(--color-light-30);
+  }
+
   &__mobile-head {
     display: flex;
     width: 100%;
