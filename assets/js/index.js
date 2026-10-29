@@ -387,7 +387,6 @@ const revealSelectors = [
     '.legal__header',
     '.legal-list__item',
     '.footer__head',
-    '.footer__down',
 ]
 
 const initMotion = () => {
