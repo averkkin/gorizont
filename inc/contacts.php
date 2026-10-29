@@ -116,10 +116,10 @@ function gorizont_handle_lead() {
         wp_send_json_error( array( 'message' => 'Укажите имя и телефон' ), 400 );
     }
 
-    // Не чаще 5 заявок в час с одного адреса
+    // Защита от спама: не больше 20 заявок в час с одного адреса
     $key   = 'gorizont_lead_' . md5( $_SERVER['REMOTE_ADDR'] ?? '' );
     $count = (int) get_transient( $key );
-    if ( $count >= 5 ) {
+    if ( $count >= 20 ) {
         wp_send_json_error( array( 'message' => 'Слишком много заявок, позвоните нам' ), 429 );
     }
     set_transient( $key, $count + 1, HOUR_IN_SECONDS );
