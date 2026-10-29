@@ -74,10 +74,17 @@
       gap: rem(10);
     }
 
-    p {
+    p,
+    a {
       color: var(--color-light-30);
       font-size: rem(12);
       font-weight: 600;
+    }
+
+    a {
+      @include hover {
+        color: var(--color-light);
+      }
     }
   }
 

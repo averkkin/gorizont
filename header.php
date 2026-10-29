@@ -34,6 +34,10 @@
             <input id="login-name" name="name" type="text" class="input" placeholder="Ваше имя" autocomplete="name">
             <label class="visually-hidden" for="login-phone">Ваш номер телефона</label>
             <input id="login-phone" name="phone" type="tel" class="input" placeholder="Ваш номер телефона" autocomplete="tel">
+            <label class="modal__consent">
+                <input type="checkbox" name="consent" value="1" required>
+                <span>Я согласен на обработку персональных данных в соответствии с <a href="<?php echo esc_url(gorizont_legal_url('privacy')); ?>" target="_blank">Политикой обработки персональных данных</a></span>
+            </label>
             <input type="text" name="website" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
             <button type="submit" class="button">Отправить</button>
             <p class="modal__status" role="status" data-js-lead-status></p>
@@ -52,6 +56,10 @@
             <input id="develop-name" name="name" type="text" class="input" placeholder="Ваше имя" autocomplete="name">
             <label class="visually-hidden" for="develop-phone">Ваш номер телефона</label>
             <input id="develop-phone" name="phone" type="tel" class="input" placeholder="Ваш номер телефона" autocomplete="tel">
+            <label class="modal__consent">
+                <input type="checkbox" name="consent" value="1" required>
+                <span>Я согласен на обработку персональных данных в соответствии с <a href="<?php echo esc_url(gorizont_legal_url('privacy')); ?>" target="_blank">Политикой обработки персональных данных</a></span>
+            </label>
             <input type="text" name="website" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
             <button type="submit" class="button">Отправить</button>
             <p class="modal__status" role="status" data-js-lead-status></p>

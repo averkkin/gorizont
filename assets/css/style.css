@@ -837,10 +837,21 @@ button[aria-label]::before {
     gap: 0.625rem;
   }
 }
-.footer__down p {
+.footer__down p,
+.footer__down a {
   color: var(--color-light-30);
   font-size: 0.75rem;
   font-weight: 600;
+}
+@media (any-hover: hover) {
+  .footer__down a:hover {
+    color: var(--color-light);
+  }
+}
+@media (any-hover: none) {
+  .footer__down a:active {
+    color: var(--color-light);
+  }
 }
 .footer__menu {
   display: flex;
@@ -1303,6 +1314,26 @@ button[aria-label]::before {
 }
 .modal__p {
   opacity: 0.7;
+}
+.modal__consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  max-width: 23.75rem;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: var(--color-gray-50);
+  cursor: pointer;
+}
+.modal__consent input {
+  flex-shrink: 0;
+  width: 1.125rem;
+  height: 1.125rem;
+  margin-top: 0.0625rem;
+  accent-color: var(--color-dark);
+}
+.modal__consent a {
+  text-decoration: underline;
 }
 .modal__status {
   min-height: 1.2em;
@@ -2786,6 +2817,9 @@ button[aria-label]::before {
 .legal-doc__content ol {
   list-style: decimal;
 }
+.legal-doc__content li {
+  list-style: inherit;
+}
 .legal-doc__content li::marker {
   color: var(--color-gray-50);
 }
@@ -2815,6 +2849,39 @@ button[aria-label]::before {
 .legal-doc__content .legal-date {
   color: var(--color-gray-50);
   font-size: 0.9375rem;
+}
+.legal-doc__content .legal-blank {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.legal-doc__content .legal-blank span {
+  display: block;
+  height: 1.75rem;
+  border-bottom: 1px solid var(--color-dark-40);
+}
+.legal-doc__content .legal-blank small {
+  font-size: 0.75rem;
+  color: var(--color-gray-50);
+  text-align: center;
+}
+.legal-doc__content .legal-sign {
+  display: grid;
+  grid-template-columns: auto 1fr 1fr;
+  align-items: end;
+}
+.legal-doc__content .legal-sign > p:first-child {
+  white-space: nowrap;
+  padding-bottom: 1.25rem;
+}
+.legal-doc__content .legal-sign {
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+@media (width <= 47.99875rem) {
+  .legal-doc__content .legal-sign {
+    grid-template-columns: 1fr;
+  }
 }
 
 .single-tour__inner {

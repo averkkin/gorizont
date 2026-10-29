@@ -30,6 +30,20 @@ function gorizont_register_contacts_options() {
                     array( 'name' => 'Анастасия', 'phone' => '+79501128904' ),
                 ) ),
         ) )
+        ->add_tab( 'Реквизиты', array(
+            Field::make( 'html', 'legal_help' )->set_html( '<p>Реквизиты подставляются в юридические документы сайта (раздел «Юридические документы»).</p>' ),
+            Field::make( 'text', 'legal_full_name', 'Полное наименование' )
+                ->set_default_value( 'Общество с ограниченной ответственностью «Центр туризма Горизонт»' ),
+            Field::make( 'text', 'legal_short_name', 'Краткое наименование' )
+                ->set_default_value( 'ООО «Центр туризма Горизонт»' ),
+            Field::make( 'text', 'legal_address', 'Юридический адрес' )
+                ->set_default_value( '664003, г. Иркутск, пер. Пионерский, д. 13, оф. 4' ),
+            Field::make( 'text', 'legal_inn', 'ИНН' )->set_width( 33 )->set_default_value( '3808185809' ),
+            Field::make( 'text', 'legal_kpp', 'КПП' )->set_width( 33 )->set_default_value( '380801001' ),
+            Field::make( 'text', 'legal_ogrn', 'ОГРН' )->set_width( 33 )->set_default_value( '1083808014388' ),
+            Field::make( 'text', 'legal_date', 'Документы действуют с' )
+                ->set_default_value( '29 октября 2026 г.' ),
+        ) )
         ->add_tab( 'Telegram-бот', array(
             Field::make( 'html', 'telegram_help' )->set_html(
                 '<p>1. В Telegram откройте <b>@BotFather</b>, команда <code>/newbot</code>, получите токен.<br>'
@@ -93,6 +107,10 @@ function gorizont_handle_lead() {
     $name  = sanitize_text_field( wp_unslash( $_POST['name'] ?? '' ) );
     $phone = sanitize_text_field( wp_unslash( $_POST['phone'] ?? '' ) );
     $page  = esc_url_raw( wp_unslash( $_POST['page'] ?? '' ) );
+
+    if ( empty( $_POST['consent'] ) ) {
+        wp_send_json_error( array( 'message' => 'Нужно согласие на обработку персональных данных' ), 400 );
+    }
 
     if ( $name === '' || strlen( preg_replace( '/\D/', '', $phone ) ) < 6 ) {
         wp_send_json_error( array( 'message' => 'Укажите имя и телефон' ), 400 );

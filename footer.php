@@ -77,7 +77,8 @@
 	        <div class="footer__down container">
 	            <p class="footer-info">© Центр туризма «Горизонт». <time datetime="<?php echo esc_attr(wp_date('Y')); ?>"><?php echo esc_html(wp_date('Y')); ?></time></p>
             <p class="footer-info">Разработка сайта</p>
-            <p class="footer-info">Политика конфиденциальности</p>
+            <a class="footer-info" href="<?php echo esc_url(gorizont_legal_url()); ?>">Юридические документы</a>
+            <a class="footer-info" href="<?php echo esc_url(gorizont_legal_url('privacy')); ?>">Политика конфиденциальности</a>
         </div>
 		</footer><!-- #colophon -->
 
