@@ -19,6 +19,8 @@ function gorizont_register_contacts_options() {
                 ->set_default_value( '8(3952)93-90-93' ),
             Field::make( 'text', 'contact_email', 'Почта' )
                 ->set_default_value( 'gorizont-tour@yandex.ru' ),
+            Field::make( 'text', 'contact_whatsapp', 'WhatsApp для кнопок «написать в WhatsApp»' )
+                ->set_default_value( '+79642710683' ),
             Field::make( 'complex', 'contact_people', 'Контакты менеджеров в подвале' )
                 ->set_layout( 'tabbed-horizontal' )
                 ->add_fields( array(
@@ -87,6 +89,10 @@ function gorizont_phone() {
 
 function gorizont_email() {
     return gorizont_contact( 'contact_email', 'gorizont-tour@yandex.ru' );
+}
+
+function gorizont_whatsapp_url() {
+    return 'https://wa.me/' . preg_replace( '/\D/', '', gorizont_contact( 'contact_whatsapp', '+79642710683' ) );
 }
 
 function gorizont_contact_people() {

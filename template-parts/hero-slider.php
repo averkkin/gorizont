@@ -11,7 +11,7 @@
                         </div>
                         <div class="hero-slide__buttons">
                             <a class="button" href="<?php echo esc_url(home_url('/tours-direct')); ?>">выбрать тур</a>
-                            <button type="button" class="button button--outline">написать в WhatsApp</button>
+                            <a class="button button--outline" href="<?php echo esc_url(gorizont_whatsapp_url()); ?>" target="_blank" rel="noopener">написать в WhatsApp</a>
                         </div>
                     </div>
                     <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/images/hero.jpg'); ?>" alt="" width="1920" height="847" class="hero-slide__background" aria-hidden="true">
@@ -26,7 +26,7 @@
                         </div>
                         <div class="hero-slide__buttons">
                             <a class="button" href="#login-form" rel="modal:open">смотреть расписание</a>
-                            <button type="button" class="button button--outline">написать в WhatsApp</button>
+                            <a class="button button--outline" href="<?php echo esc_url(gorizont_whatsapp_url()); ?>" target="_blank" rel="noopener">написать в WhatsApp</a>
                         </div>
                     </div>
                     <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/images/hero-city.jpg'); ?>" alt="" width="1920" height="847" class="hero-slide__background" aria-hidden="true">
@@ -41,7 +41,7 @@
                         </div>
                         <div class="hero-slide__buttons">
                             <a class="button" href="#login-form" rel="modal:open">узнать больше</a>
-                            <button type="button" class="button button--outline">написать в WhatsApp</button>
+                            <a class="button button--outline" href="<?php echo esc_url(gorizont_whatsapp_url()); ?>" target="_blank" rel="noopener">написать в WhatsApp</a>
                         </div>
                     </div>
                     <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/images/hero-children.jpg'); ?>" alt="" width="1920" height="847" class="hero-slide__background" aria-hidden="true">
@@ -56,7 +56,7 @@
                         </div>
                         <div class="hero-slide__buttons">
                             <a class="button" href="#login-form" rel="modal:open">узнать больше</a>
-                            <button type="button" class="button button--outline">написать в WhatsApp</button>
+                            <a class="button button--outline" href="<?php echo esc_url(gorizont_whatsapp_url()); ?>" target="_blank" rel="noopener">написать в WhatsApp</a>
                         </div>
                     </div>
                     <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/images/hero-children-1.jpg'); ?>" alt="" width="1920" height="847" class="hero-slide__background" aria-hidden="true">

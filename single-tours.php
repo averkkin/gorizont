@@ -31,7 +31,7 @@ $currency_symbol = isset($currency_symbols[$currency]) ? $currency_symbols[$curr
                 <div class="hero__buttons">
                     <div class="actions">
                         <a class="button" href="#login-form" rel="modal:open">выбрать маршрут</a>
-                        <button type="button" class="button button--outline">написать в WhatsApp</button>
+                        <a class="button button--outline" href="<?php echo esc_url(gorizont_whatsapp_url()); ?>" target="_blank" rel="noopener">написать в WhatsApp</a>
                     </div>
                     <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/Arrow-Down-Circle.svg'); ?>" alt="" class="hero__arrow-down" aria-hidden="true">
                 </div>

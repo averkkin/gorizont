@@ -91,7 +91,7 @@ if ($tours_loop->have_posts()) :
 
                     <div class="actions">
                         <a class="button" href="<?php echo esc_url(get_permalink()); ?>">узнать больше</a>
-                        <button type="button" class="button button--outline">написать в WhatsApp</button>
+                        <a class="button button--outline" href="<?php echo esc_url(gorizont_whatsapp_url()); ?>" target="_blank" rel="noopener">написать в WhatsApp</a>
                     </div>
                 </div>
             </div>
