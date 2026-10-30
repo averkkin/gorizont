@@ -468,6 +468,7 @@ body {
   flex-direction: column;
   font-family: var(--font-family-base);
   letter-spacing: -0.03em;
+  word-spacing: 0.12em;
   color: var(--color-light);
   background-color: var(--color-brown);
   position: relative;
