@@ -43,10 +43,10 @@
 	            </div>
 
 	            <div class="footer__menu">
-	                <h2 class="h4 footer__h4">О компании</h2>
-	                <nav aria-label="О компании">
+	                <h2 class="h4 footer__h4" aria-hidden="true">&nbsp;</h2>
+	                <nav aria-label="Разделы сайта">
                     <ul>
-                        <li><a href="#develop-form" rel="modal:open">Отзывы</a></li>
+                        <li><a href="<?php echo esc_url(home_url('/reviews/')); ?>">Отзывы</a></li>
                         <li><a href="#develop-form" rel="modal:open">Команда</a></li>
                         <li><a href="#contacts">Контакты</a></li>
                     </ul>
