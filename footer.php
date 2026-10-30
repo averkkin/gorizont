@@ -43,8 +43,8 @@
 	            </div>
 
 	            <div class="footer__menu">
-	                <h2 class="h4 footer__h4" aria-hidden="true">&nbsp;</h2>
-	                <nav aria-label="Разделы сайта">
+	                <h2 class="h4 footer__h4">О компании</h2>
+	                <nav aria-label="О компании">
                     <ul>
                         <li><a href="<?php echo esc_url(home_url('/reviews/')); ?>">Отзывы</a></li>
                         <li><a href="#develop-form" rel="modal:open">Команда</a></li>
