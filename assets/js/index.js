@@ -446,8 +446,63 @@ const initMotion = () => {
     images.forEach((element) => observer.observe(element))
 }
 
+// Линия программы по дням дорисовывается по мере прокрутки: от первой точки до последней
+const initTimelineLine = () => {
+    const timeline = document.querySelector('.timeline')
+    const items = timeline ? timeline.querySelectorAll('.timeline__item') : []
+
+    if (items.length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return
+    }
+
+    let lineTop = 0
+    let lineHeight = 0
+    let frame = null
+
+    // Центр точки дня относительно списка. offsetTop не учитывает сдвиг от анимации появления
+    const getDotCenter = (item) => {
+        const dot = getComputedStyle(item, '::before')
+        return item.offsetTop + parseFloat(dot.top) + parseFloat(dot.height) / 2
+    }
+
+    const measure = () => {
+        lineTop = getDotCenter(items[0])
+        lineHeight = getDotCenter(items[items.length - 1]) - lineTop
+        timeline.style.setProperty('--timeline-line-top', `${lineTop}px`)
+        timeline.style.setProperty('--timeline-line-height', `${lineHeight}px`)
+    }
+
+    // Кончик линии идёт за точкой на 65% высоты экрана
+    const update = () => {
+        frame = null
+        const start = timeline.getBoundingClientRect().top + lineTop
+        const progress = Math.min(Math.max((window.innerHeight * 0.65 - start) / lineHeight, 0), 1)
+        timeline.style.setProperty('--timeline-line-progress', progress.toFixed(4))
+    }
+
+    const requestUpdate = () => {
+        if (!frame) {
+            frame = requestAnimationFrame(update)
+        }
+    }
+
+    measure()
+    update()
+    timeline.classList.add('is-line-drawing')
+
+    // Высота дней меняется при загрузке картинок и смене ширины экрана
+    new ResizeObserver(() => {
+        measure()
+        requestUpdate()
+    }).observe(timeline)
+
+    window.addEventListener('scroll', requestUpdate, {passive: true})
+    window.addEventListener('resize', requestUpdate)
+}
+
 const initPage = () => {
     initMotion()
+    initTimelineLine()
     initLeadForms()
     new Header()
     initGlideSliders()

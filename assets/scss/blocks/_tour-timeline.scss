@@ -23,9 +23,34 @@
   flex-direction: column;
   gap: var(--timeline-gap);
   list-style: none;
+  isolation: isolate;
 
+  // Общая линия программы, рисуется по прокрутке. Геометрию и прогресс задаёт JS,
+  // без него остаются отрезки у каждого дня (::after у .timeline__item)
+  &.is-line-drawing {
+    &::before {
+      content: '';
+      position: absolute;
+      left: calc((var(--timeline-dot-size) - var(--timeline-line-width)) / 2);
+      top: var(--timeline-line-top, 0);
+      height: var(--timeline-line-height, 0);
+      width: var(--timeline-line-width);
+      background-color: #F3B249;
+      transform: scaleY(var(--timeline-line-progress, 0));
+      transform-origin: top;
+      transition: transform 0.2s linear;
+      z-index: 0;
+    }
+
+    .timeline__item::after {
+      display: none;
+    }
+  }
+
+  // Каждый день выше линии, чтобы точки не оказывались под ней во время появления
   &__item {
     position: relative;
+    z-index: 1;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;

@@ -1730,9 +1730,27 @@ button[aria-label]::before {
   flex-direction: column;
   gap: var(--timeline-gap);
   list-style: none;
+  isolation: isolate;
+}
+.timeline.is-line-drawing::before {
+  content: "";
+  position: absolute;
+  left: calc((var(--timeline-dot-size) - var(--timeline-line-width)) / 2);
+  top: var(--timeline-line-top, 0);
+  height: var(--timeline-line-height, 0);
+  width: var(--timeline-line-width);
+  background-color: #F3B249;
+  transform: scaleY(var(--timeline-line-progress, 0));
+  transform-origin: top;
+  transition: transform 0.2s linear;
+  z-index: 0;
+}
+.timeline.is-line-drawing .timeline__item::after {
+  display: none;
 }
 .timeline__item {
   position: relative;
+  z-index: 1;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
