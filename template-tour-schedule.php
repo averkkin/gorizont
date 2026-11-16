@@ -15,7 +15,7 @@ $hero_args = array(
 );
 
 ?>
-<main id="primary" class="site-main">
+<main id="primary" class="site-main has-texture">
 <?php
 get_template_part('template-parts/hero-block', null, $hero_args);
 get_template_part('template-parts/schedule-about', null, array('page_id' => $page_id));

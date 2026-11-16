@@ -458,6 +458,35 @@ svg * {
   bottom: 0;
 }
 
+.has-texture {
+  position: relative;
+}
+.has-texture::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  background: url("../img/images/texture.png") repeat;
+  background-size: 8.375rem;
+  opacity: 0.3;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.has-topo {
+  position: relative;
+  isolation: isolate;
+}
+.has-topo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: url("../img/icons/pattern.svg") center top/120rem auto repeat-y;
+  opacity: var(--topo-opacity, 0.02);
+  pointer-events: none;
+}
+
 html.is-lock {
   overflow: hidden;
 }
@@ -1676,6 +1705,7 @@ button[aria-label]::before {
 .schedule-formats__text p {
   font-size: clamp(0.875rem, 0.7541322314rem + 0.4958677686vw, 1.25rem);
   line-height: 1.5;
+  margin-bottom: 0;
 }
 .schedule-formats__label {
   font-size: clamp(1rem, 0.8388429752rem + 0.6611570248vw, 1.5rem);
@@ -1785,6 +1815,7 @@ button[aria-label]::before {
 }
 .tour-description__text p {
   font-size: clamp(0.875rem, 0.7541322314rem + 0.4958677686vw, 1.25rem);
+  margin-bottom: 0;
 }
 .tour-description__meta-grid {
   width: 100%;
@@ -3070,6 +3101,7 @@ button[aria-label]::before {
 
 .products-hero {
   padding-block: clamp(2.5rem, 1.694214876rem + 3.305785124vw, 5rem) clamp(3.75rem, 2.541322314rem + 4.958677686vw, 7.5rem);
+  overflow-x: clip;
 }
 .products-hero__inner {
   display: flex;
@@ -3107,8 +3139,21 @@ button[aria-label]::before {
   gap: 0.6875rem;
 }
 .products-hero__image {
+  position: relative;
+  isolation: isolate;
   flex-shrink: 0;
   width: min(36.4375rem, 40%);
+}
+.products-hero__image::before {
+  content: "";
+  position: absolute;
+  top: -10.3%;
+  left: -31.6%;
+  z-index: -1;
+  width: 160%;
+  height: 119.2%;
+  background: url("../img/icons/products-blob.svg") center/contain no-repeat;
+  pointer-events: none;
 }
 .products-hero__image img {
   width: 100%;
@@ -3131,7 +3176,7 @@ button[aria-label]::before {
 }
 
 .products-catalog {
-  padding-bottom: clamp(4.375rem, 2.9648760331rem + 5.7851239669vw, 8.75rem);
+  padding-bottom: clamp(0rem, -0.604338843rem + 2.479338843vw, 1.875rem);
 }
 .products-catalog__inner {
   display: grid;
@@ -3337,6 +3382,10 @@ button[aria-label]::before {
   outline: 2px solid var(--color-accent);
   outline-offset: 0.375rem;
   border-radius: 1.5rem;
+}
+
+.products-page .has-topo .tour-reviews {
+  background-color: transparent;
 }
 
 :root {

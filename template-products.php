@@ -23,7 +23,7 @@ $products = new WP_Query(array(
         'orderby'        => array('menu_order' => 'ASC', 'date' => 'DESC'),
 ));
 ?>
-<main id="primary" class="site-main products-page">
+<main id="primary" class="site-main products-page has-texture">
 
     <section class="products-hero" aria-labelledby="products-hero-title">
         <div class="container products-hero__inner">
@@ -48,6 +48,7 @@ $products = new WP_Query(array(
         </div>
     </section>
 
+    <div class="has-topo">
     <section class="products-catalog" id="products-catalog" aria-label="Каталог продукции" data-js-products>
         <div class="container products-catalog__inner">
             <div class="products-catalog__toolbar">
@@ -128,7 +129,8 @@ $products = new WP_Query(array(
         </div>
     </section>
 
-    <?php get_template_part('template-parts/reviews-section', null, array('slider_id' => 'reviews-slider-products')); ?>
+    <?php get_template_part('template-parts/reviews-section', null, array('slider_id' => 'reviews-slider-products', 'topo' => false)); ?>
+    </div>
 </main>
 
 <?php

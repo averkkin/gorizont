@@ -20,7 +20,7 @@ $currency_symbols = array(
 $currency_symbol = isset($currency_symbols[$currency]) ? $currency_symbols[$currency] : $currency_symbols['rub'];
 ?>
 
-<main id="primary" class="site-main">
+<main id="primary" class="site-main has-texture">
     <section class="hero" aria-labelledby="tour-title">
         <div class="container inner">
             <div class="hero__content">

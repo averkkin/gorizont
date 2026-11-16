@@ -8,6 +8,7 @@
 
 .products-hero {
   padding-block: fluid(80, 40) fluid(120, 60);
+  overflow-x: clip;
 
   &__inner {
     display: flex;
@@ -54,8 +55,24 @@
   }
 
   &__image {
+    position: relative;
+    isolation: isolate;
     flex-shrink: 0;
     width: min(rem(583), 40%);
+
+    // Наклонная плашка за фото из макета: 5 % черного, смещена влево-вверх и выходит за фото
+    &::before {
+      content: '';
+      position: absolute;
+      top: -10.3%;
+      left: -31.6%;
+      z-index: -1;
+      width: 160%;
+      height: 119.2%;
+
+      background: url('../img/icons/products-blob.svg') center / contain no-repeat;
+      pointer-events: none;
+    }
 
     img {
       width: 100%;
@@ -83,7 +100,8 @@
 }
 
 .products-catalog {
-  padding-bottom: fluid(140, 70);
+  // До заголовка отзывов в макете 150px: 30 здесь и 120 у самих отзывов
+  padding-bottom: fluid(30, 0);
 
   &__inner {
     display: grid;
@@ -337,4 +355,9 @@
     outline-offset: rem(6);
     border-radius: rem(24);
   }
+}
+
+// Каталог и отзывы лежат на одном слое линий, поэтому белый фон отзывов здесь убираем
+.products-page .has-topo .tour-reviews {
+  background-color: transparent;
 }

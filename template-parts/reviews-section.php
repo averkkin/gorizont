@@ -2,6 +2,7 @@
 // Блок «Мы ценим ваше доверие»: слайдер отзывов. review_ids — выбранные отзывы, иначе последние
 $selected_review_ids = !empty($args['review_ids']) ? array_map('intval', $args['review_ids']) : array();
 $slider_id           = !empty($args['slider_id']) ? $args['slider_id'] : 'reviews-slider';
+$topo                = !isset($args['topo']) || $args['topo']; // фон с линиями; выключают, когда он уже есть у обёртки
 
 $reviews_args = array(
     'post_type'      => 'reviews',
@@ -19,7 +20,7 @@ $reviews_query = new WP_Query($reviews_args);
 ?>
 
 <?php if ($reviews_query->have_posts()) : ?>
-    <section class="tour-reviews" aria-labelledby="tour-reviews-title">
+    <section class="tour-reviews<?php echo $topo ? ' has-topo' : ''; ?>" aria-labelledby="tour-reviews-title">
         <div class="container">
             <div class="tour-reviews__header">
                 <h2 id="tour-reviews-title" class="h2">Мы ценим ваше доверие</h2>

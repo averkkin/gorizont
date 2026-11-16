@@ -81,6 +81,7 @@
     p {
       @include fluid-text(20, 14);
       line-height: 1.5;
+      margin-bottom: 0; // промежутки задает gap
     }
   }
 

@@ -149,3 +149,39 @@
   position: absolute;
   bottom: 0;
 }
+
+// Зернистая текстура из макета (слой Texture: плитка 220px в масштабе 0.61, 30 %, режим «перекрытие»).
+// На белом она не видна — так и в макете, проявляется на тёмных и жёлтых секциях
+.has-texture {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+
+    background: url('../img/images/texture.png') repeat;
+    background-size: rem(134);
+    opacity: 0.3;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+}
+
+// Топографические линии из макета. На светлых секциях — 2 %, на тёмной главной — во всю силу (цвет линий уже приглушённый)
+.has-topo {
+  position: relative;
+  isolation: isolate;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    background: url('../img/icons/pattern.svg') center top / rem(1920) auto repeat-y;
+    opacity: var(--topo-opacity, 0.02);
+    pointer-events: none;
+  }
+}
