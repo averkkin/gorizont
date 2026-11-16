@@ -355,15 +355,18 @@
   }
 }
 
+// Скриншот целиком вписывается в экран (режим fit): без прокрутки внутри окна,
+// иначе длинный отзыв выглядел обрезанным
 .review-lightbox {
   position: fixed;
   inset: 0;
   margin: auto;
   width: fit-content;
-  max-width: min(#{rem(560)}, calc(100vw - #{rem(32)}));
+  height: fit-content;
+  max-width: calc(100vw - #{rem(32)});
   max-height: calc(100dvh - #{rem(32)});
   padding: 0;
-  overflow: auto;
+  overflow: hidden;
   border: 0;
   border-radius: rem(20);
   background-color: var(--color-brown);
@@ -374,20 +377,22 @@
 
   &__img {
     display: block;
-    width: 100%;
+    width: auto;
     height: auto;
+    max-width: calc(100vw - #{rem(32)});
+    max-height: calc(100dvh - #{rem(32)});
+    object-fit: contain;
   }
 
   &__close {
     @include flex-center;
 
-    position: sticky;
+    position: absolute;
     top: rem(12);
+    right: rem(12);
     z-index: 1;
-    float: right;
     width: rem(40);
     height: rem(40);
-    margin: rem(12) rem(12) rem(-52) 0;
     border: 0;
     border-radius: 50%;
     color: var(--color-dark);
@@ -398,5 +403,11 @@
       width: rem(20);
       height: rem(20);
     }
+  }
+
+  // Общее правило button[aria-label] { position: relative } сильнее одного класса —
+  // без этого кнопка встает в поток и сдвигает скриншот вниз
+  & > &__close {
+    position: absolute;
   }
 }
