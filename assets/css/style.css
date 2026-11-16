@@ -1514,9 +1514,9 @@ button[aria-label]::before {
   color: var(--color-dark);
   opacity: 0.4;
 }
-.tour-schedule .search:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 0.1875rem;
+.tour-schedule .search:focus, .tour-schedule .search:focus-visible {
+  outline: none;
+  border-color: var(--color-accent);
 }
 .tour-schedule__grid {
   display: flex;
@@ -2492,7 +2492,7 @@ button[aria-label]::before {
   overflow: hidden;
 }
 .reviews-slider .glide__slides {
-  align-items: center;
+  align-items: flex-start;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -2502,6 +2502,7 @@ button[aria-label]::before {
   height: auto;
   padding-inline: 0.75rem;
   transform: scale(0.82);
+  transform-origin: top center;
   opacity: 0.55;
   transition: transform 0.6s ease, opacity 0.6s ease;
 }
@@ -2510,6 +2511,9 @@ button[aria-label]::before {
 }
 .reviews-slider__slide .review-shot__open {
   cursor: pointer;
+}
+.reviews-slider__slide .review-shot__img {
+  max-height: 25rem;
 }
 .reviews-slider__slide.glide__slide--active {
   transform: scale(1);
@@ -3201,10 +3205,11 @@ button[aria-label]::before {
   border: 1px solid rgba(0, 0, 0, 0.1254901961);
   border-radius: 62.4375rem;
   background-color: var(--color-light);
+  transition: border-color 0.2s ease;
 }
-.products-catalog__search:focus-visible, .products-catalog__sort:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 0.1875rem;
+.products-catalog__search:focus, .products-catalog__search:focus-visible, .products-catalog__sort:focus, .products-catalog__sort:focus-visible {
+  outline: none;
+  border-color: var(--color-accent);
 }
 .products-catalog__search::placeholder {
   color: #2A2A2A;

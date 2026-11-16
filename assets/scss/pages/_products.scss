@@ -134,10 +134,13 @@
     border: 1px solid #00000020;
     border-radius: rem(999);
     background-color: var(--color-light);
+    transition: border-color 0.2s ease;
 
+    // Фокус — цветной рамкой самого поля, без обводки снаружи
+    &:focus,
     &:focus-visible {
-      outline: 2px solid var(--color-accent);
-      outline-offset: rem(3);
+      outline: none;
+      border-color: var(--color-accent);
     }
   }
 

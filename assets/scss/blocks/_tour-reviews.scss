@@ -133,8 +133,9 @@
     overflow: hidden;
   }
 
+  // Карточки по верхнему краю: при выравнивании по центру короткие отзывы висели посреди высоты самого длинного скриншота
   .glide__slides {
-    align-items: center;
+    align-items: flex-start;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -145,6 +146,7 @@
     height: auto;
     padding-inline: rem(12);
     transform: scale(0.82);
+    transform-origin: top center;
     opacity: 0.55;
     transition: transform 0.6s ease, opacity 0.6s ease;
 
@@ -154,6 +156,11 @@
 
     .review-shot__open {
       cursor: pointer;
+    }
+
+    // В слайдере скриншот обрезан по высоте, целиком он открывается по клику
+    .review-shot__img {
+      max-height: rem(400);
     }
 
     &.glide__slide--active {
