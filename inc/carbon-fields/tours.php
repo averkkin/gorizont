@@ -26,6 +26,35 @@ function crb_attach_page_and_tour_fields() {
                     'intl_excursions' => 'Выездные экскурсии',
                 )),
         ));
+
+    // Описание направления и форматы — между Hero и расписанием. Блок выводится, только если заполнен
+    Container::make('post_meta', 'Описание направления и форматы')
+        ->where('post_template', '=', 'template-tour-schedule.php')
+        ->add_fields(array(
+            Field::make('text', 'schedule_about_title', 'Заголовок описания'),
+            Field::make('textarea', 'schedule_about_text', 'Текст описания')
+                ->set_help_text('Абзацы разделяйте пустой строкой. Если пусто — желтый блок описания не выводится'),
+            Field::make('complex', 'schedule_about_meta', 'Плашки под описанием')
+                ->set_max(3)
+                ->add_fields(array(
+                    Field::make('text', 'label', 'Подпись (например: Где:)')->set_width(50),
+                    Field::make('text', 'text', 'Значение')->set_width(50),
+                ))
+                ->set_header_template('<%- label %>'),
+
+            Field::make('text', 'schedule_formats_title', 'Заголовок форматов')->set_default_value('Форматы походов'),
+            Field::make('complex', 'schedule_formats', 'Форматы (вкладки)')
+                ->set_layout('tabbed-horizontal')
+                ->add_fields(array(
+                    Field::make('text', 'tab', 'Название вкладки (например: 1 день)'),
+                    Field::make('text', 'title', 'Заголовок формата (например: Однодневные туры)'),
+                    Field::make('textarea', 'text', 'Как проходит')
+                        ->set_help_text('Абзацы разделяйте пустой строкой'),
+                    Field::make('textarea', 'included', 'Что входит в стоимость (каждый пункт с новой строки)'),
+                    Field::make('textarea', 'routes', 'Маршруты (каждый с новой строки)'),
+                ))
+                ->set_header_template('<%- tab %>'),
+        ));
 }
 
 // 2. Регистрируем кастомный тип записей "Туры и экскурсии" (если еще не создан)
@@ -62,10 +91,12 @@ function crb_attach_tour_type() {
             Field::make('checkbox', 'is_popular', 'Популярный тур (для фильтра)'),
             Field::make('select', 'tour_duration', 'Длительность')
                 ->add_options(array(
+                    '1' => 'Однодневный',
+                    '2' => 'Двухдневный',
                     '3' => '3-х дневный',
                     '5' => '5-ти дневный',
                     '7' => '7-ми дневный',
-                    'other' => 'Другое/Однодневный',
+                    'other' => 'Другое',
                 )),
             Field::make('text', 'tour_start_date', 'Дата начала (текстом, например: 28 июня 2026)'),
             Field::make('select', 'tour_difficulty_stars', 'Уровень сложности (количество иконок)')

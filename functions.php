@@ -194,5 +194,10 @@ require get_template_directory() . '/inc/contacts.php';
  */
 require get_template_directory() . '/inc/legal.php';
 
+/**
+ * Расписание туров: даты, прошедшие выезды, счётчики
+ */
+require get_template_directory() . '/inc/schedule.php';
+
 
 add_filter('show_admin_bar', '__return_false');

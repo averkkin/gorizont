@@ -1610,6 +1610,139 @@ button[aria-label]::before {
   }
 }
 
+.schedule-formats {
+  color: var(--color-dark);
+  background-color: var(--color-light);
+}
+.schedule-formats .inner {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.875rem, 1.270661157rem + 2.479338843vw, 3.75rem);
+  padding-top: clamp(3.75rem, 2.742768595rem + 4.132231405vw, 6.875rem);
+}
+.schedule-formats__header {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.9375rem, 0.2324380165rem + 2.8925619835vw, 3.125rem);
+}
+.schedule-formats .h2 {
+  font-size: clamp(2rem, 0.7107438017rem + 5.2892561983vw, 6rem);
+  color: var(--color-dark);
+}
+.schedule-formats__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.9375rem, 0.8367768595rem + 0.4132231405vw, 1.25rem);
+  padding-block: clamp(1.25rem, 1.048553719rem + 0.826446281vw, 1.875rem);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.062745098);
+}
+.schedule-formats__tab {
+  font-size: clamp(1rem, 0.9194214876rem + 0.3305785124vw, 1.25rem);
+  padding: 0;
+  color: var(--color-dark);
+  border-bottom: 2px solid transparent;
+  background: none;
+  cursor: pointer;
+}
+.schedule-formats__tab.active {
+  border-bottom-color: var(--color-accent);
+}
+.schedule-formats__tab:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 0.25rem;
+}
+.schedule-formats__panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.25rem, 0.847107438rem + 1.652892562vw, 2.5rem);
+}
+.schedule-formats__panel[hidden] {
+  display: none;
+}
+.schedule-formats__about {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.9375rem, 0.6353305785rem + 1.2396694215vw, 1.875rem);
+}
+.schedule-formats__about .h3 {
+  font-size: clamp(1.5rem, 1.2582644628rem + 0.9917355372vw, 2.25rem);
+  color: var(--color-dark);
+}
+.schedule-formats__text {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.75rem, 0.5888429752rem + 0.6611570248vw, 1.25rem);
+}
+.schedule-formats__text p {
+  font-size: clamp(0.875rem, 0.7541322314rem + 0.4958677686vw, 1.25rem);
+  line-height: 1.5;
+}
+.schedule-formats__label {
+  font-size: clamp(1rem, 0.8388429752rem + 0.6611570248vw, 1.5rem);
+  color: var(--color-dark);
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.schedule-formats__included {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.25rem, 1.048553719rem + 0.826446281vw, 1.875rem);
+  align-self: start;
+  padding: clamp(1.5625rem, 0.8574380165rem + 2.8925619835vw, 3.75rem);
+  border-radius: clamp(1.25rem, 0.847107438rem + 1.652892562vw, 2.5rem);
+  background-color: var(--color-dark-10);
+}
+.schedule-formats__included ul {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.625rem, 0.5242768595rem + 0.4132231405vw, 0.9375rem);
+}
+.schedule-formats__included li {
+  font-size: clamp(0.875rem, 0.7944214876rem + 0.3305785124vw, 1.125rem);
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+.schedule-formats__included .box {
+  flex-shrink: 0;
+  width: clamp(1.5rem, 1.2381198347rem + 1.0743801653vw, 2.3125rem);
+  height: clamp(1.5rem, 1.2381198347rem + 1.0743801653vw, 2.3125rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.625rem;
+  background-color: var(--color-dark);
+}
+.schedule-formats__included .box img {
+  width: clamp(0.875rem, 0.7541322314rem + 0.4958677686vw, 1.25rem);
+  height: auto;
+}
+.schedule-formats__routes {
+  grid-column: 1/-1;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.9375rem, 0.8367768595rem + 0.4132231405vw, 1.25rem);
+}
+.schedule-formats__routes ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.5rem, 0.4194214876rem + 0.3305785124vw, 0.75rem);
+}
+.schedule-formats__routes li {
+  font-size: clamp(0.875rem, 0.7944214876rem + 0.3305785124vw, 1.125rem);
+  padding: 0.625rem 1.125rem;
+  border: 1px solid var(--color-dark-20);
+  border-radius: 62.4375rem;
+}
+@media (width <= 63.99875rem) {
+  .schedule-formats__panel {
+    grid-template-columns: 1fr;
+  }
+  .schedule-formats__included li {
+    align-items: flex-start;
+  }
+}
+
 .tour-description {
   width: 100%;
   height: fit-content;

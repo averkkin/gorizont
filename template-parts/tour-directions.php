@@ -1,40 +1,21 @@
 <?php
-$count_tours = static function ($type) {
-    $query = new WP_Query(array(
-        'post_type'      => 'tours',
-        'post_status'    => 'publish',
-        'posts_per_page' => 1,
-        'fields'         => 'ids',
-        'no_found_rows'  => false,
-        'meta_query'     => array(array('key' => '_tour_type', 'value' => $type)),
-    ));
-    return (int) $query->found_posts;
-};
-$plural_tours = static function ($n) {
-    $mod100 = $n % 100;
-    $mod10  = $n % 10;
-    if ($mod100 >= 11 && $mod100 <= 14) {
-        $word = 'туров';
-    } elseif ($mod10 === 1) {
-        $word = 'тур';
-    } elseif ($mod10 >= 2 && $mod10 <= 4) {
-        $word = 'тура';
-    } else {
-        $word = 'туров';
-    }
-    return $n . ' ' . $word;
-};
+$local_url = gorizont_schedule_page_url('local_tours');
+$intl_url  = gorizont_schedule_page_url('intl_tours', home_url('/tour-schedule/'));
 ?>
 <section class="tour-directions" aria-label="Расписание туров">
     <div class="container tour-directions__items">
 
         <article class="tour-directions__item">
             <div class="tour-directions__inner">
-                <span class="total-tour"><?php echo esc_html($plural_tours($count_tours('local_tours'))); ?></span>
+                <span class="total-tour"><?php echo esc_html(gorizont_plural_tours(gorizont_count_schedule_tours('local_tours'))); ?></span>
                 <div class="content">
                     <h2 class="h2">Расписание местных туров</h2>
                     <div class="action">
-                        <a href="#develop-form" rel="modal:open">Смотреть расписание</a>
+                        <?php if ($local_url) : ?>
+                            <a href="<?php echo esc_url($local_url); ?>">Смотреть расписание</a>
+                        <?php else : ?>
+                            <a href="#develop-form" rel="modal:open">Смотреть расписание</a>
+                        <?php endif; ?>
                         <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/arrow-right-link.svg'); ?>" alt="" aria-hidden="true">
                     </div>
                 </div>
@@ -44,11 +25,11 @@ $plural_tours = static function ($n) {
 
         <article class="tour-directions__item">
             <div class="tour-directions__inner">
-                <span class="total-tour"><?php echo esc_html($plural_tours($count_tours('intl_tours'))); ?></span>
+                <span class="total-tour"><?php echo esc_html(gorizont_plural_tours(gorizont_count_schedule_tours('intl_tours'))); ?></span>
                 <div class="content">
                     <h2 class="h2">Расписание выездных туров</h2>
                     <div class="action">
-                        <a href="/tour-schedule">Смотреть расписание</a>
+                        <a href="<?php echo esc_url($intl_url); ?>">Смотреть расписание</a>
                         <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/arrow-right-link.svg'); ?>" alt="" aria-hidden="true">
                     </div>
                 </div>

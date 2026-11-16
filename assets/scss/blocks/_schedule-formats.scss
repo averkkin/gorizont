@@ -1,0 +1,168 @@
+@use '../helpers/index' as *;
+
+// Форматы на странице расписания: вкладки как у фильтра расписания,
+// «Входит в стоимость» — как в «Условиях участия», только на светлом фоне
+.schedule-formats {
+  color: var(--color-dark);
+  background-color: var(--color-light);
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+    gap: fluid(60, 30);
+
+    padding-top: fluid(110, 60);
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: fluid(50, 15);
+  }
+
+  .h2 {
+    @include fluid-text(96, 32);
+    color: var(--color-dark);
+  }
+
+  &__tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: fluid(20, 15);
+    padding-block: fluid(30, 20);
+    border-bottom: 1px solid #00000010;
+  }
+
+  &__tab {
+    @include fluid-text(20, 16);
+
+    padding: 0;
+    color: var(--color-dark);
+    border-bottom: 2px solid transparent;
+    background: none;
+    cursor: pointer;
+
+    &.active {
+      border-bottom-color: var(--color-accent);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: rem(4);
+    }
+  }
+
+  &__panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: fluid(40, 20);
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  &__about {
+    display: flex;
+    flex-direction: column;
+    gap: fluid(30, 15);
+
+    .h3 {
+      @include fluid-text(36, 24);
+      color: var(--color-dark);
+    }
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: fluid(20, 12);
+
+    p {
+      @include fluid-text(20, 14);
+      line-height: 1.5;
+    }
+  }
+
+  &__label {
+    @include fluid-text(24, 16);
+    color: var(--color-dark);
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+
+  &__included {
+    display: flex;
+    flex-direction: column;
+    gap: fluid(30, 20);
+
+    align-self: start;
+    padding: fluid(60, 25);
+    border-radius: fluid(40, 20);
+    background-color: var(--color-dark-10);
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: fluid(15, 10);
+    }
+
+    li {
+      @include fluid-text(18, 14);
+
+      display: flex;
+      align-items: center;
+      gap: rem(10);
+    }
+
+    .box {
+      flex-shrink: 0;
+      width: fluid(37, 24);
+      height: fluid(37, 24);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: rem(10);
+      background-color: var(--color-dark);
+
+      img {
+        width: fluid(20, 14);
+        height: auto;
+      }
+    }
+  }
+
+  &__routes {
+    grid-column: 1 / -1;
+
+    display: flex;
+    flex-direction: column;
+    gap: fluid(20, 15);
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: fluid(12, 8);
+    }
+
+    li {
+      @include fluid-text(18, 14);
+
+      padding: rem(10) rem(18);
+      border: 1px solid var(--color-dark-20);
+      border-radius: rem(999);
+    }
+  }
+
+  @include tablet {
+    &__panel {
+      grid-template-columns: 1fr;
+    }
+
+    &__included li {
+      align-items: flex-start;
+    }
+  }
+}

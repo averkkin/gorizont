@@ -24,6 +24,10 @@ if ($current_tour_type !== 'all') {
 
 $tours_loop = new WP_Query($query_args);
 
+// У местных туров прошедшие выезды скрываются, остальные идут по дате
+$tours_loop->posts      = gorizont_prepare_schedule_posts($tours_loop->posts, $current_tour_type);
+$tours_loop->post_count = count($tours_loop->posts);
+
 if ($tours_loop->have_posts()) :
     while ($tours_loop->have_posts()) : $tours_loop->the_post();
 
@@ -90,7 +94,11 @@ if ($tours_loop->have_posts()) :
                     </div>
 
                     <div class="actions">
-                        <a class="button" href="<?php echo esc_url(get_permalink()); ?>">узнать больше</a>
+                        <?php if ('local_tours' === $tour_type) : // Местные выезды без отдельной страницы — сразу заявка ?>
+                            <a class="button" href="#login-form" rel="modal:open">записаться</a>
+                        <?php else : ?>
+                            <a class="button" href="<?php echo esc_url(get_permalink()); ?>">узнать больше</a>
+                        <?php endif; ?>
                         <a class="button button--outline" href="<?php echo esc_url(gorizont_whatsapp_url()); ?>" target="_blank" rel="noopener">написать в WhatsApp</a>
                     </div>
                 </div>

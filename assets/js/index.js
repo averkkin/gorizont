@@ -225,6 +225,13 @@ const initTourScheduleFilters = () => {
                 return false
             }
 
+            // Местные туры: точное число дней, «days-2» — двухдневные
+            const exactDays = activeFilter.match(/^days-(\d+)$/)
+
+            if (exactDays) {
+                return durationDays === Number(exactDays[1])
+            }
+
             if (activeFilter === 'duration-up-to-7') {
                 return durationDays <= 7
             }
@@ -300,6 +307,44 @@ const initTourScheduleFilters = () => {
         }
 
         applyFilters()
+    })
+}
+
+// Вкладки форматов на странице расписания (1, 2, 3 дня)
+const initScheduleFormats = () => {
+    document.querySelectorAll('[data-js-schedule-formats]').forEach((formatsElement) => {
+        const tabElements = Array.from(formatsElement.querySelectorAll('[role="tab"]'))
+
+        const selectTab = (selectedTab) => {
+            tabElements.forEach((tabElement) => {
+                const isSelected = tabElement === selectedTab
+                const panelElement = document.getElementById(tabElement.getAttribute('aria-controls'))
+
+                tabElement.classList.toggle('active', isSelected)
+                tabElement.setAttribute('aria-selected', String(isSelected))
+                tabElement.tabIndex = isSelected ? 0 : -1
+
+                if (panelElement) {
+                    panelElement.hidden = !isSelected
+                }
+            })
+        }
+
+        tabElements.forEach((tabElement, index) => {
+            tabElement.addEventListener('click', () => selectTab(tabElement))
+
+            tabElement.addEventListener('keydown', (event) => {
+                const step = {ArrowRight: 1, ArrowLeft: -1}[event.key]
+
+                if (!step) {
+                    return
+                }
+
+                const nextTab = tabElements[(index + step + tabElements.length) % tabElements.length]
+                selectTab(nextTab)
+                nextTab.focus()
+            })
+        })
     })
 }
 
@@ -382,6 +427,7 @@ const revealSelectors = [
     '.tour-schedule__header',
     '.tour-schedule__tour',
     '.tour-description__content > *',
+    '.schedule-formats__header',
     '.tour-timeline .h2',
     '.timeline__item',
     '.tour-conditions .h2',
@@ -509,6 +555,7 @@ const initPage = () => {
     initReviewsSliders()
     initReviewLightbox()
     initTourScheduleFilters()
+    initScheduleFormats()
 }
 
 if (document.readyState === 'loading') {

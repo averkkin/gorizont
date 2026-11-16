@@ -17,8 +17,14 @@ $hero_args = array(
 <main id="primary" class="site-main">
 <?php
 get_template_part('template-parts/hero-block', null, $hero_args);
+get_template_part('template-parts/schedule-about', null, array('page_id' => $page_id));
 
 $tour_type = carbon_get_post_meta($page_id, 'tour_type_filter');
+
+// Местные туры короткие — фильтруем по дням, у остальных диапазоны
+$schedule_filters = 'local_tours' === $tour_type
+    ? array('all' => 'Все', 'days-1' => '1 день', 'days-2' => '2 дня', 'days-3' => '3 дня')
+    : array('all' => 'Все', 'popular' => 'Популярные туры', 'duration-up-to-7' => 'до 7-ми дней', 'duration-up-to-15' => 'до 15-ти дней', 'duration-over-15' => 'более 15-ти дней');
 
 $section_title = get_the_title();
 $search_id = 'tour-schedule-search-' . $page_id;
@@ -31,11 +37,9 @@ $search_id = 'tour-schedule-search-' . $page_id;
 
                 <div class="tour-filter" data-js-tour-filter>
                     <ul aria-label="Фильтр туров по параметрам">
-                        <li class="active" data-filter="all"><button type="button" aria-pressed="true">Все</button></li>
-                        <li data-filter="popular"><button type="button" aria-pressed="false">Популярные туры</button></li>
-                        <li data-filter="duration-up-to-7"><button type="button" aria-pressed="false">до 7-ми дней</button></li>
-                        <li data-filter="duration-up-to-15"><button type="button" aria-pressed="false">до 15-ти дней</button></li>
-                        <li data-filter="duration-over-15"><button type="button" aria-pressed="false">более 15-ти дней</button></li>
+                        <?php foreach ($schedule_filters as $filter => $label) : ?>
+                            <li<?php echo 'all' === $filter ? ' class="active"' : ''; ?> data-filter="<?php echo esc_attr($filter); ?>"><button type="button" aria-pressed="<?php echo 'all' === $filter ? 'true' : 'false'; ?>"><?php echo esc_html($label); ?></button></li>
+                        <?php endforeach; ?>
                     </ul>
                     <label class="visually-hidden" for="<?php echo esc_attr($search_id); ?>">Поиск туров</label>
                     <input
