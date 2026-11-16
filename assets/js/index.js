@@ -310,6 +310,70 @@ const initTourScheduleFilters = () => {
     })
 }
 
+// Каталог авторской продукции: фильтр по категориям, поиск и сортировка по цене
+const initProductsCatalog = () => {
+    document.querySelectorAll('[data-js-products]').forEach((catalogElement) => {
+        const gridElement = catalogElement.querySelector('[data-js-products-grid]')
+        const searchElement = catalogElement.querySelector('[data-js-products-search]')
+        const sortElement = catalogElement.querySelector('[data-js-products-sort]')
+        const emptyElement = catalogElement.querySelector('[data-js-products-empty]')
+        const allButtonElement = catalogElement.querySelector('[data-js-products-all]')
+        const checkboxElements = Array.from(catalogElement.querySelectorAll('[data-js-products-filter] input[type="checkbox"]'))
+        const cardElements = Array.from(catalogElement.querySelectorAll('.product-card'))
+
+        if (!gridElement || cardElements.length === 0) {
+            return
+        }
+
+        const applyFilters = () => {
+            const selected = checkboxElements.filter((checkbox) => checkbox.checked).map((checkbox) => checkbox.value)
+            const query = searchElement ? searchElement.value.trim().toLocaleLowerCase('ru-RU') : ''
+            let visibleCount = 0
+
+            cardElements.forEach((cardElement) => {
+                const categories = (cardElement.dataset.categories || '').split(' ')
+                const isMatchingCategory = selected.length === 0 || selected.some((slug) => categories.includes(slug))
+                const isMatchingSearch = !query || (cardElement.dataset.search || '').includes(query)
+                const isVisible = isMatchingCategory && isMatchingSearch
+
+                cardElement.hidden = !isVisible
+                visibleCount += isVisible ? 1 : 0
+            })
+
+            if (emptyElement) {
+                emptyElement.hidden = visibleCount > 0
+            }
+        }
+
+        const applySort = () => {
+            const mode = sortElement ? sortElement.value : 'default'
+            const sorted = [...cardElements].sort((a, b) => {
+                if (mode === 'price-asc') {
+                    return Number(a.dataset.price) - Number(b.dataset.price)
+                }
+
+                if (mode === 'price-desc') {
+                    return Number(b.dataset.price) - Number(a.dataset.price)
+                }
+
+                return Number(a.dataset.order) - Number(b.dataset.order)
+            })
+
+            sorted.forEach((cardElement) => gridElement.append(cardElement))
+        }
+
+        checkboxElements.forEach((checkbox) => checkbox.addEventListener('change', applyFilters))
+        searchElement?.addEventListener('input', applyFilters)
+        sortElement?.addEventListener('change', applySort)
+        allButtonElement?.addEventListener('click', () => {
+            checkboxElements.forEach((checkbox) => {
+                checkbox.checked = false
+            })
+            applyFilters()
+        })
+    })
+}
+
 // Вкладки форматов на странице расписания (1, 2, 3 дня)
 const initScheduleFormats = () => {
     document.querySelectorAll('[data-js-schedule-formats]').forEach((formatsElement) => {
@@ -426,6 +490,9 @@ const revealSelectors = [
     '.tour-directions__item',
     '.tour-schedule__header',
     '.tour-schedule__tour',
+    '.products-hero__content',
+    '.products-hero__image',
+    '.product-card',
     '.tour-description__content > *',
     '.schedule-formats__header',
     '.tour-timeline .h2',
@@ -556,6 +623,7 @@ const initPage = () => {
     initReviewLightbox()
     initTourScheduleFilters()
     initScheduleFormats()
+    initProductsCatalog()
 }
 
 if (document.readyState === 'loading') {

@@ -39,3 +39,18 @@ function gorizont_pingback_header() {
 	}
 }
 add_action( 'wp_head', 'gorizont_pingback_header' );
+
+/**
+ * Ссылка на первую опубликованную страницу с этим шаблоном. Если такой страницы нет — пустая строка.
+ */
+function gorizont_template_page_url( $template ) {
+	$pages = get_posts( array(
+		'post_type'      => 'page',
+		'post_status'    => 'publish',
+		'posts_per_page' => 1,
+		'meta_key'       => '_wp_page_template',
+		'meta_value'     => $template,
+	) );
+
+	return $pages ? get_permalink( $pages[0] ) : '';
+}

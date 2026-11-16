@@ -1,0 +1,340 @@
+@use '../helpers/index' as *;
+
+// Страница «Авторская продукция»: светлая, как в макете Design → «Авторская продукция»
+.products-page {
+  color: var(--color-dark);
+  background-color: var(--color-light);
+}
+
+.products-hero {
+  padding-block: fluid(80, 40) fluid(120, 60);
+
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: fluid(100, 40);
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: fluid(60, 30);
+    max-width: rem(720);
+  }
+
+  &__title {
+    @include fluid-text(96, 36);
+
+    position: relative;
+    width: fit-content;
+    color: var(--color-dark);
+
+    // В макете линия подчёркивает последнее слово, а не начало строки
+    .h2-decor {
+      position: absolute;
+      right: 0;
+      bottom: -0.2em;
+      width: min(rem(265), 45%);
+      height: auto;
+    }
+  }
+
+  &__desc {
+    @include fluid-text(18, 16);
+
+    max-width: rem(555);
+    line-height: 1.25;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: rem(11);
+  }
+
+  &__image {
+    flex-shrink: 0;
+    width: min(rem(583), 40%);
+
+    img {
+      width: 100%;
+      aspect-ratio: 583 / 662;
+      height: auto;
+      object-fit: cover;
+      border-radius: rem(20);
+    }
+  }
+
+  @include mobile {
+    &__inner {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    &__image {
+      width: 100%;
+
+      img {
+        aspect-ratio: 4 / 3;
+      }
+    }
+  }
+}
+
+.products-catalog {
+  padding-bottom: fluid(140, 70);
+
+  &__inner {
+    display: grid;
+    grid-template-columns: rem(311) 1fr;
+    grid-template-areas:
+      '. toolbar'
+      'filter grid'
+      '. empty';
+    column-gap: fluid(48, 24);
+    row-gap: fluid(48, 24);
+  }
+
+  &__toolbar {
+    grid-area: toolbar;
+
+    display: flex;
+    justify-content: flex-end;
+    gap: rem(24);
+  }
+
+  &__search,
+  &__sort {
+    @include fluid-text(17, 15);
+
+    width: min(rem(430), 100%);
+    height: rem(42);
+    padding-inline: rem(27);
+    color: #2A2A2A;
+    font-weight: 600;
+    border: 1px solid #00000020;
+    border-radius: rem(999);
+    background-color: var(--color-light);
+
+    &:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: rem(3);
+    }
+  }
+
+  &__search::placeholder {
+    color: #2A2A2A;
+  }
+
+  &__sort {
+    appearance: none;
+    padding-right: rem(48);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0h10L5 6z' fill='%232A2A2A'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right rem(24) center;
+    cursor: pointer;
+  }
+
+  &__filter {
+    grid-area: filter;
+    align-self: start;
+
+    display: flex;
+    flex-direction: column;
+    gap: rem(8);
+
+    margin: 0;
+    padding: rem(30);
+    border: none;
+    border-radius: rem(24);
+    background-color: #F5F5F5;
+  }
+
+  &__filter-title {
+    float: left;
+    width: 100%;
+    margin-bottom: rem(28);
+    padding: 0;
+
+    button {
+      @include fluid-text(19, 16);
+
+      padding: 0;
+      color: #000000;
+      font-weight: 600;
+      background: none;
+      cursor: pointer;
+    }
+  }
+
+  &__check {
+    @include fluid-text(19, 16);
+
+    display: flex;
+    align-items: center;
+    gap: rem(10);
+    font-weight: 300;
+    cursor: pointer;
+
+    input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .box {
+      flex-shrink: 0;
+      width: rem(26);
+      height: rem(26);
+      border: 1px solid #00000040;
+      border-radius: rem(8);
+      background-color: var(--color-light);
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    input:checked + .box {
+      border-color: var(--color-accent);
+      background: var(--color-accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M16.667 5L7.5 14.167 3.333 10' stroke='%23141414' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat;
+    }
+
+    input:focus-visible + .box {
+      outline: 2px solid var(--color-accent);
+      outline-offset: rem(2);
+    }
+  }
+
+  &__grid {
+    grid-area: grid;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: fluid(56, 28) fluid(53, 20);
+    align-items: start;
+  }
+
+  &__empty {
+    grid-area: empty;
+
+    @include fluid-text(20, 16);
+    opacity: 0.5;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  @include tablet {
+    &__inner {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'toolbar'
+        'filter'
+        'grid'
+        'empty';
+    }
+
+    &__toolbar {
+      justify-content: stretch;
+
+      > * {
+        flex: 1;
+      }
+    }
+
+    &__filter {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: rem(12) rem(24);
+    }
+
+    &__filter-title {
+      margin-bottom: rem(4);
+    }
+
+    &__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @include mobile {
+    &__toolbar {
+      flex-direction: column;
+      gap: rem(12);
+
+      > * {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  gap: rem(17);
+  color: #061B28;
+
+  &[hidden] {
+    display: none;
+  }
+
+  &__image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 311 / 310;
+    overflow: hidden;
+    color: #00000030;
+    border-radius: rem(24);
+    background-color: #F5F5F5;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1s var(--ease-out);
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: rem(12);
+  }
+
+  &__title {
+    @include fluid-text(24, 18);
+
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: 0;
+  }
+
+  &__desc {
+    @include fluid-text(17, 14);
+
+    font-weight: 300;
+    line-height: 1.15;
+  }
+
+  &__price {
+    @include fluid-text(29, 20);
+
+    color: #496927;
+    font-weight: 700;
+    line-height: 1.15;
+  }
+
+  @include hover {
+    .product-card__image img {
+      transform: scale(1.03);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: rem(6);
+    border-radius: rem(24);
+  }
+}

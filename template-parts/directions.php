@@ -58,7 +58,11 @@
                 <h2 class="h2 direction__h2">Подарки, сувениры и авторская продукция </h2>
                 <p class="p direction__p">Футболки, баффы, шевроны, сувениры с&nbsp;символикой нашего бренда.</p>
             </div>
-            <a class="button" href="#develop-form" rel="modal:open">узнать больше</a>
+            <?php if ($products_url = gorizont_template_page_url('template-products.php')) : ?>
+                <a class="button" href="<?php echo esc_url($products_url); ?>">узнать больше</a>
+            <?php else : ?>
+                <a class="button" href="#develop-form" rel="modal:open">узнать больше</a>
+            <?php endif; ?>
             <span class="direction__count" aria-hidden="true">04</span>
         </div>
         <div class="direction__image visible-mobile">
