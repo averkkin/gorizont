@@ -3,6 +3,8 @@
 $title = !empty($args['title']) ? $args['title'] : 'Экспедиции <br>и выездные походы';
 $desc  = !empty($args['desc']) ? $args['desc'] : 'Путешествия по России и миру — Кавказ, Алтай, Памир, Непал и другие маршруты для тех, кто хочет испытать себя';
 $bg    = !empty($args['bg']) ? $args['bg'] : get_template_directory_uri() . '/assets/img/images/hero-2.jpg';
+// Плавный уход фото в фон, как на странице тура, — когда ниже идёт желтый блок описания
+$fade  = !empty($args['fade']);
 ?>
 
 <section class="hero" aria-labelledby="page-hero-title">
@@ -21,5 +23,9 @@ $bg    = !empty($args['bg']) ? $args['bg'] : get_template_directory_uri() . '/as
             </div>
         </div>
     </div>
+    <?php if ($fade) : ?>
+        <div class="bg-blur-matrix"></div>
+        <div class="bg-blur-gradient"></div>
+    <?php endif; ?>
     <img src="<?php echo esc_url($bg); ?>" alt="" width="1920" height="847" class="background" aria-hidden="true">
 </section>
