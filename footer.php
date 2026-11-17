@@ -96,6 +96,7 @@
                     $dev_links = array(
                         array( 'key' => 'whatsapp', 'label' => 'WhatsApp', 'url' => 'https://wa.me/79963829914' ),
                         array( 'key' => 'telegram', 'label' => 'Telegram', 'url' => 'https://t.me/averkkin' ),
+                        array( 'key' => 'max', 'label' => 'MAX', 'url' => 'https://max.ru/u/f9LHodD0cOKUuVScGMOxW63zSg2thtKDUtOqgRfDPrW_Dd4O4uBKqXo5cl4' ),
                     );
                     foreach ( $dev_links as $dev_link ) : ?>
                         <a class="footer__dev-link" href="<?php echo esc_url( $dev_link['url'] ); ?>" target="_blank" rel="noopener" aria-label="Разработчик в <?php echo esc_attr( $dev_link['label'] ); ?>" title="<?php echo esc_attr( $dev_link['label'] ); ?>">
