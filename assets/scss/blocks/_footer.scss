@@ -74,6 +74,27 @@
     line-height: 1;
   }
 
+  // «Разработка сайта» + иконки мессенджеров разработчика
+  &__dev {
+    display: inline-flex;
+    align-items: center;
+    gap: rem(8);
+  }
+
+  &__dev-links {
+    display: inline-flex;
+    gap: rem(8);
+  }
+
+  &__dev-link {
+    display: inline-flex;
+
+    svg {
+      width: rem(16);
+      height: rem(16);
+    }
+  }
+
   &__down &__note {
     flex-basis: 100%;
     font-weight: 400;

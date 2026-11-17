@@ -89,7 +89,21 @@
 	        </div>
 	        <div class="footer__down container">
 	            <p class="footer-info">© Центр туризма «Горизонт». <time datetime="<?php echo esc_attr(wp_date('Y')); ?>"><?php echo esc_html(wp_date('Y')); ?></time></p>
-            <p class="footer-info">Разработка сайта</p>
+            <p class="footer-info footer__dev">
+                Разработка сайта
+                <span class="footer__dev-links">
+                    <?php
+                    $dev_links = array(
+                        array( 'key' => 'whatsapp', 'label' => 'WhatsApp', 'url' => 'https://wa.me/79963829914' ),
+                        array( 'key' => 'telegram', 'label' => 'Telegram', 'url' => 'https://t.me/averkkin' ),
+                    );
+                    foreach ( $dev_links as $dev_link ) : ?>
+                        <a class="footer__dev-link" href="<?php echo esc_url( $dev_link['url'] ); ?>" target="_blank" rel="noopener" aria-label="Разработчик в <?php echo esc_attr( $dev_link['label'] ); ?>" title="<?php echo esc_attr( $dev_link['label'] ); ?>">
+                            <?php echo gorizont_social_icon( $dev_link['key'] ); // phpcs:ignore WordPress.Security.EscapeOutput -- SVG из темы ?>
+                        </a>
+                    <?php endforeach; ?>
+                </span>
+            </p>
             <a class="footer-info" href="<?php echo esc_url(gorizont_legal_url()); ?>">Юридические документы</a>
             <a class="footer-info" href="<?php echo esc_url(gorizont_legal_url('privacy')); ?>">Политика конфиденциальности</a>
             <?php if (wp_list_filter(gorizont_socials(), array('meta' => true))) : ?>
