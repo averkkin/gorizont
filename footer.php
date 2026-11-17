@@ -71,7 +71,10 @@
 	                            <span class="footer__person-name">Соцсети</span>
 	                            <span class="footer__socials">
 	                                <?php foreach ($socials as $social) : ?>
-	                                    <a href="<?php echo esc_url($social['url']); ?>" target="_blank" rel="noopener"><?php echo esc_html($social['label']); ?><?php echo $social['meta'] ? '*' : ''; ?></a>
+	                                    <a class="footer__social" href="<?php echo esc_url($social['url']); ?>" target="_blank" rel="noopener" aria-label="<?php echo esc_attr($social['label']); ?>" title="<?php echo esc_attr($social['label']); ?>">
+	                                        <?php echo gorizont_social_icon($social['key']); // phpcs:ignore WordPress.Security.EscapeOutput -- SVG из темы ?>
+	                                        <?php if ($social['meta']) : ?><span class="footer__social-mark" aria-hidden="true">*</span><?php endif; ?>
+	                                    </a>
 	                                <?php endforeach; ?>
 	                            </span>
 	                        </li>

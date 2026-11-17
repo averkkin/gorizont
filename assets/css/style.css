@@ -844,7 +844,25 @@ button[aria-label]::before {
 .footer__socials {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem 0.875rem;
+  gap: 1rem;
+  margin-top: 0.375rem;
+}
+.footer__social {
+  position: relative;
+  display: inline-flex;
+  color: var(--color-light);
+  transition: color 0.2s ease;
+}
+.footer__social svg {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+.footer__social-mark {
+  position: absolute;
+  top: -0.375rem;
+  right: -0.5rem;
+  font-size: 0.75rem;
+  line-height: 1;
 }
 .footer__down .footer__note {
   flex-basis: 100%;

@@ -105,13 +105,22 @@ function gorizont_whatsapp_url() {
 }
 
 /**
+ * Иконка соцсети: встроенный SVG, чтобы цвет брался из currentColor.
+ */
+function gorizont_social_icon( $key ) {
+    $file = get_template_directory() . '/assets/img/icons/social-' . sanitize_key( $key ) . '.svg';
+
+    return is_readable( $file ) ? file_get_contents( $file ) : '';
+}
+
+/**
  * Соцсети для подвала: пустые поля пропускаются.
  */
 function gorizont_socials() {
     $socials = array(
-        array( 'label' => 'ВКонтакте', 'url' => gorizont_contact( 'social_vk', 'https://vk.com/gorizont_38' ), 'meta' => false ),
-        array( 'label' => 'Telegram', 'url' => gorizont_contact( 'social_telegram', 'https://t.me/gorizont_38' ), 'meta' => false ),
-        array( 'label' => 'Instagram', 'url' => gorizont_contact( 'social_instagram', 'https://www.instagram.com/pro_gory38/' ), 'meta' => true ),
+        array( 'key' => 'vk', 'label' => 'ВКонтакте', 'url' => gorizont_contact( 'social_vk', 'https://vk.com/gorizont_38' ), 'meta' => false ),
+        array( 'key' => 'telegram', 'label' => 'Telegram', 'url' => gorizont_contact( 'social_telegram', 'https://t.me/gorizont_38' ), 'meta' => false ),
+        array( 'key' => 'instagram', 'label' => 'Instagram', 'url' => gorizont_contact( 'social_instagram', 'https://www.instagram.com/pro_gory38/' ), 'meta' => true ),
     );
 
     return array_values( array_filter( $socials, function ( $social ) {
