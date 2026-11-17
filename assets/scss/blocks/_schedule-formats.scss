@@ -83,6 +83,17 @@
       line-height: 1.5;
       margin-bottom: 0; // промежутки задает gap
     }
+
+    // Ссылки в тексте формата (соцсети) — подчеркнуты, чтобы их было видно
+    a {
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+      transition: color 0.2s ease;
+
+      @include hover {
+        color: #496927;
+      }
+    }
   }
 
   &__label {

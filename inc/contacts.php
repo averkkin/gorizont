@@ -32,6 +32,15 @@ function gorizont_register_contacts_options() {
                     array( 'name' => 'Анастасия', 'phone' => '+79501128904' ),
                 ) ),
         ) )
+        ->add_tab( 'Соцсети', array(
+            Field::make( 'text', 'social_vk', 'ВКонтакте' )
+                ->set_default_value( 'https://vk.com/gorizont_38' ),
+            Field::make( 'text', 'social_telegram', 'Telegram' )
+                ->set_default_value( 'https://t.me/gorizont_38' ),
+            Field::make( 'text', 'social_instagram', 'Instagram' )
+                ->set_default_value( 'https://www.instagram.com/pro_gory38/' )
+                ->set_help_text( 'Рядом со ссылкой на сайте выводится сноска о том, что Meta признана экстремистской в РФ.' ),
+        ) )
         ->add_tab( 'Реквизиты', array(
             Field::make( 'html', 'legal_help' )->set_html( '<p>Реквизиты подставляются в юридические документы сайта (раздел «Юридические документы»).</p>' ),
             Field::make( 'text', 'legal_full_name', 'Полное наименование' )
@@ -93,6 +102,21 @@ function gorizont_email() {
 
 function gorizont_whatsapp_url() {
     return 'https://wa.me/' . preg_replace( '/\D/', '', gorizont_contact( 'contact_whatsapp', '+79642710683' ) );
+}
+
+/**
+ * Соцсети для подвала: пустые поля пропускаются.
+ */
+function gorizont_socials() {
+    $socials = array(
+        array( 'label' => 'ВКонтакте', 'url' => gorizont_contact( 'social_vk', 'https://vk.com/gorizont_38' ), 'meta' => false ),
+        array( 'label' => 'Telegram', 'url' => gorizont_contact( 'social_telegram', 'https://t.me/gorizont_38' ), 'meta' => false ),
+        array( 'label' => 'Instagram', 'url' => gorizont_contact( 'social_instagram', 'https://www.instagram.com/pro_gory38/' ), 'meta' => true ),
+    );
+
+    return array_values( array_filter( $socials, function ( $social ) {
+        return $social['url'] !== '';
+    } ) );
 }
 
 function gorizont_contact_people() {

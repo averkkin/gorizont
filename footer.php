@@ -66,6 +66,16 @@
 	                        <span class="footer__person-name">Почта</span>
 	                        <a href="mailto:<?php echo esc_attr(gorizont_email()); ?>"><?php echo esc_html(gorizont_email()); ?></a>
 	                    </li>
+	                    <?php if ($socials = gorizont_socials()) : ?>
+	                        <li class="footer__person">
+	                            <span class="footer__person-name">Соцсети</span>
+	                            <span class="footer__socials">
+	                                <?php foreach ($socials as $social) : ?>
+	                                    <a href="<?php echo esc_url($social['url']); ?>" target="_blank" rel="noopener"><?php echo esc_html($social['label']); ?><?php echo $social['meta'] ? '*' : ''; ?></a>
+	                                <?php endforeach; ?>
+	                            </span>
+	                        </li>
+	                    <?php endif; ?>
 	                </ul>
 	            </div>
 
@@ -79,6 +89,9 @@
             <p class="footer-info">Разработка сайта</p>
             <a class="footer-info" href="<?php echo esc_url(gorizont_legal_url()); ?>">Юридические документы</a>
             <a class="footer-info" href="<?php echo esc_url(gorizont_legal_url('privacy')); ?>">Политика конфиденциальности</a>
+            <?php if (wp_list_filter(gorizont_socials(), array('meta' => true))) : ?>
+                <p class="footer-info footer__note">*Instagram принадлежит компании Meta, признанной экстремистской и&nbsp;запрещённой в&nbsp;РФ</p>
+            <?php endif; ?>
         </div>
 		</footer><!-- #colophon -->
 

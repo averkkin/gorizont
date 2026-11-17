@@ -114,6 +114,19 @@
     row-gap: fluid(48, 24);
   }
 
+  // Без фильтра каталог занимает всю ширину, и в ряд помещается четыре карточки
+  &__inner--no-filter {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'toolbar'
+      'grid'
+      'empty';
+  }
+
+  &__inner--no-filter &__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
   &__toolbar {
     grid-area: toolbar;
 
@@ -273,7 +286,8 @@
       margin-bottom: rem(4);
     }
 
-    &__grid {
+    &__grid,
+    &__inner--no-filter &__grid {
       grid-template-columns: repeat(2, 1fr);
     }
   }

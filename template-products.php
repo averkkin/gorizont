@@ -16,6 +16,9 @@ $categories = get_terms(array(
         'orderby'    => 'term_id', // в порядке создания: шевроны первыми
 ));
 
+// Фильтр из одной категории бесполезен: показываем его, только когда категорий две и больше
+$show_filter = !is_wp_error($categories) && count($categories) > 1;
+
 $products = new WP_Query(array(
         'post_type'      => 'products',
         'post_status'    => 'publish',
@@ -50,7 +53,7 @@ $products = new WP_Query(array(
 
     <div class="has-topo">
     <section class="products-catalog" id="products-catalog" aria-label="Каталог продукции" data-js-products>
-        <div class="container products-catalog__inner">
+        <div class="container products-catalog__inner<?php echo $show_filter ? '' : ' products-catalog__inner--no-filter'; ?>">
             <div class="products-catalog__toolbar">
                 <label class="visually-hidden" for="products-search">Поиск по товарам</label>
                 <input class="products-catalog__search" id="products-search" type="search" placeholder="Поиск" autocomplete="off" data-js-products-search>
@@ -63,7 +66,7 @@ $products = new WP_Query(array(
                 </select>
             </div>
 
-            <?php if (!empty($categories) && !is_wp_error($categories)) : ?>
+            <?php if ($show_filter) : ?>
                 <fieldset class="products-catalog__filter" data-js-products-filter>
                     <legend class="products-catalog__filter-title">
                         <button type="button" data-js-products-all>Все</button>
