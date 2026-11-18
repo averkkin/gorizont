@@ -13,6 +13,8 @@ $format     = carbon_get_post_meta($tour_id, 'tour_format');
 $price      = carbon_get_post_meta($tour_id, 'tour_price');
 $currency   = carbon_get_post_meta($tour_id, 'tour_currency');
 $hero_description = carbon_get_post_meta($tour_id, 'tour_hero_description');
+// У школьных поездок вместо сложности — для кого программа
+$is_kids_tour = 'kids_tours' === $tour_type;
 $currency_symbols = array(
     'rub' => '₽',
     'usd' => '$',
@@ -61,7 +63,7 @@ $currency_symbol = isset($currency_symbols[$currency]) ? $currency_symbols[$curr
                         <dd class="value"><?php echo esc_html($duration); ?></dd>
                     </div>
                     <div class="group-meta">
-                        <dt class="key">Сложность:</dt>
+                        <dt class="key"><?php echo $is_kids_tour ? 'Для кого:' : 'Сложность:'; ?></dt>
                         <dd class="value"><?php echo esc_html($difficulty); ?></dd>
                     </div>
                     <div class="group-meta">
@@ -114,8 +116,8 @@ $currency_symbol = isset($currency_symbols[$currency]) ? $currency_symbols[$curr
                                 </div>
                             </div>
 
+                            <?php if (!empty($day_images)) : // День без фото — текст на всю ширину, без серой заглушки ?>
                             <div class="timeline__image">
-                                <?php if (!empty($day_images)) : ?>
                                     <?php if ($day_images_count > 1) : ?>
                                         <div class="glide timeline-gallery" id="<?php echo esc_attr($day_slider_id); ?>" data-js-glide-slider>
                                             <div class="glide__track" data-glide-el="track">
@@ -153,10 +155,8 @@ $currency_symbol = isset($currency_symbols[$currency]) ? $currency_symbols[$curr
                                     <?php else : ?>
                                         <img src="<?php echo esc_url($day_images[0]); ?>" alt="<?php echo esc_attr($day['day_title']); ?>" class="timeline-gallery__img">
                                     <?php endif; ?>
-                                <?php else : ?>
-                                    <div class="timeline-gallery__placeholder" aria-hidden="true"></div>
-                                <?php endif; ?>
                             </div>
+                            <?php endif; ?>
                         </li>
                     <?php endforeach;
                 endif; ?>
@@ -198,7 +198,7 @@ $currency_symbol = isset($currency_symbols[$currency]) ? $currency_symbols[$curr
                     <span class="price-block__label">Стоимость</span>
                     <span class="price-block__value">от <span><?php echo esc_html($price . $currency_symbol); ?></span> за участника</span>
                 </div>
-                <button type="button" class="button price-block__button">забронировать экскурсию</button>
+                <a class="button price-block__button" href="#login-form" rel="modal:open"><?php echo $is_kids_tour ? 'оставить заявку' : 'забронировать'; ?></a>
             </div>
         </div>
 

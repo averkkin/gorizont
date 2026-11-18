@@ -1,7 +1,7 @@
 <?php
 // Принимаем тип тура из аргументов (переданных через get_template_part)
 $current_tour_type = !empty($args['tour_type']) ? $args['tour_type'] : 'all';
-$allowed_tour_types = array('all', 'local_tours', 'intl_tours', 'local_excursions', 'intl_excursions');
+$allowed_tour_types = array('all', 'local_tours', 'intl_tours', 'local_excursions', 'intl_excursions', 'kids_tours');
 
 if (!in_array($current_tour_type, $allowed_tour_types, true)) {
     $current_tour_type = 'all';
@@ -41,6 +41,9 @@ if ($tours_loop->have_posts()) :
         $tour_duration   = carbon_get_post_meta($tour_id, 'tour_duration');
         $tour_duration_days = carbon_get_post_meta($tour_id, 'tour_duration_days');
         $is_popular      = carbon_get_post_meta($tour_id, 'is_popular') ? '1' : '0';
+        $tour_region     = carbon_get_post_meta($tour_id, 'tour_region');
+        // Школьные поездки собираются под класс: вместо даты — длительность, сложности нет
+        $is_kids_tour    = 'kids_tours' === $tour_type;
         $duration_days_count = 0;
 
         if (preg_match('/\d+/', (string) $tour_duration_days, $duration_matches)) {
@@ -66,17 +69,24 @@ if ($tours_loop->have_posts()) :
                 data-tour-duration="<?php echo esc_attr($tour_duration); ?>"
                 data-tour-duration-days="<?php echo esc_attr($duration_days_count); ?>"
                 data-tour-popular="<?php echo esc_attr($is_popular); ?>"
+                data-tour-region="<?php echo esc_attr($tour_region); ?>"
                 data-tour-search="<?php echo esc_attr($search_text); ?>"
         >
             <div class="content">
                 <div class="tour-schedule__head">
-                    <span class="title">Дата</span>
-                    <time class="date"><?php echo esc_html($tour_date); ?></time>
+                    <?php if ($is_kids_tour) : ?>
+                        <span class="title">Длительность</span>
+                        <span class="date"><?php echo esc_html($tour_duration_days); ?></span>
+                    <?php else : ?>
+                        <span class="title">Дата</span>
+                        <time class="date"><?php echo esc_html($tour_date); ?></time>
+                    <?php endif; ?>
                 </div>
                 <div class="tour-schedule__info">
 
                     <div class="heading">
                         <div class="tour-header">
+                            <?php if (!$is_kids_tour) : ?>
                             <div class="level" aria-label="<?php echo esc_attr(sprintf('Сложность: %d из 5', $tour_difficulty)); ?>">
                                 <span>Сложность:</span>
                                 <div class="levels" aria-hidden="true">
@@ -88,6 +98,7 @@ if ($tours_loop->have_posts()) :
                                     ?>
                                 </div>
                             </div>
+                            <?php endif; ?>
                             <h3 class="title"><?php echo esc_html(get_the_title()); ?></h3>
                         </div>
                         <p class="subtitle"><?php echo esc_html(get_the_excerpt()); ?></p>

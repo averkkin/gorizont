@@ -22,10 +22,14 @@ get_template_part('template-parts/schedule-about', null, array('page_id' => $pag
 
 $tour_type = carbon_get_post_meta($page_id, 'tour_type_filter');
 
-// Местные туры короткие — фильтруем по дням, у остальных диапазоны
-$schedule_filters = 'local_tours' === $tour_type
-    ? array('all' => 'Все', 'days-1' => '1 день', 'days-2' => '2 дня', 'days-3' => '3 дня')
-    : array('all' => 'Все', 'popular' => 'Популярные туры', 'duration-up-to-7' => 'до 7-ми дней', 'duration-up-to-15' => 'до 15-ти дней', 'duration-over-15' => 'более 15-ти дней');
+// Местные туры короткие — фильтруем по дням, школьные — по России и за рубеж, у остальных диапазоны
+if ('local_tours' === $tour_type) {
+    $schedule_filters = array('all' => 'Все', 'days-1' => '1 день', 'days-2' => '2 дня', 'days-3' => '3 дня');
+} elseif ('kids_tours' === $tour_type) {
+    $schedule_filters = array('all' => 'Все', 'region-russia' => 'По России', 'region-abroad' => 'За рубеж');
+} else {
+    $schedule_filters = array('all' => 'Все', 'popular' => 'Популярные туры', 'duration-up-to-7' => 'до 7-ми дней', 'duration-up-to-15' => 'до 15-ти дней', 'duration-over-15' => 'более 15-ти дней');
+}
 
 $section_title = get_the_title();
 $search_id = 'tour-schedule-search-' . $page_id;

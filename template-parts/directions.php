@@ -40,7 +40,11 @@
                 <h2 class="h2 direction__h2">Познавательные приключения для&nbsp;детей</h2>
                 <p class="p direction__p">Поездки для вашего класса по городам России и за её пределы. Безопасно, увлекательно, и&nbsp;с&nbsp;упором на развитие и сплоченность.</p>
             </div>
-            <a class="button" href="#develop-form" rel="modal:open">узнать больше</a>
+            <?php if ($kids_url = gorizont_schedule_page_url('kids_tours')) : ?>
+                <a class="button" href="<?php echo esc_url($kids_url); ?>">узнать больше</a>
+            <?php else : ?>
+                <a class="button" href="#develop-form" rel="modal:open">узнать больше</a>
+            <?php endif; ?>
             <span class="direction__count" aria-hidden="true">03</span>
         </div>
         <div class="direction__image">

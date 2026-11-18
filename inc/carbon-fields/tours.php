@@ -24,6 +24,7 @@ function crb_attach_page_and_tour_fields() {
                     'intl_tours' => 'Выездные туры',
                     'local_excursions' => 'Местные экскурсии',
                     'intl_excursions' => 'Выездные экскурсии',
+                    'kids_tours' => 'Школьные поездки',
                 )),
         ));
 
@@ -87,6 +88,13 @@ function crb_attach_tour_type() {
                     'intl_tours' => 'Выездные туры',
                     'local_excursions' => 'Местные экскурсии',
                     'intl_excursions' => 'Выездные экскурсии',
+                    'kids_tours' => 'Школьные поездки',
+                )),
+            Field::make('select', 'tour_region', 'Куда (для фильтра школьных поездок)')
+                ->add_options(array(
+                    '' => '—',
+                    'russia' => 'По России',
+                    'abroad' => 'За рубеж',
                 )),
             Field::make('checkbox', 'is_popular', 'Популярный тур (для фильтра)'),
             Field::make('select', 'tour_duration', 'Длительность')

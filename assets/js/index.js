@@ -254,6 +254,7 @@ const initTourScheduleFilters = () => {
             tourElements.forEach((tourElement) => {
                 const isMatchingFilter = activeFilter === 'all'
                     || (activeFilter === 'popular' && tourElement.dataset.tourPopular === '1')
+                    || (activeFilter.startsWith('region-') && activeFilter === `region-${tourElement.dataset.tourRegion}`)
                     || isMatchingDurationRange(tourElement)
                 const isMatchingSearch = !searchQuery
                     || normalizeText(tourElement.dataset.tourSearch || '').includes(searchQuery)
