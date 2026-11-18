@@ -73,7 +73,7 @@ if ($tours_loop->have_posts()) :
                 data-tour-search="<?php echo esc_attr($search_text); ?>"
         >
             <div class="content">
-                <div class="tour-schedule__head">
+                <div class="tour-schedule__head<?php echo $is_kids_tour ? ' tour-schedule__head--duration' : ''; ?>">
                     <?php if ($is_kids_tour) : ?>
                         <span class="title">Длительность</span>
                         <span class="date"><?php echo esc_html($tour_duration_days); ?></span>

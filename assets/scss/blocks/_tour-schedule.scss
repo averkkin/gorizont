@@ -107,6 +107,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      gap: fluid(30, 20); // длинное название не прилипает к дате, когда карточке не хватает высоты
     }
 
     .cover {
@@ -133,6 +134,21 @@
       @include fluid-text(20, 14);
       font-weight: 500;
       opacity: 0.5;
+    }
+
+    // Школьные поездки: «Длительность» — мелкая подпись, главное — сами дни
+    &--duration {
+      .title {
+        @include fluid-text(16, 13);
+        font-weight: 500;
+        opacity: 0.5;
+      }
+
+      .date {
+        @include fluid-text(24, 16);
+        font-weight: 600;
+        opacity: 1;
+      }
     }
   }
 

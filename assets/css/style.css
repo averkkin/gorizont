@@ -1588,6 +1588,7 @@ button[aria-label]::before {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: clamp(1.25rem, 1.048553719rem + 0.826446281vw, 1.875rem);
 }
 .tour-schedule__tour .cover {
   width: clamp(0.625rem, -10.555268595rem + 45.867768595vw, 35.3125rem);
@@ -1609,6 +1610,16 @@ button[aria-label]::before {
   font-size: clamp(0.875rem, 0.7541322314rem + 0.4958677686vw, 1.25rem);
   font-weight: 500;
   opacity: 0.5;
+}
+.tour-schedule__head--duration .title {
+  font-size: clamp(0.8125rem, 0.7520661157rem + 0.2479338843vw, 1rem);
+  font-weight: 500;
+  opacity: 0.5;
+}
+.tour-schedule__head--duration .date {
+  font-size: clamp(1rem, 0.8388429752rem + 0.6611570248vw, 1.5rem);
+  font-weight: 600;
+  opacity: 1;
 }
 .tour-schedule__info {
   display: flex;
