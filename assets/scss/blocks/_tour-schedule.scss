@@ -96,7 +96,7 @@
 
   &__tour {
     display: flex;
-    gap: rem(20);
+    gap: fluid(60, 20);
     justify-content: space-between;
 
     &[hidden] {
@@ -171,7 +171,9 @@
 
     .title {
       @include fluid-text(36, 20);
+      max-width: rem(640); // длинные названия переносятся, а не тянутся до фото
       color: var(--color-dark);
+      text-wrap: balance;
     }
 
     .subtitle {
