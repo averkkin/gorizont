@@ -102,14 +102,17 @@
       margin-bottom: fluid(56, 30);
     }
 
+    // Пункты дня — одной колонкой: читаются по порядку сверху вниз, а не зигзагом,
+    // и у дней без фото строки не растягиваются на всю ширину
     .day-text {
+      max-width: rem(720);
       font-size: fluid(16, 14);
       line-height: 1.6;
 
       ul {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: rem(12) rem(24);
+        grid-template-columns: 1fr;
+        gap: rem(10);
         list-style: none;
         padding: 0;
 

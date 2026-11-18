@@ -2034,13 +2034,14 @@ button[aria-label]::before {
   margin-bottom: clamp(1.875rem, 1.3512396694rem + 2.1487603306vw, 3.5rem);
 }
 .timeline__content .day-text {
+  max-width: 45rem;
   font-size: clamp(0.875rem, 0.8347107438rem + 0.1652892562vw, 1rem);
   line-height: 1.6;
 }
 .timeline__content .day-text ul {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.75rem 1.5rem;
+  grid-template-columns: 1fr;
+  gap: 0.625rem;
   list-style: none;
   padding: 0;
 }
