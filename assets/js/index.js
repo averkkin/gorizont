@@ -561,6 +561,45 @@ const initMotion = () => {
 }
 
 // Линия программы по дням дорисовывается по мере прокрутки: от первой точки до последней
+// Типограф: не оставляем в конце строки предлоги, союзы и числа, а тире в начале строки.
+// Работает по готовому тексту страницы, поэтому касается и того, что заполняют в админке
+const initTypograph = () => {
+    const NBSP = ' '
+    // Слова из 1–2 букв и короткие предлоги/союзы привязываем к следующему слову
+    const shortWord = /(?<![\p{L}\d-])(\p{L}{1,2}|для|без|над|под|при|про|или|что|как|изо|ото|обо)\s+(?=\S)/giu
+    // Число не отрываем от следующего слова: «15 человек», «4 дня»
+    const number = /(\d)\s+(?=[\p{L}%₽])/gu
+    // Тире не переносим в начало строки
+    const dash = /\s+([—–])/g
+    const skip = new Set(['SCRIPT', 'STYLE', 'TEXTAREA', 'INPUT', 'CODE', 'PRE', 'NOSCRIPT', 'OPTION'])
+
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+        acceptNode: (node) => {
+            if (!node.nodeValue.trim() || skip.has(node.parentElement?.tagName) || node.parentElement?.isContentEditable) {
+                return NodeFilter.FILTER_REJECT
+            }
+            return NodeFilter.FILTER_ACCEPT
+        },
+    })
+
+    const nodes = []
+    while (walker.nextNode()) {
+        nodes.push(walker.currentNode)
+    }
+
+    nodes.forEach((node) => {
+        const text = node.nodeValue
+        const fixed = text
+            .replace(shortWord, `$1${NBSP}`)
+            .replace(number, `$1${NBSP}`)
+            .replace(dash, `${NBSP}$1`)
+
+        if (fixed !== text) {
+            node.nodeValue = fixed
+        }
+    })
+}
+
 const initTimelineLine = () => {
     const timeline = document.querySelector('.timeline')
     const items = timeline ? timeline.querySelectorAll('.timeline__item') : []
@@ -616,6 +655,7 @@ const initTimelineLine = () => {
 
 const initPage = () => {
     initMotion()
+    initTypograph()
     initTimelineLine()
     initLeadForms()
     new Header()
