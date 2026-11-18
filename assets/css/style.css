@@ -1957,6 +1957,11 @@ button[aria-label]::before {
   margin-bottom: 3.125rem;
 }
 
+@property --timeline-line-progress {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
 .timeline {
   --timeline-gap: clamp(2.5rem, 1.492768595rem + 4.132231405vw, 5.625rem);
   --timeline-dot-size: 1.5rem;
@@ -1977,10 +1982,11 @@ button[aria-label]::before {
   height: var(--timeline-line-height, 0);
   width: var(--timeline-line-width);
   background-color: #F3B249;
-  transform: scaleY(var(--timeline-line-progress, 0));
-  transform-origin: top;
-  transition: transform 0.2s linear;
   z-index: 0;
+  --timeline-line-fade: 8.75rem;
+  --timeline-line-edge: calc(var(--timeline-line-progress) * (100% + var(--timeline-line-fade)));
+  mask-image: linear-gradient(to bottom, #000 calc(var(--timeline-line-edge) - var(--timeline-line-fade)), transparent var(--timeline-line-edge));
+  transition: --timeline-line-progress 0.2s linear;
 }
 .timeline.is-line-drawing .timeline__item::after {
   display: none;

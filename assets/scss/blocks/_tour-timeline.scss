@@ -12,6 +12,13 @@
   }
 }
 
+// Числовой прогресс линии, чтобы его можно было плавно анимировать
+@property --timeline-line-progress {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
 .timeline {
   --timeline-gap: #{fluid(90, 40)};
   --timeline-dot-size: #{rem(24)};
@@ -36,10 +43,14 @@
       height: var(--timeline-line-height, 0);
       width: var(--timeline-line-width);
       background-color: #F3B249;
-      transform: scaleY(var(--timeline-line-progress, 0));
-      transform-origin: top;
-      transition: transform 0.2s linear;
       z-index: 0;
+
+      // Линия открывается маской до точки прокрутки, кончик плавно растворяется.
+      // При progress = 1 растворение уходит за край, и линия целиком сплошная
+      --timeline-line-fade: #{rem(140)};
+      --timeline-line-edge: calc(var(--timeline-line-progress) * (100% + var(--timeline-line-fade)));
+      mask-image: linear-gradient(to bottom, #000 calc(var(--timeline-line-edge) - var(--timeline-line-fade)), transparent var(--timeline-line-edge));
+      transition: --timeline-line-progress 0.2s linear;
     }
 
     .timeline__item::after {
