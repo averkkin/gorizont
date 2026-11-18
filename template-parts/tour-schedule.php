@@ -15,11 +15,7 @@ $query_args = array(
 
 // Фильтруем по типу (местные/выездные туры или экскурсии)
 if ($current_tour_type !== 'all') {
-    $query_args['meta_query'][] = array(
-            'key'     => '_tour_type',
-            'value'   => $current_tour_type,
-            'compare' => '=',
-    );
+    $query_args['meta_query'][] = gorizont_tour_type_meta_query($current_tour_type);
 }
 
 $tours_loop = new WP_Query($query_args);

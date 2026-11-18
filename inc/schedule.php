@@ -71,6 +71,18 @@ function gorizont_prepare_schedule_posts( array $posts, $tour_type ) {
 }
 
 /**
+ * Условие выборки туров типа: основной тип или отмечен в «Показывать также на страницах».
+ * Carbon хранит каждое значение set-поля отдельной строкой с ключом вида _tour_extra_types|||0|value.
+ */
+function gorizont_tour_type_meta_query( $tour_type ) {
+    return array(
+        'relation' => 'OR',
+        array( 'key' => '_tour_type', 'value' => $tour_type ),
+        array( 'key' => '_tour_extra_types|||', 'compare_key' => 'LIKE', 'value' => $tour_type ),
+    );
+}
+
+/**
  * Сколько туров покажет расписание этого типа.
  */
 function gorizont_count_schedule_tours( $tour_type ) {
@@ -78,7 +90,7 @@ function gorizont_count_schedule_tours( $tour_type ) {
         'post_type'      => 'tours',
         'post_status'    => 'publish',
         'posts_per_page' => -1,
-        'meta_query'     => array( array( 'key' => '_tour_type', 'value' => $tour_type ) ),
+        'meta_query'     => array( gorizont_tour_type_meta_query( $tour_type ) ),
     ) );
 
     return count( gorizont_prepare_schedule_posts( $posts, $tour_type ) );

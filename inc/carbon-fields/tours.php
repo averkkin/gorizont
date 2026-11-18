@@ -90,6 +90,15 @@ function crb_attach_tour_type() {
                     'intl_excursions' => 'Выездные экскурсии',
                     'kids_tours' => 'Школьные поездки',
                 )),
+            Field::make('set', 'tour_extra_types', 'Показывать также на страницах')
+                ->add_options(array(
+                    'local_tours' => 'Местные туры',
+                    'intl_tours' => 'Выездные туры',
+                    'local_excursions' => 'Местные экскурсии',
+                    'intl_excursions' => 'Выездные экскурсии',
+                    'kids_tours' => 'Школьные поездки',
+                ))
+                ->set_help_text('Например, школьная поездка в Японию может выводиться и среди экскурсионных туров'),
             Field::make('select', 'tour_region', 'Куда (для фильтра школьных поездок)')
                 ->add_options(array(
                     '' => '—',
