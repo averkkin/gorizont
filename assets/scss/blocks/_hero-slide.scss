@@ -50,6 +50,7 @@
   }
 
   &__h1 {
+    text-wrap: balance;
     position: relative;
     z-index: 1;
     max-width: fluid(840, 300);
@@ -59,6 +60,7 @@
   }
 
   &__p {
+    text-wrap: balance;
     position: relative;
     z-index: 1;
     max-width: fluid(540, 300);

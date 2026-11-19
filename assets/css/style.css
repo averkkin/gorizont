@@ -980,9 +980,11 @@ button[aria-label]::before {
 }
 .hero__heading .h1 {
   font-size: clamp(2rem, 0.7107438017rem + 5.2892561983vw, 6rem);
+  text-wrap: balance;
 }
 .hero__heading p {
   max-width: 43.75rem;
+  text-wrap: balance;
 }
 .hero__buttons {
   display: flex;
@@ -1088,6 +1090,7 @@ button[aria-label]::before {
   }
 }
 .hero-slide__h1 {
+  text-wrap: balance;
   position: relative;
   z-index: 1;
   max-width: clamp(18.75rem, 7.8719008264rem + 44.6280991736vw, 52.5rem);
@@ -1098,6 +1101,7 @@ button[aria-label]::before {
   }
 }
 .hero-slide__p {
+  text-wrap: balance;
   position: relative;
   z-index: 1;
   max-width: clamp(18.75rem, 13.9152892562rem + 19.8347107438vw, 33.75rem);

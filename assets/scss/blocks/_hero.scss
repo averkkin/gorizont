@@ -30,12 +30,15 @@
     flex-direction: column;
     gap: fluid(55, 20);
 
+    // Строки выравниваются по длине: последнее слово не остаётся одно на новой строке
     .h1 {
       @include fluid-text(96, 32);
+      text-wrap: balance;
     }
 
     p {
       max-width: rem(700);
+      text-wrap: balance;
     }
   }
 
