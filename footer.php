@@ -48,7 +48,6 @@
 	                <nav aria-label="О компании">
                     <ul>
                         <li><a href="<?php echo esc_url(home_url('/reviews/')); ?>">Отзывы</a></li>
-                        <li><a href="#develop-form" rel="modal:open">Команда</a></li>
                         <li><a href="#contacts">Контакты</a></li>
                     </ul>
                 </nav>
@@ -78,6 +77,9 @@
 	                                    </a>
 	                                <?php endforeach; ?>
 	                            </span>
+	                            <?php if (wp_list_filter($socials, array('meta' => true))) : ?>
+	                                <span class="footer__note">*Instagram принадлежит компании Meta, признанной экстремистской и&nbsp;запрещённой в&nbsp;РФ</span>
+	                            <?php endif; ?>
 	                        </li>
 	                    <?php endif; ?>
 	                </ul>
@@ -108,9 +110,6 @@
             </p>
             <a class="footer-info" href="<?php echo esc_url(gorizont_legal_url()); ?>">Юридические документы</a>
             <a class="footer-info" href="<?php echo esc_url(gorizont_legal_url('privacy')); ?>">Политика конфиденциальности</a>
-            <?php if (wp_list_filter(gorizont_socials(), array('meta' => true))) : ?>
-                <p class="footer-info footer__note">*Instagram принадлежит компании Meta, признанной экстремистской и&nbsp;запрещённой в&nbsp;РФ</p>
-            <?php endif; ?>
         </div>
 		</footer><!-- #colophon -->
 
