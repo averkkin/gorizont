@@ -35,7 +35,7 @@
 	                <nav aria-label="Направления">
 	                    <ul>
 	                        <li><a href="<?php echo esc_url(home_url('/tours-direct')); ?>">Альпинизм и трекинг</a></li>
-	                        <li><a href="<?php echo esc_url(home_url('/#excursion')); ?>">Экскурсионные туры</a></li>
+	                        <li><a href="<?php echo esc_url(gorizont_schedule_page_url('intl_excursions', home_url('/#excursion'))); ?>">Экскурсионные туры</a></li>
 	                        <li><a href="<?php echo esc_url(gorizont_schedule_page_url('kids_tours', home_url('/#children'))); ?>">Экскурсии и мероприятия для детей</a></li>
 	                        <li><a href="<?php echo esc_url(gorizont_schedule_page_url('jeep_tours', home_url('/#jeep'))); ?>">Jeep Trip</a></li>
 	                        <li><a href="<?php echo esc_url(home_url('/#products')); ?>">Авторская продукция</a></li>

@@ -25,7 +25,11 @@
                 <h2 class="h2 direction__h2">Путешествуйте с&nbsp;пользой и&nbsp;комфортом</h2>
                 <p class="p direction__p">Самые интересные маршруты по Китаю, в Кыргызстане, Камбодже, Индии, на Кавказе и многие другие</p>
             </div>
-            <a class="button" href="#develop-form" rel="modal:open">смотреть расписание</a>
+            <?php if ($excursions_url = gorizont_schedule_page_url('intl_excursions')) : ?>
+                <a class="button" href="<?php echo esc_url($excursions_url); ?>">смотреть расписание</a>
+            <?php else : ?>
+                <a class="button" href="#develop-form" rel="modal:open">смотреть расписание</a>
+            <?php endif; ?>
             <span class="direction__count" aria-hidden="true">02</span>
         </div>
         <div class="direction__image visible-mobile">

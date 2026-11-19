@@ -26,7 +26,7 @@ $tour_type = carbon_get_post_meta($page_id, 'tour_type_filter');
 // Местные туры короткие — фильтруем по дням, школьные — по России и за рубеж, у остальных диапазоны
 if ('local_tours' === $tour_type) {
     $schedule_filters = array('all' => 'Все', 'days-1' => '1 день', 'days-2' => '2 дня', 'days-3' => '3 дня');
-} elseif ('kids_tours' === $tour_type) {
+} elseif ('kids_tours' === $tour_type || 'intl_excursions' === $tour_type) {
     $schedule_filters = array('all' => 'Все', 'region-russia' => 'По России', 'region-abroad' => 'За рубеж');
 } elseif ('jeep_tours' === $tour_type) {
     $schedule_filters = array('all' => 'Все', 'region-russia' => 'Байкал', 'region-abroad' => 'Монголия');
