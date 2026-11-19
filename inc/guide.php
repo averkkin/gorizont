@@ -229,10 +229,10 @@ function gorizont_guide_render() {
 
                         <nav class="gguide__pager" aria-label="Соседние уроки">
                             <?php if ($prev) : ?>
-                                <a href="#<?php echo esc_attr($prev['id']); ?>" class="gguide__pager-prev"><span>← Предыдущий</span><b><?php echo esc_html($prev['title']); ?></b></a>
+                                <a href="#<?php echo esc_attr($prev['id']); ?>" class="gguide__pager-btn gguide__pager-prev"><i aria-hidden="true">←</i><span><small>Предыдущий урок</small><b><?php echo esc_html($prev['title']); ?></b></span></a>
                             <?php else : ?><span></span><?php endif; ?>
                             <?php if ($next) : ?>
-                                <a href="#<?php echo esc_attr($next['id']); ?>" class="gguide__pager-next"><span>Следующий урок →</span><b><?php echo esc_html($next['title']); ?></b></a>
+                                <a href="#<?php echo esc_attr($next['id']); ?>" class="gguide__pager-btn gguide__pager-next"><span><small>Следующий урок</small><b><?php echo esc_html($next['title']); ?></b></span><i aria-hidden="true">→</i></a>
                             <?php else : ?>
                                 <span class="gguide__pager-end">Это последний урок. Если остался вопрос — напишите разработчику.</span>
                             <?php endif; ?>
@@ -274,8 +274,8 @@ add_action('admin_enqueue_scripts', function ($hook) {
 
 /* Шапка: фирменный коричневый + топографические линии + зерно */
 .gguide__hero{position:relative;isolation:isolate;overflow:hidden;display:flex;justify-content:space-between;align-items:flex-end;gap:32px;padding:34px 40px;border-radius:24px;color:#fff;background:var(--brown)}
-.gguide__hero::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--acc);opacity:.22;
-  -webkit-mask:url(__A__img/icons/pattern.svg) right -260px top -420px/1500px auto no-repeat;mask:url(__A__img/icons/pattern.svg) right -260px top -420px/1500px auto no-repeat}
+.gguide__hero::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--acc);opacity:.18;
+  -webkit-mask:url(__A__img/icons/pattern.svg) center -520px/max(1920px,110%) auto repeat-y;mask:url(__A__img/icons/pattern.svg) center -520px/max(1920px,110%) auto repeat-y}
 .gguide__hero::after{content:"";position:absolute;inset:0;z-index:-1;background:url(__A__img/images/texture.png) repeat;background-size:134px;opacity:.3;mix-blend-mode:overlay;pointer-events:none}
 .gguide__eyebrow{display:inline-block;padding:5px 12px;border-radius:99px;background:var(--acc);color:var(--dark);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
 .gguide__hero h2{font-size:34px;line-height:1.1;font-weight:700;margin:14px 0 10px;color:#fff}
@@ -352,15 +352,22 @@ add_action('admin_enqueue_scripts', function ($hook) {
 .gguide__shot:hover .gguide__zoom,.gguide__shot:focus .gguide__zoom{opacity:1}
 @container (min-width:1300px){.gguide__step{grid-template-columns:minmax(0,3fr) minmax(0,7fr)}}
 
-.gguide__pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}
-.gguide__pager a{display:flex;flex-direction:column;gap:4px;padding:14px 18px;border-radius:14px;border:1px solid var(--line);text-decoration:none;color:var(--dark);transition:border-color .2s,background .2s}
-.gguide__pager a:hover{border-color:var(--acc);color:var(--dark)}
-.gguide__pager a span{font-size:12px;font-weight:600;color:var(--mut)}
-.gguide__pager a b{font-size:15px}
-.gguide__pager-next{text-align:right;grid-column:2;background:var(--acc);border-color:var(--acc) !important}
-.gguide__pager-next:hover{background:var(--acc-h)}
-.gguide__pager-next span{color:var(--brown) !important}
-.gguide__pager-end{grid-column:2;align-self:center;text-align:right;font-size:13px;color:var(--mut)}
+.gguide__pager{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}
+.gguide__pager-btn{display:inline-flex;align-items:center;gap:14px;max-width:min(100%,440px);padding:10px 12px 10px 18px;border-radius:14px;border:1px solid var(--line);text-decoration:none;color:var(--dark);transition:border-color .2s,background .2s}
+.gguide__pager-prev{padding:10px 18px 10px 12px}
+.gguide__pager-btn:hover{border-color:var(--acc);color:var(--dark)}
+.gguide__pager-btn:focus{box-shadow:0 0 0 2px var(--acc);outline:0}
+.gguide__pager-btn span{display:flex;flex-direction:column;gap:2px;min-width:0}
+.gguide__pager-btn small{font-size:12px;font-weight:600;color:var(--mut)}
+.gguide__pager-btn b{font-size:15px;font-weight:700;line-height:1.3}
+.gguide__pager-btn i{flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#f3eee6;font-style:normal;font-size:17px;font-weight:700;transition:transform .2s}
+.gguide__pager-next{margin-left:auto;text-align:right;background:var(--acc);border-color:var(--acc)}
+.gguide__pager-next:hover{background:var(--acc-h);border-color:var(--acc-h)}
+.gguide__pager-next small{color:var(--brown)}
+.gguide__pager-next i{background:var(--dark);color:var(--acc)}
+.gguide__pager-next:hover i{transform:translateX(3px)}
+.gguide__pager-prev:hover i{transform:translateX(-3px)}
+.gguide__pager-end{margin-left:auto;text-align:right;font-size:13px;color:var(--mut)}
 
 .gguide__lightbox{padding:0;border:0;border-radius:14px;max-width:min(96vw,1600px);background:transparent;overflow:visible}
 .gguide__lightbox::backdrop{background:rgba(20,16,14,.85)}
@@ -393,8 +400,10 @@ add_action('admin_enqueue_scripts', function ($hook) {
   .gguide__player{border-radius:12px;margin:0 -6px}
   .gguide__chapters ol{grid-template-columns:1fr}
   .gguide__step{grid-template-columns:1fr;gap:12px;padding:14px}
-  .gguide__pager{grid-template-columns:1fr}
-  .gguide__pager-next,.gguide__pager-end{grid-column:1}
+  .gguide__pager{flex-direction:column-reverse;align-items:stretch}
+  .gguide__pager-btn{max-width:none;justify-content:space-between}
+  .gguide__pager-prev{justify-content:flex-start}
+  .gguide__pager-next{margin-left:0}
 }
 @media (max-width:600px){.gguide__side{top:0}}
 CSS;
