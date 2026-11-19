@@ -194,8 +194,29 @@ function gorizont_guide_render() {
                         </div>
 
                         <div class="gguide__pane" data-gguide-pane="video">
-                            <div class="gguide__player">
+                            <div class="gguide__player" data-gguide-player data-duration="<?php echo esc_attr($video['duration']); ?>">
                                 <video controls playsinline preload="none" poster="<?php echo esc_url(gorizont_guide_media_url($video['poster'])); ?>" data-src="<?php echo esc_url(gorizont_guide_media_url($video['file'])); ?>"></video>
+                                <button type="button" class="gguide__big" data-gguide-big aria-label="Смотреть урок">
+                                    <span class="gguide__big-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z" fill="currentColor"/></svg></span>
+                                    <span class="gguide__big-label">Смотреть урок <small><?php echo esc_html(gorizont_guide_time($video['duration'])); ?></small></span>
+                                </button>
+                                <div class="gguide__bar" data-gguide-bar>
+                                    <button type="button" class="gguide__ctl" data-gguide-play aria-label="Воспроизвести">
+                                        <svg class="i-play" viewBox="0 0 24 24" width="20" height="20"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z" fill="currentColor"/></svg>
+                                        <svg class="i-pause" viewBox="0 0 24 24" width="20" height="20"><rect x="6" y="5" width="4" height="14" rx="1.2" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1.2" fill="currentColor"/></svg>
+                                    </button>
+                                    <span class="gguide__time"><span data-gguide-cur>0:00</span> / <?php echo esc_html(gorizont_guide_time($video['duration'])); ?></span>
+                                    <div class="gguide__track" data-gguide-track role="slider" aria-label="Перемотка" aria-valuemin="0" aria-valuemax="<?php echo esc_attr($video['duration']); ?>" aria-valuenow="0" tabindex="0">
+                                        <span class="gguide__track-buf" data-gguide-buf></span>
+                                        <span class="gguide__track-fill" data-gguide-fill></span>
+                                        <?php foreach ($video['chapters'] as $c => $chapter) : if ($c === 0) { continue; } ?>
+                                            <span class="gguide__tick" style="left:<?php echo esc_attr(round($chapter['t'] / max(1, $video['duration']) * 100, 2)); ?>%"></span>
+                                        <?php endforeach; ?>
+                                        <span class="gguide__track-tip" data-gguide-tip></span>
+                                    </div>
+                                    <button type="button" class="gguide__ctl gguide__speed" data-gguide-speed aria-label="Скорость">1×</button>
+                                    <button type="button" class="gguide__ctl" data-gguide-fs aria-label="Во весь экран"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 9V5h4M20 9V5h-4M4 15v4h4M20 15v4h-4"/></svg></button>
+                                </div>
                             </div>
                             <div class="gguide__chapters">
                                 <span class="gguide__chapters-title">Шаги в ролике — нажмите, чтобы перейти</span>
@@ -320,8 +341,40 @@ add_action('admin_enqueue_scripts', function ($hook) {
 
 .gguide__pane[data-gguide-pane="video"]{display:grid;grid-template-columns:minmax(0,1fr);gap:18px}
 .gguide__pane[hidden]{display:none !important}
-.gguide__player{border-radius:16px;overflow:hidden;background:var(--dark);align-self:start}
-.gguide__player video{display:block;width:100%;aspect-ratio:16/10;background:var(--dark)}
+.gguide__player{position:relative;border-radius:16px;overflow:hidden;background:var(--dark);align-self:start;user-select:none}
+.gguide__player video{display:block;width:100%;aspect-ratio:16/10;background:var(--dark);cursor:pointer}
+.gguide__player:fullscreen{border-radius:0;display:flex;align-items:center}
+.gguide__player:fullscreen video{height:100%;aspect-ratio:auto;object-fit:contain}
+.gguide__big{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;border:0;background:rgba(20,16,14,.28);color:#fff;cursor:pointer;transition:opacity .3s,background .3s}
+.gguide__big:hover{background:rgba(20,16,14,.18)}
+.gguide__big-icon{display:grid;place-items:center;width:84px;height:84px;border-radius:50%;background:var(--acc);color:var(--dark);box-shadow:0 10px 30px rgba(0,0,0,.35);transition:transform .25s}
+.gguide__big-icon svg{margin-left:4px}
+.gguide__big:hover .gguide__big-icon{transform:scale(1.07)}
+.gguide__big-label{padding:7px 14px;border-radius:99px;background:rgba(20,16,14,.72);font-size:15px;font-weight:600}
+.gguide__big-label small{font-size:13px;font-weight:500;color:var(--acc);margin-left:4px}
+.gguide__player.is-started .gguide__big{opacity:0;pointer-events:none}
+.gguide__bar{position:absolute;left:12px;right:12px;bottom:12px;display:flex;align-items:center;gap:6px;padding:6px 10px 6px 6px;border-radius:14px;background:rgba(20,16,14,.82);color:#fff;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;transform:translateY(6px);transition:opacity .25s,transform .25s;pointer-events:none}
+.gguide__player.is-started .gguide__bar{opacity:1;transform:none;pointer-events:auto}
+.gguide__player.is-started.is-playing.is-idle .gguide__bar{opacity:0;transform:translateY(6px);pointer-events:none}
+.gguide__player.is-started.is-playing.is-idle{cursor:none}
+.gguide__ctl{flex:none;display:grid;place-items:center;min-width:38px;height:38px;padding:0 8px;border:0;border-radius:10px;background:none;color:#fff;cursor:pointer;font-size:14px;font-weight:700}
+.gguide__ctl:hover{background:rgba(255,255,255,.12)}
+.gguide__ctl:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+.gguide__ctl .i-pause{display:none}
+.gguide__player.is-playing .gguide__ctl .i-play{display:none}
+.gguide__player.is-playing .gguide__ctl .i-pause{display:block}
+.gguide__speed{min-width:46px;color:var(--acc)}
+.gguide__time{flex:none;padding:0 6px;font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;color:rgba(255,255,255,.85)}
+.gguide__track{position:relative;flex:1;height:30px;cursor:pointer;touch-action:none}
+.gguide__track::before,.gguide__track-buf,.gguide__track-fill{content:"";position:absolute;left:0;top:50%;height:6px;margin-top:-3px;border-radius:99px}
+.gguide__track::before{right:0;background:rgba(255,255,255,.2)}
+.gguide__track-buf{width:0;background:rgba(255,255,255,.3)}
+.gguide__track-fill{width:0;background:var(--acc)}
+.gguide__track-fill::after{content:"";position:absolute;right:-7px;top:50%;width:14px;height:14px;margin-top:-7px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 3px rgba(20,16,14,.5);transform:scale(0);transition:transform .15s}
+.gguide__track:hover .gguide__track-fill::after,.gguide__track.is-drag .gguide__track-fill::after{transform:scale(1)}
+.gguide__tick{position:absolute;top:50%;width:3px;height:6px;margin:-3px 0 0 -1.5px;background:rgba(20,16,14,.75);pointer-events:none}
+.gguide__track-tip{position:absolute;bottom:100%;margin-bottom:8px;transform:translateX(-50%);padding:5px 9px;border-radius:8px;background:#fff;color:var(--dark);font-size:12px;font-weight:600;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s}
+.gguide__track:hover .gguide__track-tip,.gguide__track.is-drag .gguide__track-tip{opacity:1}
 .gguide__chapters{min-width:0}
 .gguide__chapters-title{display:block;font-size:13px;font-weight:600;color:var(--mut);margin-bottom:8px}
 .gguide__chapters ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:6px}
@@ -398,6 +451,10 @@ add_action('admin_enqueue_scripts', function ($hook) {
   .gguide__toolbar,.gguide__switch{width:100%}
   .gguide__switch button{flex:1;justify-content:center}
   .gguide__player{border-radius:12px;margin:0 -6px}
+  .gguide__big-icon{width:68px;height:68px}
+  .gguide__bar{left:6px;right:6px;bottom:6px;gap:2px;padding:4px 6px 4px 4px}
+  .gguide__time{font-size:12px;padding:0 4px}
+  .gguide__player.is-started.is-playing.is-idle .gguide__bar{opacity:1;transform:none;pointer-events:auto}
   .gguide__chapters ol{grid-template-columns:1fr}
   .gguide__step{grid-template-columns:1fr;gap:12px;padding:14px}
   .gguide__pager{flex-direction:column-reverse;align-items:stretch}
@@ -450,7 +507,65 @@ CSS;
       tabPref = b.dataset.gguideTab; store.set('-tab', tabPref); setTab(les, tabPref)
     }))
     const chapters = [...les.querySelectorAll('[data-gguide-seek]')]
-    chapters.forEach((b) => b.addEventListener('click', () => { video.currentTime = parseFloat(b.dataset.gguideSeek); video.play().catch(() => {}) }))
+    const player = les.querySelector('[data-gguide-player]')
+    const dur = () => video.duration || parseFloat(player.dataset.duration) || 1
+    const fmt = (t) => { t = Math.max(0, Math.round(t)); return Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0') }
+    const ensureSrc = () => { if (!video.getAttribute('src')) video.setAttribute('src', video.dataset.src) }
+    const play = () => { ensureSrc(); player.classList.add('is-started'); video.play().catch(() => {}) }
+    const toggle = () => (video.paused || video.ended) ? play() : video.pause()
+    video.controls = false
+    player.querySelector('[data-gguide-big]').addEventListener('click', play)
+    video.addEventListener('click', toggle)
+    player.querySelector('[data-gguide-play]').addEventListener('click', toggle)
+    video.addEventListener('play', () => { player.classList.add('is-playing', 'is-started'); poke() })
+    video.addEventListener('pause', () => player.classList.remove('is-playing', 'is-idle'))
+    video.addEventListener('ended', () => player.classList.remove('is-playing', 'is-idle'))
+    // скорость
+    const speeds = [1, 1.25, 1.5], spBtn = player.querySelector('[data-gguide-speed]')
+    spBtn.addEventListener('click', () => {
+      const n = speeds[(speeds.indexOf(video.playbackRate) + 1) % speeds.length] || 1
+      video.playbackRate = n; spBtn.textContent = String(n).replace('.', ',') + '×'
+    })
+    // полный экран
+    player.querySelector('[data-gguide-fs]').addEventListener('click', () => {
+      if (document.fullscreenElement) return document.exitFullscreen()
+      if (player.requestFullscreen) player.requestFullscreen().catch(() => {})
+      else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen()
+    })
+    video.addEventListener('dblclick', () => player.querySelector('[data-gguide-fs]').click())
+    // панель прячется, если не двигать мышью
+    let idleT
+    const poke = () => { player.classList.remove('is-idle'); clearTimeout(idleT); idleT = setTimeout(() => { if (!video.paused) player.classList.add('is-idle') }, 2500) }
+    player.addEventListener('pointermove', poke)
+    // время, полоса, буфер
+    const cur = player.querySelector('[data-gguide-cur]'), fill = player.querySelector('[data-gguide-fill]'), buf = player.querySelector('[data-gguide-buf]')
+    const track = player.querySelector('[data-gguide-track]'), tip = player.querySelector('[data-gguide-tip]')
+    const paint = () => {
+      const k = Math.min(1, video.currentTime / dur())
+      fill.style.width = (k * 100) + '%'; cur.textContent = fmt(video.currentTime); track.setAttribute('aria-valuenow', Math.round(video.currentTime))
+      if (video.buffered.length) buf.style.width = (video.buffered.end(video.buffered.length - 1) / dur() * 100) + '%'
+    }
+    video.addEventListener('timeupdate', paint); video.addEventListener('progress', paint)
+    const chapterAt = (t) => { let c = chapters[0]; chapters.forEach((b) => { if (parseFloat(b.dataset.gguideSeek) <= t) c = b }); return c }
+    const posToTime = (e) => { const r = track.getBoundingClientRect(); return Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)) * dur() }
+    const showTip = (e) => {
+      const t = posToTime(e), r = track.getBoundingClientRect(), c = chapterAt(t)
+      tip.textContent = fmt(t) + (c ? ' · ' + c.querySelector('span:last-child').textContent : '')
+      tip.style.left = Math.min(Math.max((e.clientX - r.left), 60), r.width - 60) + 'px'
+    }
+    track.addEventListener('pointermove', showTip)
+    track.addEventListener('pointerdown', (e) => {
+      ensureSrc(); track.setPointerCapture(e.pointerId); track.classList.add('is-drag')
+      const seek = (ev) => { video.currentTime = posToTime(ev); paint(); showTip(ev) }
+      seek(e)
+      const up = () => { track.classList.remove('is-drag'); track.removeEventListener('pointermove', seek); track.removeEventListener('pointerup', up) }
+      track.addEventListener('pointermove', seek); track.addEventListener('pointerup', up)
+    })
+    track.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { video.currentTime = Math.min(dur(), video.currentTime + 5); e.preventDefault() }
+      if (e.key === 'ArrowLeft') { video.currentTime = Math.max(0, video.currentTime - 5); e.preventDefault() }
+    })
+    chapters.forEach((b) => b.addEventListener('click', () => { ensureSrc(); video.currentTime = parseFloat(b.dataset.gguideSeek); play() }))
     let last = null
     video.addEventListener('timeupdate', () => {
       let cur = null
@@ -472,6 +587,12 @@ CSS;
   }))
   lb.addEventListener('click', (e) => { if (e.target === lb || e.target.tagName === 'IMG') lb.close() })
 
+  document.addEventListener('keydown', (e) => {
+    if (e.code !== 'Space' || /INPUT|TEXTAREA|BUTTON|SELECT/.test(document.activeElement.tagName)) return
+    const v = root.querySelector('.gguide__lesson.is-active [data-gguide-pane="video"]:not([hidden]) video')
+    if (!v) return
+    e.preventDefault(); v.paused ? v.closest('[data-gguide-player]').querySelector('[data-gguide-big]').click() : v.pause()
+  })
   window.addEventListener('hashchange', () => show(location.hash.slice(1), true))
   if (narrow.matches) menu.open = false
   show(location.hash.slice(1) || store.get('-last', ''), false)
