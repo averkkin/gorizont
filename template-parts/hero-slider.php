@@ -59,7 +59,7 @@
                             <a class="button button--outline" href="<?php echo esc_url(gorizont_whatsapp_url()); ?>" target="_blank" rel="noopener">написать в WhatsApp</a>
                         </div>
                     </div>
-                    <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/images/hero-jeeptrip.jpg'); ?>" alt="" width="1920" height="847" class="hero-slide__background" aria-hidden="true">
+                    <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/images/hero-jeep-road.jpg'); ?>" alt="" width="1920" height="847" class="hero-slide__background" aria-hidden="true">
                 </div>
             </li>
             <li class="glide__slide">
