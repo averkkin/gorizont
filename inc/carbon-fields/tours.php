@@ -42,6 +42,7 @@ function crb_attach_page_and_tour_fields() {
             Field::make('textarea', 'schedule_about_text', 'Текст описания')
                 ->set_help_text('Абзацы разделяйте пустой строкой. Если пусто — желтый блок описания не выводится'),
             Field::make('complex', 'schedule_about_meta', 'Плашки под описанием')
+                ->setup_labels(array('plural_name' => 'Плашки', 'singular_name' => 'плашку'))
                 ->set_max(3)
                 ->add_fields(array(
                     Field::make('text', 'label', 'Подпись (например: Где:)')->set_width(50),
@@ -51,6 +52,7 @@ function crb_attach_page_and_tour_fields() {
 
             Field::make('text', 'schedule_formats_title', 'Заголовок форматов')->set_default_value('Форматы походов'),
             Field::make('complex', 'schedule_formats', 'Форматы (вкладки)')
+                ->setup_labels(array('plural_name' => 'Форматы', 'singular_name' => 'формат'))
                 ->set_layout('tabbed-horizontal')
                 ->add_fields(array(
                     Field::make('text', 'tab', 'Название вкладки (например: 1 день)'),
@@ -165,6 +167,7 @@ function crb_attach_single_tour_fields() {
 
             // 2. Блок "Программа по дням" (Сложный повторяемый элемент)
             Field::make('complex', 'tour_program', 'Программа по дням')
+                ->setup_labels(array('plural_name' => 'Дни', 'singular_name' => 'день'))
                 ->set_layout('tabbed-vertical')
                 ->add_fields(array(
                     Field::make('text', 'day_number', 'Номер дня (например: 1 день)'),
@@ -175,6 +178,7 @@ function crb_attach_single_tour_fields() {
                         ->set_help_text('Лучше используйте «Фотографии дня». Эта картинка показывается, только если «Фотографии дня» пусты'),
 
                     Field::make('complex', 'day_points', 'Пункты программы на этот день')
+                ->setup_labels(array('plural_name' => 'Пункты', 'singular_name' => 'пункт'))
                         ->add_fields(array(
                             Field::make('text', 'point_text', 'Текст пункта')
                         ))
@@ -205,12 +209,14 @@ function crb_attach_single_tour_fields() {
                 ->set_help_text('Если отзывы не выбраны, на странице будут показаны последние опубликованные отзывы.'),
 
             Field::make('complex', 'tour_more_info', 'Дополнительная информация')
+                ->setup_labels(array('plural_name' => 'Разделы', 'singular_name' => 'раздел'))
                 ->set_help_text('Необязательно. Например, что взять с собой: разделы «Обувь», «Одежда» с пунктами')
                 ->set_layout('tabbed-vertical')
                 ->add_fields(array(
                     Field::make('text', 'more_info_title', 'Заголовок раздела')
                         ->set_help_text('Например: Обувь или Одежда'),
                     Field::make('complex', 'more_info_items', 'Пункты раздела')
+                ->setup_labels(array('plural_name' => 'Пункты', 'singular_name' => 'пункт'))
                         ->set_layout('tabbed-vertical')
                         ->add_fields(array(
                             Field::make('text', 'more_info_text', 'Текст пункта'),
