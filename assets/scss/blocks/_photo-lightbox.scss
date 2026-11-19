@@ -1,0 +1,128 @@
+@use '../helpers/index' as *;
+
+// Фото из программы тура можно открыть крупно (initPhotoLightbox)
+.timeline__image img[data-full] {
+  cursor: zoom-in;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: rem(4);
+  }
+}
+
+// Окно на весь экран: фото вписывается целиком, стрелки и счетчик поверх
+.photo-lightbox {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: rem(16);
+  border: 0;
+  color: var(--color-light);
+  background: transparent;
+
+  &[open] {
+    @include flex-center;
+  }
+
+  &::backdrop {
+    background-color: #141414ee;
+  }
+
+  &__img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: rem(12);
+    user-select: none;
+  }
+
+  &__close,
+  &__nav {
+    @include flex-center;
+
+    position: absolute;
+    z-index: 1;
+    width: rem(48);
+    height: rem(48);
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  &__close {
+    top: rem(16);
+    right: rem(16);
+    color: var(--color-dark);
+    background-color: var(--color-accent);
+
+    svg {
+      width: rem(22);
+      height: rem(22);
+    }
+  }
+
+  &__nav {
+    top: 50%;
+    color: var(--color-light);
+    background-color: #00000066;
+    transform: translateY(-50%);
+
+    @include hover {
+      color: var(--color-dark);
+      background-color: var(--color-accent);
+    }
+
+    &--prev {
+      left: rem(16);
+    }
+
+    &--next {
+      right: rem(16);
+    }
+  }
+
+  // Общее правило button[aria-label] { position: relative } сильнее одного класса
+  & > &__close,
+  & > &__nav {
+    position: absolute;
+  }
+
+  &__counter {
+    position: absolute;
+    bottom: rem(20);
+    left: 50%;
+    padding: rem(4) rem(12);
+    font-size: rem(14);
+    border-radius: rem(999);
+    background-color: #00000066;
+    transform: translateX(-50%);
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  &.is-single &__nav {
+    display: none;
+  }
+
+  @include mobile {
+    padding: rem(8);
+
+    &__nav {
+      top: auto;
+      bottom: rem(12);
+      transform: none;
+    }
+  }
+}
+
+.photo-lightbox[open] {
+  animation: motion-fade 0.3s ease both;
+}

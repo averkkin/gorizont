@@ -154,7 +154,7 @@ $currency_symbol = isset($currency_symbols[$currency]) ? $currency_symbols[$curr
                                     <?php elseif (is_numeric($day_images[0])) : ?>
                                         <?php echo gorizont_timeline_image((int) $day_images[0]); // phpcs:ignore WordPress.Security.EscapeOutput ?>
                                     <?php else : ?>
-                                        <img src="<?php echo esc_url($day_images[0]); ?>" alt="<?php echo esc_attr($day['day_title']); ?>" class="timeline-gallery__img">
+                                        <img src="<?php echo esc_url($day_images[0]); ?>" alt="<?php echo esc_attr($day['day_title']); ?>" class="timeline-gallery__img" data-full="<?php echo esc_url($day_images[0]); ?>" tabindex="0" role="button" aria-label="Увеличить фото">
                                     <?php endif; ?>
                             </div>
                             <?php endif; ?>
@@ -163,6 +163,7 @@ $currency_symbol = isset($currency_symbols[$currency]) ? $currency_symbols[$curr
                 endif; ?>
             </ol>
         </div>
+        <?php get_template_part('template-parts/photo-lightbox'); ?>
     </section>
 
     <section class="tour-conditions" aria-labelledby="tour-conditions-title">

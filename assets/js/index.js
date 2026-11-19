@@ -203,6 +203,106 @@ const initReviewLightbox = () => {
     })
 }
 
+// Увеличение фото из программы тура: листаем фото того же дня
+const initPhotoLightbox = () => {
+    const lightboxElement = document.querySelector('[data-js-photo-lightbox]')
+
+    if (!lightboxElement || typeof lightboxElement.showModal !== 'function') {
+        return
+    }
+
+    const imageElement = lightboxElement.querySelector('[data-js-photo-lightbox-img]')
+    const counterElement = lightboxElement.querySelector('[data-js-photo-counter]')
+    let photos = []
+    let index = 0
+    let touchStartX = null
+
+    const show = (nextIndex) => {
+        index = (nextIndex + photos.length) % photos.length
+        imageElement.src = photos[index].src
+        imageElement.alt = photos[index].alt
+        counterElement.textContent = photos.length > 1 ? `${index + 1} / ${photos.length}` : ''
+        lightboxElement.classList.toggle('is-single', photos.length < 2)
+    }
+
+    const open = (previewElement) => {
+        const dayElement = previewElement.closest('.timeline__image')
+        // Glide в режиме карусели клонирует слайды — клоны пропускаем
+        const previews = Array.from(dayElement.querySelectorAll('img[data-full]'))
+            .filter((element) => !element.closest('.glide__slide--clone'))
+
+        photos = []
+        previews.forEach((element) => {
+            if (!photos.some((photo) => photo.src === element.dataset.full)) {
+                photos.push({ src: element.dataset.full, alt: element.alt })
+            }
+        })
+
+        show(Math.max(0, photos.findIndex((photo) => photo.src === previewElement.dataset.full)))
+        lightboxElement.showModal()
+    }
+
+    document.addEventListener('click', (event) => {
+        const previewElement = event.target.closest('.timeline__image img[data-full]')
+
+        if (previewElement) {
+            open(previewElement)
+        }
+    })
+
+    document.addEventListener('keydown', (event) => {
+        const previewElement = event.target.closest?.('.timeline__image img[data-full]')
+
+        if (previewElement && (event.key === 'Enter' || event.key === ' ')) {
+            event.preventDefault()
+            open(previewElement)
+        }
+    })
+
+    lightboxElement.addEventListener('click', (event) => {
+        if (event.target.closest('[data-js-photo-prev]')) {
+            show(index - 1)
+        } else if (event.target.closest('[data-js-photo-next]')) {
+            show(index + 1)
+        } else if (event.target === lightboxElement || event.target.closest('[data-js-photo-close]')) {
+            lightboxElement.close()
+        }
+    })
+
+    lightboxElement.addEventListener('keydown', (event) => {
+        if (photos.length < 2) {
+            return
+        }
+
+        if (event.key === 'ArrowLeft') {
+            show(index - 1)
+        } else if (event.key === 'ArrowRight') {
+            show(index + 1)
+        }
+    })
+
+    lightboxElement.addEventListener('touchstart', (event) => {
+        touchStartX = event.touches[0].clientX
+    }, { passive: true })
+
+    lightboxElement.addEventListener('touchend', (event) => {
+        if (touchStartX === null || photos.length < 2) {
+            return
+        }
+
+        const distance = event.changedTouches[0].clientX - touchStartX
+        touchStartX = null
+
+        if (Math.abs(distance) > 50) {
+            show(distance > 0 ? index - 1 : index + 1)
+        }
+    })
+
+    lightboxElement.addEventListener('close', () => {
+        imageElement.removeAttribute('src')
+    })
+}
+
 const initTourScheduleFilters = () => {
     document.querySelectorAll('.tour-schedule').forEach((scheduleElement) => {
         const filterElement = scheduleElement.querySelector('[data-js-tour-filter]')
@@ -662,6 +762,7 @@ const initPage = () => {
     initGlideSliders()
     initReviewsSliders()
     initReviewLightbox()
+    initPhotoLightbox()
     initTourScheduleFilters()
     initScheduleFormats()
     initProductsCatalog()

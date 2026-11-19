@@ -69,7 +69,14 @@ function gorizont_hero_position_style( $position ) {
  * показываем целиком по центру, а по бокам — его же размытую копию, чтобы не резать людей.
  */
 function gorizont_timeline_image( $image_id ) {
-    $image = wp_get_attachment_image( $image_id, 'large', false, array( 'class' => 'timeline-gallery__img' ) );
+    // data-full — фото в полном размере для окна просмотра (initPhotoLightbox)
+    $image = wp_get_attachment_image( $image_id, 'large', false, array(
+        'class'      => 'timeline-gallery__img',
+        'data-full'  => wp_get_attachment_image_url( $image_id, 'full' ),
+        'tabindex'   => '0',
+        'role'       => 'button',
+        'aria-label' => 'Увеличить фото',
+    ) );
     $meta  = wp_get_attachment_metadata( $image_id );
 
     $is_tall = ! empty( $meta['width'] ) && ! empty( $meta['height'] ) && $meta['width'] / $meta['height'] < 1.45; // 4:3 и уже

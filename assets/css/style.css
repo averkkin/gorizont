@@ -2233,6 +2233,124 @@ button[aria-label]::before {
   border-radius: 0;
 }
 
+.timeline__image img[data-full] {
+  cursor: zoom-in;
+}
+.timeline__image img[data-full]:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 0.25rem;
+}
+
+.photo-lightbox {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 1rem;
+  border: 0;
+  color: var(--color-light);
+  background: transparent;
+}
+.photo-lightbox[open] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.photo-lightbox::backdrop {
+  background-color: rgba(20, 20, 20, 0.9333333333);
+}
+.photo-lightbox__img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 0.75rem;
+  user-select: none;
+}
+.photo-lightbox__close, .photo-lightbox__nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 1;
+  width: 3rem;
+  height: 3rem;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.photo-lightbox__close {
+  top: 1rem;
+  right: 1rem;
+  color: var(--color-dark);
+  background-color: var(--color-accent);
+}
+.photo-lightbox__close svg {
+  width: 1.375rem;
+  height: 1.375rem;
+}
+.photo-lightbox__nav {
+  top: 50%;
+  color: var(--color-light);
+  background-color: rgba(0, 0, 0, 0.4);
+  transform: translateY(-50%);
+}
+@media (any-hover: hover) {
+  .photo-lightbox__nav:hover {
+    color: var(--color-dark);
+    background-color: var(--color-accent);
+  }
+}
+@media (any-hover: none) {
+  .photo-lightbox__nav:active {
+    color: var(--color-dark);
+    background-color: var(--color-accent);
+  }
+}
+.photo-lightbox__nav--prev {
+  left: 1rem;
+}
+.photo-lightbox__nav--next {
+  right: 1rem;
+}
+.photo-lightbox > .photo-lightbox__close, .photo-lightbox > .photo-lightbox__nav {
+  position: absolute;
+}
+.photo-lightbox__counter {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 50%;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+  border-radius: 62.4375rem;
+  background-color: rgba(0, 0, 0, 0.4);
+  transform: translateX(-50%);
+}
+.photo-lightbox__counter:empty {
+  display: none;
+}
+.photo-lightbox.is-single .photo-lightbox__nav {
+  display: none;
+}
+@media (width <= 47.99875rem) {
+  .photo-lightbox {
+    padding: 0.5rem;
+  }
+  .photo-lightbox__nav {
+    top: auto;
+    bottom: 0.75rem;
+    transform: none;
+  }
+}
+
+.photo-lightbox[open] {
+  animation: motion-fade 0.3s ease both;
+}
+
 .tour-team {
   color: var(--color-dark);
   padding-block: clamp(4.375rem, 2.9648760331rem + 5.7851239669vw, 8.75rem);
