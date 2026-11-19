@@ -22,6 +22,7 @@ function gorizont_register_contacts_options() {
             Field::make( 'text', 'contact_whatsapp', 'WhatsApp для кнопок «написать в WhatsApp»' )
                 ->set_default_value( '+79642710683' ),
             Field::make( 'complex', 'contact_people', 'Контакты менеджеров в подвале' )
+                ->setup_labels( array( 'plural_name' => 'Менеджеры', 'singular_name' => 'менеджера' ) )
                 ->set_layout( 'tabbed-horizontal' )
                 ->add_fields( array(
                     Field::make( 'text', 'name', 'Имя' )->set_width( 50 ),
