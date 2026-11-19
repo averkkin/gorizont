@@ -151,13 +151,3 @@
   }
 
 }
-
-// Лента слайдов двигается отдельным слоем на видеокарте: при сдвиге на доли пикселя
-// браузер не перерисовывает текст и фото, и они не дрожат в конце перелистывания
-.hero-glide .glide__slides {
-  will-change: transform;
-}
-
-.hero-glide .glide__slide {
-  backface-visibility: hidden;
-}

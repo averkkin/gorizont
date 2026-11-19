@@ -1185,14 +1185,6 @@ button[aria-label]::before {
   }
 }
 
-.hero-glide .glide__slides {
-  will-change: transform;
-}
-
-.hero-glide .glide__slide {
-  backface-visibility: hidden;
-}
-
 .direction {
   display: flex;
   flex-direction: column;
