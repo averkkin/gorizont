@@ -322,3 +322,31 @@
     }
   }
 }
+
+// Вертикальное фото в широкой рамке: снимок целиком, по бокам размытая копия
+.timeline-photo--fit {
+  position: relative;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  aspect-ratio: 500 / 280;
+  border-radius: rem(24);
+  isolation: isolate;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: rem(-30);
+    z-index: -1;
+    background: var(--photo-backdrop) center / cover no-repeat;
+    filter: blur(rem(24)) brightness(0.85);
+  }
+
+  .timeline-gallery__img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    object-fit: contain;
+    border-radius: 0;
+  }
+}

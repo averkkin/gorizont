@@ -42,7 +42,7 @@ $currency_symbol = isset($currency_symbols[$currency]) ? $currency_symbols[$curr
         <div class="bg-blur-matrix"></div>
         <div class="bg-blur-gradient"></div>
         <?php $hero_image_id = carbon_get_post_meta($tour_id, 'tour_hero_image'); ?>
-        <img src="<?php echo esc_url($hero_image_id ? wp_get_attachment_image_url($hero_image_id, 'full') : get_the_post_thumbnail_url($tour_id, 'full')); ?>" alt="" width="1920" height="847" class="background" aria-hidden="true">
+        <img src="<?php echo esc_url($hero_image_id ? wp_get_attachment_image_url($hero_image_id, 'full') : get_the_post_thumbnail_url($tour_id, 'full')); ?>" alt="" width="1920" height="847" class="background" aria-hidden="true"<?php echo gorizont_hero_position_style(carbon_get_post_meta($tour_id, 'tour_hero_position')); // phpcs:ignore WordPress.Security.EscapeOutput -- значение из белого списка ?>>
     </section>
 
     <div class="single-tour__inner">
@@ -125,7 +125,7 @@ $currency_symbol = isset($currency_symbols[$currency]) ? $currency_symbols[$curr
                                                 <div class="glide__slides">
                                                     <?php foreach ($day_images as $image_id) : ?>
                                                         <div class="glide__slide timeline-gallery__slide">
-                                                            <?php echo wp_get_attachment_image($image_id, 'large', false, array('class' => 'timeline-gallery__img')); ?>
+                                                            <?php echo gorizont_timeline_image($image_id); // phpcs:ignore WordPress.Security.EscapeOutput -- разметка собрана из экранированных частей ?>
                                                         </div>
                                                     <?php endforeach; ?>
                                                 </div>
@@ -152,7 +152,7 @@ $currency_symbol = isset($currency_symbols[$currency]) ? $currency_symbols[$curr
                                             </div>
                                         </div>
                                     <?php elseif (is_numeric($day_images[0])) : ?>
-                                        <?php echo wp_get_attachment_image((int) $day_images[0], 'large', false, array('class' => 'timeline-gallery__img')); ?>
+                                        <?php echo gorizont_timeline_image((int) $day_images[0]); // phpcs:ignore WordPress.Security.EscapeOutput ?>
                                     <?php else : ?>
                                         <img src="<?php echo esc_url($day_images[0]); ?>" alt="<?php echo esc_attr($day['day_title']); ?>" class="timeline-gallery__img">
                                     <?php endif; ?>

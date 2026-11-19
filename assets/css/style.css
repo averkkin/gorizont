@@ -2208,6 +2208,31 @@ button[aria-label]::before {
     bottom: 0.625rem;
   }
 }
+.timeline-photo--fit {
+  position: relative;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  aspect-ratio: 500/280;
+  border-radius: 1.5rem;
+  isolation: isolate;
+}
+.timeline-photo--fit::before {
+  content: "";
+  position: absolute;
+  inset: -1.875rem;
+  z-index: -1;
+  background: var(--photo-backdrop) center/cover no-repeat;
+  filter: blur(1.5rem) brightness(0.85);
+}
+.timeline-photo--fit .timeline-gallery__img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: contain;
+  border-radius: 0;
+}
+
 .tour-team {
   color: var(--color-dark);
   padding-block: clamp(4.375rem, 2.9648760331rem + 5.7851239669vw, 8.75rem);

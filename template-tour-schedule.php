@@ -12,6 +12,7 @@ $hero_args = array(
         'desc'  => carbon_get_post_meta($page_id, 'hero_desc'),
         'bg'    => carbon_get_post_meta($page_id, 'hero_bg'),
         'fade'  => (bool) carbon_get_post_meta($page_id, 'schedule_about_text'),
+        'position' => carbon_get_post_meta($page_id, 'hero_position'),
 );
 
 ?>

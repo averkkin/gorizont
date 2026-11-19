@@ -15,6 +15,12 @@ function crb_attach_page_and_tour_fields() {
             Field::make('text', 'hero_title', 'Заголовок Hero')->set_help_text('Можно использовать <br> для переноса'),
             Field::make('textarea', 'hero_desc', 'Краткое описание на главном экране'),
             Field::make('image', 'hero_bg', 'Фоновое изображение')->set_value_type('url'),
+            Field::make('select', 'hero_position', 'Что важнее на фоне (обложка — широкая полоса)')
+                ->add_options(array(
+                    '' => 'По центру',
+                    'top' => 'Верх кадра',
+                    'bottom' => 'Низ кадра',
+                )),
 
             // Настройка фильтрации туров для этой страницы
             Field::make('select', 'tour_type_filter', ' Какие туры выводить на этой странице?')
@@ -137,6 +143,12 @@ function crb_attach_single_tour_fields() {
         ->add_fields(array(
             Field::make('image', 'tour_hero_image', 'Широкая обложка страницы тура')
                 ->set_help_text('Необязательно. Если пусто — на странице тура стоит та же картинка, что и в карточке (изображение записи)'),
+            Field::make('select', 'tour_hero_position', 'Что важнее на обложке (обложка — широкая полоса, фото обрезается)')
+                ->add_options(array(
+                    '' => 'По центру',
+                    'top' => 'Верх кадра',
+                    'bottom' => 'Низ кадра',
+                )),
 
             // 1. Блок "Описание тура" (желтая плашка)
             Field::make('textarea', 'tour_hero_description', 'Описание тура'),

@@ -54,3 +54,31 @@ function gorizont_template_page_url( $template ) {
 
 	return $pages ? get_permalink( $pages[0] ) : '';
 }
+
+/**
+ * Положение широкой обложки: какую часть кадра оставить при обрезке.
+ */
+function gorizont_hero_position_style( $position ) {
+    $map = array( 'top' => 'center 20%', 'bottom' => 'center 85%' );
+
+    return isset( $map[ $position ] ) ? ' style="object-position: ' . $map[ $position ] . '"' : '';
+}
+
+/**
+ * Фото дня в программе тура. Рамка широкая (500×280), поэтому вертикальный снимок
+ * показываем целиком по центру, а по бокам — его же размытую копию, чтобы не резать людей.
+ */
+function gorizont_timeline_image( $image_id ) {
+    $image = wp_get_attachment_image( $image_id, 'large', false, array( 'class' => 'timeline-gallery__img' ) );
+    $meta  = wp_get_attachment_metadata( $image_id );
+
+    $is_tall = ! empty( $meta['width'] ) && ! empty( $meta['height'] ) && $meta['width'] / $meta['height'] < 1.45; // 4:3 и уже
+
+    if ( ! $is_tall ) {
+        return $image;
+    }
+
+    $backdrop = wp_get_attachment_image_url( $image_id, 'medium' );
+
+    return '<span class="timeline-photo timeline-photo--fit" style="' . esc_attr( '--photo-backdrop: url(' . esc_url( $backdrop ) . ')' ) . '">' . $image . '</span>';
+}
