@@ -12,7 +12,7 @@ function crb_attach_page_and_tour_fields() {
         ->where('post_template', '=', 'template-tour-schedule.php')
         ->add_fields(array(
             // Поля для Hero-блока
-            Field::make('text', 'hero_title', 'Заголовок Hero')->set_help_text('Можно использовать <br> для переноса'),
+            Field::make('text', 'hero_title', 'Заголовок Hero')->set_help_text('Чтобы перенести строку, поставьте в этом месте &lt;br&gt; — например: Походы &lt;br&gt;выходного дня'),
             Field::make('textarea', 'hero_desc', 'Краткое описание на главном экране'),
             Field::make('image', 'hero_bg', 'Фоновое изображение')->set_value_type('url'),
             Field::make('select', 'hero_position', 'Что важнее на фоне (обложка — широкая полоса)')
