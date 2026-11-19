@@ -60,7 +60,7 @@ function crb_attach_product_fields() {
     Container::make( 'post_meta', 'Товар' )
         ->where( 'post_type', '=', 'products' )
         ->add_fields( array(
-            Field::make( 'html', 'product_help' )->set_html(
+            Field::make( 'html', 'product_help', 'Как заполнить' )->set_html(
                 '<p>Короткое описание под названием — поле «Отрывок». Фото — «Изображение записи». Порядок по умолчанию — поле «Порядок» справа, меньше число — выше.</p>'
             ),
             Field::make( 'text', 'product_price', 'Цена, ₽ (только число, например: 1200)' )

@@ -42,7 +42,7 @@ function gorizont_register_contacts_options() {
                 ->set_help_text( 'Рядом со ссылкой на сайте выводится сноска о том, что Meta признана экстремистской в РФ.' ),
         ) )
         ->add_tab( 'Реквизиты', array(
-            Field::make( 'html', 'legal_help' )->set_html( '<p>Реквизиты подставляются в юридические документы сайта (раздел «Юридические документы»).</p>' ),
+            Field::make( 'html', 'legal_help', 'Для чего реквизиты' )->set_html( '<p>Реквизиты подставляются в юридические документы сайта (раздел «Юридические документы»).</p>' ),
             Field::make( 'text', 'legal_full_name', 'Полное наименование' )
                 ->set_default_value( 'Общество с ограниченной ответственностью «Центр туризма Горизонт»' ),
             Field::make( 'text', 'legal_short_name', 'Краткое наименование' )
@@ -56,7 +56,7 @@ function gorizont_register_contacts_options() {
                 ->set_default_value( '29 октября 2026 г.' ),
         ) )
         ->add_tab( 'Telegram-бот', array(
-            Field::make( 'html', 'telegram_help' )->set_html(
+            Field::make( 'html', 'telegram_help', 'Как это работает' )->set_html(
                 '<p>1. В Telegram откройте <b>@BotFather</b>, команда <code>/newbot</code>, получите токен.<br>'
                 . '2. Создайте группу для заявок (или напишите боту лично) и добавьте туда бота.<br>'
                 . '3. Узнайте ID чата, например через бота <b>@getmyid_bot</b> (для группы ID начинается с минуса).<br>'
