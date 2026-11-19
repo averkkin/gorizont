@@ -51,6 +51,21 @@
                 <div class="hero-slide ">
                     <div class="hero-slide--inner container">
                         <div class="hero-slide__heading">
+                            <h2 class="h1 hero-slide__h1">Дороги, куда не&nbsp;довозят обычные туры</h2>
+                            <p class="hero-slide__p p">Jeep Trip: зимний Байкал на&nbsp;внедорожниках и&nbsp;летние экспедиции по&nbsp;Монголии. Для тех, кто готов к&nbsp;бездорожью и&nbsp;хочет увидеть места, недоступные большинству туристов</p>
+                        </div>
+                        <div class="hero-slide__buttons">
+                            <a class="button" href="<?php echo esc_url(gorizont_schedule_page_url('jeep_tours', home_url('/#jeep'))); ?>">смотреть туры</a>
+                            <a class="button button--outline" href="<?php echo esc_url(gorizont_whatsapp_url()); ?>" target="_blank" rel="noopener">написать в WhatsApp</a>
+                        </div>
+                    </div>
+                    <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/images/hero-jeeptrip.jpg'); ?>" alt="" width="1920" height="847" class="hero-slide__background" aria-hidden="true">
+                </div>
+            </li>
+            <li class="glide__slide">
+                <div class="hero-slide ">
+                    <div class="hero-slide--inner container">
+                        <div class="hero-slide__heading">
                             <h2 class="h1 hero-slide__h1">Вещи, которые напоминают о&nbsp;путешествиях</h2>
                             <p class="hero-slide__p p">Футболки, бафы, кружки и&nbsp;сувениры с&nbsp;символикой центра. Брендированные вещи, которые сохраняют атмосферу походов и&nbsp;дарят эмоции заново</p>
                         </div>
