@@ -297,7 +297,9 @@
       flex-direction: column;
       gap: rem(12);
 
+      // flex: 1 с планшета в колонке схлопывал высоту полей до 23px
       > * {
+        flex: none;
         width: 100%;
       }
     }

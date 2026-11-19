@@ -1531,6 +1531,13 @@ button[aria-label]::before {
   bottom: -15px;
   left: 0;
 }
+@media (width <= 47.99875rem) {
+  .tour-schedule .h2 .h2-decor {
+    bottom: -0.45em;
+    width: min(65%, 15rem);
+    height: auto;
+  }
+}
 .tour-schedule .tour-filter {
   display: flex;
   align-items: center;
@@ -3214,7 +3221,14 @@ button[aria-label]::before {
   font-weight: 600;
 }
 .legal-doc__content {
+  min-width: 0;
   max-width: 53.75rem;
+}
+.legal-doc__content > * {
+  min-width: 0;
+  max-width: 100%;
+}
+.legal-doc__content {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -3288,6 +3302,16 @@ button[aria-label]::before {
 }
 .legal-doc__content .wp-block-table {
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+@media (width <= 47.99875rem) {
+  .legal-doc__content table {
+    font-size: 0.8125rem;
+  }
+  .legal-doc__content table th,
+  .legal-doc__content table td {
+    padding: 0.625rem;
+  }
 }
 .legal-doc__content .legal-date {
   color: var(--color-gray-50);
@@ -3325,6 +3349,10 @@ button[aria-label]::before {
   .legal-doc__content .legal-sign {
     grid-template-columns: 1fr;
   }
+}
+
+.legal-doc__body {
+  min-width: 0;
 }
 
 .single-tour__inner {
@@ -3563,6 +3591,7 @@ button[aria-label]::before {
     gap: 0.75rem;
   }
   .products-catalog__toolbar > * {
+    flex: none;
     width: 100%;
   }
 }

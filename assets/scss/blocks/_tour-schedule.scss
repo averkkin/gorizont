@@ -29,6 +29,13 @@
       position: absolute;
       bottom: -15px;
       left: 0;
+
+      // На телефоне заголовок мельче, а линия той же ширины перечёркивала слова
+      @include mobile {
+        bottom: -0.45em;
+        width: min(65%, #{rem(240)});
+        height: auto;
+      }
     }
   }
 

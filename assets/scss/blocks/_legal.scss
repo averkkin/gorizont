@@ -170,7 +170,16 @@
   }
 
   &__content {
+    // Flex-потомки по умолчанию не сжимаются уже своего содержимого — из-за широкой таблицы
+    // документ распирало на телефоне. min-width: 0 даёт таблице прокручиваться внутри обёртки
+    min-width: 0;
     max-width: rem(860);
+
+    > * {
+      min-width: 0;
+      max-width: 100%;
+    }
+
     display: flex;
     flex-direction: column;
     gap: rem(16);
@@ -250,6 +259,18 @@
 
     .wp-block-table {
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    @include mobile {
+      table {
+        font-size: rem(13);
+
+        th,
+        td {
+          padding: rem(10);
+        }
+      }
     }
 
     .legal-date {
@@ -292,4 +313,9 @@
       }
     }
   }
+}
+
+// Колонка сетки документа не растягивается под широкую таблицу на телефоне
+.legal-doc__body {
+  min-width: 0;
 }

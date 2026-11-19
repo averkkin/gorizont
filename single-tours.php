@@ -58,32 +58,39 @@ $currency_symbol = isset($currency_symbols[$currency]) ? $currency_symbols[$curr
                         <?php endif; ?>
                     </div>
                 </div>
+                <?php
+                // Пустые плашки не выводим: у недозаполненного тура не будет «Сложность:» без значения
+                $meta_items = array_filter(array(
+                    'Продолжительность:' => $duration,
+                    ($is_kids_tour ? 'Для кого:' : 'Сложность:') => $difficulty,
+                    'Формат:' => $format,
+                ), function ($value) {
+                    return '' !== trim((string) $value);
+                });
+                ?>
+                <?php if (!empty($meta_items)) : ?>
                 <dl class="tour-description__meta-grid">
-                    <div class="group-meta">
-                        <dt class="key">Продолжительность:</dt>
-                        <dd class="value"><?php echo esc_html($duration); ?></dd>
-                    </div>
-                    <div class="group-meta">
-                        <dt class="key"><?php echo $is_kids_tour ? 'Для кого:' : 'Сложность:'; ?></dt>
-                        <dd class="value"><?php echo esc_html($difficulty); ?></dd>
-                    </div>
-                    <div class="group-meta">
-                        <dt class="key">Формат:</dt>
-                        <dd class="value"><?php echo esc_html($format); ?></dd>
-                    </div>
+                    <?php foreach ($meta_items as $meta_label => $meta_value) : ?>
+                        <div class="group-meta">
+                            <dt class="key"><?php echo esc_html($meta_label); ?></dt>
+                            <dd class="value"><?php echo esc_html($meta_value); ?></dd>
+                        </div>
+                    <?php endforeach; ?>
                 </dl>
+                <?php endif; ?>
             </div>
             <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/bg-pattern.svg'); ?>" alt="" class="bg-pattern" aria-hidden="true">
         </section>
         <div class="bg-white"></div>
     </div>
 
+    <?php $program = carbon_get_post_meta($tour_id, 'tour_program'); ?>
+    <?php if (!empty($program)) : ?>
     <section class="tour-timeline" aria-labelledby="tour-timeline-title">
         <div class="container">
             <h2 id="tour-timeline-title" class="h2">Программа по дням</h2>
             <ol class="timeline">
                 <?php
-                $program = carbon_get_post_meta($tour_id, 'tour_program');
                 if (!empty($program)) :
                     foreach ($program as $day_index => $day) : ?>
                         <?php
@@ -165,40 +172,56 @@ $currency_symbol = isset($currency_symbols[$currency]) ? $currency_symbols[$curr
         </div>
         <?php get_template_part('template-parts/photo-lightbox'); ?>
     </section>
+    <?php endif; ?>
 
+    <?php
+    $split_condition_lines = function ($text) {
+        return array_values(array_filter(array_map('trim', explode("\n", str_replace("\r", '', (string) $text)))));
+    };
+    $included_lines = $split_condition_lines(carbon_get_post_meta($tour_id, 'tour_included'));
+    $excluded_lines = $split_condition_lines(carbon_get_post_meta($tour_id, 'tour_excluded'));
+    $has_price      = '' !== trim((string) $price);
+    ?>
     <section class="tour-conditions" aria-labelledby="tour-conditions-title">
         <div class="tour-conditions__inner container">
-            <h2 id="tour-conditions-title" class="h2">Условия участия</h2>
+            <h2 id="tour-conditions-title" class="h2"><?php echo ($included_lines || $excluded_lines) ? 'Условия участия' : 'Записаться на тур'; ?></h2>
+            <?php if ($included_lines || $excluded_lines) : ?>
             <div class="conditions-grid">
+                <?php if ($included_lines) : ?>
                 <section class="included">
                     <h3 class="h3">Включено в стоимость</h3>
                     <ul>
                         <?php
-                        $included = carbon_get_post_meta($tour_id, 'tour_included');
-                        $included_lines = explode("\n", str_replace("\r", "", $included));
                         foreach ($included_lines as $line) {
                             if (!empty(trim($line))) echo '<li><span class="box" aria-hidden="true"><img src="' . esc_url(get_template_directory_uri() . '/assets/img/icons/check.svg') . '" alt=""></span>' . esc_html($line) . '</li>';
                         }
                         ?>
                     </ul>
                 </section>
+                <?php endif; ?>
+                <?php if ($excluded_lines) : ?>
                 <section class="excluded">
                     <h3 class="h3">Исключено</h3>
                     <ul>
                         <?php
-                        $excluded = carbon_get_post_meta($tour_id, 'tour_excluded');
-                        $excluded_lines = explode("\n", str_replace("\r", "", $excluded));
                         foreach ($excluded_lines as $line) {
                             if (!empty(trim($line))) echo '<li><span class="box" aria-hidden="true"><img src="' . esc_url(get_template_directory_uri() . '/assets/img/icons/close.svg') . '" alt=""></span>' . esc_html($line) . '</li>';
                         }
                         ?>
                     </ul>
                 </section>
+                <?php endif; ?>
             </div>
+            <?php endif; ?>
             <div class="price-block">
                 <div class="price-block__grid">
-                    <span class="price-block__label">Стоимость</span>
-                    <span class="price-block__value">от <span><?php echo esc_html($price . $currency_symbol); ?></span> за участника</span>
+                    <?php if ($has_price) : ?>
+                        <span class="price-block__label">Стоимость</span>
+                        <span class="price-block__value">от <span><?php echo esc_html($price . $currency_symbol); ?></span> за участника</span>
+                    <?php else : ?>
+                        <span class="price-block__label">Стоимость</span>
+                        <span class="price-block__value">по запросу</span>
+                    <?php endif; ?>
                 </div>
                 <a class="button price-block__button" href="#login-form" rel="modal:open"><?php echo $is_kids_tour ? 'оставить заявку' : 'забронировать'; ?></a>
             </div>
