@@ -101,6 +101,9 @@
                         <a class="header__menu-link" href="<?php echo esc_url(gorizont_schedule_page_url('kids_tours', home_url('/#children'))); ?>">Экскурсии и мероприятия для детей</a>
                     </li>
                     <li class="header__menu-item">
+                        <a class="header__menu-link" href="<?php echo esc_url(gorizont_schedule_page_url('jeep_tours', home_url('/#jeep'))); ?>">Jeep Trip</a>
+                    </li>
+                    <li class="header__menu-item">
                         <a class="header__menu-link" href="<?php echo esc_url(home_url('/#products')); ?>">Авторская продукция</a>
                     </li>
                 </ul>

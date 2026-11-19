@@ -1,7 +1,7 @@
 <?php
 // Принимаем тип тура из аргументов (переданных через get_template_part)
 $current_tour_type = !empty($args['tour_type']) ? $args['tour_type'] : 'all';
-$allowed_tour_types = array('all', 'local_tours', 'intl_tours', 'local_excursions', 'intl_excursions', 'kids_tours');
+$allowed_tour_types = array('all', 'local_tours', 'intl_tours', 'local_excursions', 'intl_excursions', 'kids_tours', 'jeep_tours');
 
 if (!in_array($current_tour_type, $allowed_tour_types, true)) {
     $current_tour_type = 'all';
@@ -40,6 +40,8 @@ if ($tours_loop->have_posts()) :
         $tour_region     = carbon_get_post_meta($tour_id, 'tour_region');
         // Школьные поездки собираются под класс: вместо даты — длительность, сложности нет
         $is_kids_tour    = 'kids_tours' === $tour_type;
+        // Без даты (школьные, джип-туры) в шапке карточки показываем длительность
+        $show_duration   = $is_kids_tour || ('' === trim((string) $tour_date) && '' !== trim((string) $tour_duration_days));
         $duration_days_count = 0;
 
         if (preg_match('/\d+/', (string) $tour_duration_days, $duration_matches)) {
@@ -69,8 +71,8 @@ if ($tours_loop->have_posts()) :
                 data-tour-search="<?php echo esc_attr($search_text); ?>"
         >
             <div class="content">
-                <div class="tour-schedule__head<?php echo $is_kids_tour ? ' tour-schedule__head--duration' : ''; ?>">
-                    <?php if ($is_kids_tour) : ?>
+                <div class="tour-schedule__head<?php echo $show_duration ? ' tour-schedule__head--duration' : ''; ?>">
+                    <?php if ($show_duration) : ?>
                         <span class="title">Длительность</span>
                         <span class="date"><?php echo esc_html($tour_duration_days); ?></span>
                     <?php else : ?>

@@ -25,6 +25,7 @@ function crb_attach_page_and_tour_fields() {
                     'local_excursions' => 'Местные экскурсии',
                     'intl_excursions' => 'Выездные экскурсии',
                     'kids_tours' => 'Школьные поездки',
+                    'jeep_tours' => 'Jeep Trip',
                 )),
         ));
 
@@ -89,6 +90,7 @@ function crb_attach_tour_type() {
                     'local_excursions' => 'Местные экскурсии',
                     'intl_excursions' => 'Выездные экскурсии',
                     'kids_tours' => 'Школьные поездки',
+                    'jeep_tours' => 'Jeep Trip',
                 )),
             Field::make('set', 'tour_extra_types', 'Показывать также на страницах')
                 ->add_options(array(
@@ -97,13 +99,14 @@ function crb_attach_tour_type() {
                     'local_excursions' => 'Местные экскурсии',
                     'intl_excursions' => 'Выездные экскурсии',
                     'kids_tours' => 'Школьные поездки',
+                    'jeep_tours' => 'Jeep Trip',
                 ))
                 ->set_help_text('Например, школьная поездка в Японию может выводиться и среди экскурсионных туров'),
-            Field::make('select', 'tour_region', 'Куда (для фильтра школьных поездок)')
+            Field::make('select', 'tour_region', 'Куда (для фильтра школьных поездок и Jeep Trip)')
                 ->add_options(array(
                     '' => '—',
-                    'russia' => 'По России',
-                    'abroad' => 'За рубеж',
+                    'russia' => 'По России / Байкал',
+                    'abroad' => 'За рубеж / Монголия',
                 )),
             Field::make('checkbox', 'is_popular', 'Популярный тур (для фильтра)'),
             Field::make('select', 'tour_duration', 'Длительность')
@@ -132,6 +135,9 @@ function crb_attach_single_tour_fields() {
     Container::make('post_meta', 'Детали тура / Экскурсии')
         ->where('post_type', '=', 'tours')
         ->add_fields(array(
+            Field::make('image', 'tour_hero_image', 'Широкая обложка страницы тура')
+                ->set_help_text('Необязательно. Если пусто — на странице тура стоит та же картинка, что и в карточке (изображение записи)'),
+
             // 1. Блок "Описание тура" (желтая плашка)
             Field::make('textarea', 'tour_hero_description', 'Описание тура'),
             Field::make('text', 'tour_duration_days', 'Продолжительность (например: 4 дня / 3 ночи)'),

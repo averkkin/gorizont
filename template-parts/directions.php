@@ -52,14 +52,33 @@
         </div>
     </article>
 
-    <article class="direction--inner" id="products">
+    <article class="direction--inner" id="jeep">
         <div class="direction__image hidden-mobile">
-            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/images/products.jpg'); ?>" alt="Авторская продукция центра" width="560" height="616">
+            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/images/jeep.jpg'); ?>" alt="Jeep Wrangler на льду Байкала у скалы" width="560" height="616">
         </div>
+        <div class="direction__content">
+            <p class="direction__eyebrow">Jeep Trip</p>
+            <div class="direction__heading">
+                <h2 class="h2 direction__h2">Путешествия на внедорожниках</h2>
+                <p class="p direction__p">Зимний Байкал вдали от туристических троп и большие экспедиции по Монголии летом. Для тех, кто готов к бездорожью.</p>
+            </div>
+            <?php if ($jeep_url = gorizont_schedule_page_url('jeep_tours')) : ?>
+                <a class="button" href="<?php echo esc_url($jeep_url); ?>">смотреть туры</a>
+            <?php else : ?>
+                <a class="button" href="#develop-form" rel="modal:open">смотреть туры</a>
+            <?php endif; ?>
+            <span class="direction__count" aria-hidden="true">04</span>
+        </div>
+        <div class="direction__image visible-mobile">
+            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/images/jeep.jpg'); ?>" alt="" width="560" height="616" aria-hidden="true">
+        </div>
+    </article>
+
+    <article class="direction--inner" id="products">
         <div class="direction__content">
             <p class="direction__eyebrow">Авторская продукция</p>
             <div class="direction__heading">
-                <h2 class="h2 direction__h2">Подарки, сувениры и авторская продукция </h2>
+                <h2 class="h2 direction__h2">Подарки, сувениры и авторская продукция </h2>
                 <p class="p direction__p">Футболки, баффы, шевроны, сувениры с&nbsp;символикой нашего бренда.</p>
             </div>
             <?php if ($products_url = gorizont_template_page_url('template-products.php')) : ?>
@@ -67,10 +86,10 @@
             <?php else : ?>
                 <a class="button" href="#develop-form" rel="modal:open">узнать больше</a>
             <?php endif; ?>
-            <span class="direction__count" aria-hidden="true">04</span>
+            <span class="direction__count" aria-hidden="true">05</span>
         </div>
-        <div class="direction__image visible-mobile">
-            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/images/products.jpg'); ?>" alt="" width="560" height="616" aria-hidden="true">
+        <div class="direction__image">
+            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/images/products.jpg'); ?>" alt="Авторская продукция центра" width="560" height="616">
         </div>
     </article>
 

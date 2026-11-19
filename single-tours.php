@@ -41,7 +41,8 @@ $currency_symbol = isset($currency_symbols[$currency]) ? $currency_symbols[$curr
         </div>
         <div class="bg-blur-matrix"></div>
         <div class="bg-blur-gradient"></div>
-        <img src="<?php echo esc_url(get_the_post_thumbnail_url($tour_id, 'full')); ?>" alt="" width="1920" height="847" class="background" aria-hidden="true">
+        <?php $hero_image_id = carbon_get_post_meta($tour_id, 'tour_hero_image'); ?>
+        <img src="<?php echo esc_url($hero_image_id ? wp_get_attachment_image_url($hero_image_id, 'full') : get_the_post_thumbnail_url($tour_id, 'full')); ?>" alt="" width="1920" height="847" class="background" aria-hidden="true">
     </section>
 
     <div class="single-tour__inner">

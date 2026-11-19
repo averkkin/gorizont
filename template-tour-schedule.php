@@ -27,6 +27,8 @@ if ('local_tours' === $tour_type) {
     $schedule_filters = array('all' => 'Все', 'days-1' => '1 день', 'days-2' => '2 дня', 'days-3' => '3 дня');
 } elseif ('kids_tours' === $tour_type) {
     $schedule_filters = array('all' => 'Все', 'region-russia' => 'По России', 'region-abroad' => 'За рубеж');
+} elseif ('jeep_tours' === $tour_type) {
+    $schedule_filters = array('all' => 'Все', 'region-russia' => 'Байкал', 'region-abroad' => 'Монголия');
 } else {
     $schedule_filters = array('all' => 'Все', 'popular' => 'Популярные туры', 'duration-up-to-7' => 'до 7-ми дней', 'duration-up-to-15' => 'до 15-ти дней', 'duration-over-15' => 'более 15-ти дней');
 }
