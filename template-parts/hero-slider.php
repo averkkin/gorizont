@@ -25,7 +25,7 @@
                             <p class="hero-slide__p p">Продуманные экскурсионные маршруты по&nbsp;России и&nbsp;миру. Дворцы, улицы, площади и&nbsp;тайные уголки городов в&nbsp;сопровождении лучших гидов.</p>
                         </div>
                         <div class="hero-slide__buttons">
-                            <a class="button" href="#login-form" rel="modal:open">смотреть расписание</a>
+                            <a class="button" href="<?php echo esc_url(gorizont_schedule_page_url('intl_excursions', home_url('/#excursion'))); ?>">смотреть расписание</a>
                             <a class="button button--outline" href="<?php echo esc_url(gorizont_whatsapp_url()); ?>" target="_blank" rel="noopener">написать в WhatsApp</a>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
                             <p class="hero-slide__p p">Познавательные экскурсии, игровые квесты и&nbsp;семейные туры. Мы создаём путешествия, в&nbsp;которых интересно и&nbsp;детям, и&nbsp;взрослым</p>
                         </div>
                         <div class="hero-slide__buttons">
-                            <a class="button" href="#login-form" rel="modal:open">узнать больше</a>
+                            <a class="button" href="<?php echo esc_url(gorizont_schedule_page_url('kids_tours', home_url('/#children'))); ?>">узнать больше</a>
                             <a class="button button--outline" href="<?php echo esc_url(gorizont_whatsapp_url()); ?>" target="_blank" rel="noopener">написать в WhatsApp</a>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                             <p class="hero-slide__p p">Футболки, бафы, кружки и&nbsp;сувениры с&nbsp;символикой центра. Брендированные вещи, которые сохраняют атмосферу походов и&nbsp;дарят эмоции заново</p>
                         </div>
                         <div class="hero-slide__buttons">
-                            <a class="button" href="#login-form" rel="modal:open">узнать больше</a>
+                            <a class="button" href="<?php echo esc_url(gorizont_template_page_url('template-products.php') ?: home_url('/#products')); ?>">узнать больше</a>
                             <a class="button button--outline" href="<?php echo esc_url(gorizont_whatsapp_url()); ?>" target="_blank" rel="noopener">написать в WhatsApp</a>
                         </div>
                     </div>
