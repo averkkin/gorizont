@@ -266,7 +266,8 @@ add_action('admin_enqueue_scripts', function ($hook) {
 .gguide{--acc:#F8C471;--acc-h:#f6cc88;--dark:#141414;--brown:#302822;--mut:#7E7E81;--line:#e7e0d6;--card:#fff;--r:18px;
   position:relative;isolation:isolate;margin:20px 20px 40px 0;font-family:GManrope,-apple-system,"Segoe UI",sans-serif;color:var(--dark)}
 /* фирменные топографические линии по фону страницы, еле заметно */
-.gguide::before{content:"";position:absolute;inset:-20px -20px -40px -20px;z-index:-1;background:url(__A__img/icons/pattern.svg) center top/1920px auto repeat-y;opacity:.035;pointer-events:none}
+#wpbody-content:has(.gguide){overflow-x:clip}
+.gguide::before{content:"";position:absolute;inset:-20px 0 -40px -20px;z-index:-1;background:url(__A__img/icons/pattern.svg) center top/1920px auto repeat-y;opacity:.035;pointer-events:none}
 .gguide *{box-sizing:border-box}
 .gguide h2,.gguide h3,.gguide h4{font-family:inherit;color:inherit}
 .gguide button{font-family:inherit}
