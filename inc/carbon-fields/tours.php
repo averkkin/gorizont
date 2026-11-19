@@ -26,8 +26,8 @@ function crb_attach_page_and_tour_fields() {
             Field::make('select', 'tour_type_filter', ' Какие туры выводить на этой странице?')
                 ->add_options(array(
                     'all' => 'Все',
-                    'local_tours' => 'Местные туры',
-                    'intl_tours' => 'Выездные туры',
+                    'local_tours' => 'Горы: местные туры (Саяны, Байкал)',
+                    'intl_tours' => 'Горы: выездные туры (Кавказ, Памир и другие)',
                     'intl_excursions' => 'Экскурсионные туры',
                     'kids_tours' => 'Школьные поездки',
                     'jeep_tours' => 'Jeep Trip',
@@ -88,31 +88,33 @@ function crb_attach_tour_type() {
     Container::make('post_meta', 'Параметры тура')
         ->where('post_type', '=', 'tours')
         ->add_fields(array(
-            Field::make('select', 'tour_type', 'Тип мероприятия')
+            Field::make('select', 'tour_type', 'Раздел сайта')
                 ->add_options(array(
-                    'local_tours' => 'Местные туры',
-                    'intl_tours' => 'Выездные туры',
-                    'intl_excursions' => 'Экскурсионные туры',
-                    'kids_tours' => 'Школьные поездки',
-                    'jeep_tours' => 'Jeep Trip',
-                )),
-            Field::make('set', 'tour_extra_types', 'Показывать также на страницах')
-                ->add_options(array(
-                    'local_tours' => 'Местные туры',
-                    'intl_tours' => 'Выездные туры',
+                    'local_tours' => 'Горы: местные туры (Саяны, Байкал)',
+                    'intl_tours' => 'Горы: выездные туры (Кавказ, Памир и другие)',
                     'intl_excursions' => 'Экскурсионные туры',
                     'kids_tours' => 'Школьные поездки',
                     'jeep_tours' => 'Jeep Trip',
                 ))
-                ->set_help_text('Например, школьная поездка в Японию выводится и среди экскурсионных туров'),
-            Field::make('select', 'tour_region', 'Куда (кнопки-фильтры на странице раздела)')
+                ->set_help_text('Основной раздел, в котором тур показывается на сайте'),
+            Field::make('set', 'tour_extra_types', 'Показывать также в разделах')
+                ->add_options(array(
+                    'local_tours' => 'Горы: местные туры (Саяны, Байкал)',
+                    'intl_tours' => 'Горы: выездные туры (Кавказ, Памир и другие)',
+                    'intl_excursions' => 'Экскурсионные туры',
+                    'kids_tours' => 'Школьные поездки',
+                    'jeep_tours' => 'Jeep Trip',
+                ))
+                ->set_help_text('Необязательно. Отметьте, если тур нужно показать ещё в одном разделе. Например, Япония — школьная поездка и одновременно экскурсионный тур'),
+            Field::make('select', 'tour_region', 'Россия или за рубеж')
                 ->add_options(array(
                     '' => '—',
-                    'russia' => 'По России / Байкал',
-                    'abroad' => 'За рубеж / Монголия',
+                    'russia' => 'По России (для Jeep Trip — Байкал)',
+                    'abroad' => 'За рубеж (для Jeep Trip — Монголия)',
                 ))
-                ->set_help_text('Экскурсионные туры и школьные поездки: «По России» или «За рубеж». Jeep Trip: «Байкал» или «Монголия»'),
-            Field::make('checkbox', 'is_popular', 'Популярный тур (для фильтра)'),
+                ->set_help_text('Нужно для кнопок-фильтров в разделах «Экскурсионные туры», «Школьные поездки» и «Jeep Trip». Для горных туров можно не заполнять'),
+            Field::make('checkbox', 'is_popular', 'Популярный тур')
+                ->set_help_text('Попадает в фильтр «Популярные туры» в разделе выездных горных туров'),
             Field::make('select', 'tour_duration', 'Длительность')
                 ->add_options(array(
                     '1' => 'Однодневный',
