@@ -115,7 +115,8 @@ function crb_attach_tour_type() {
                 ->set_help_text('Определяет, под какой кнопкой фильтра на странице раздела появится тур: «По России» — первая, «За рубеж» — вторая. Нужно для экскурсионных туров, школьных поездок и Jeep Trip, для горных туров можно не заполнять'),
             Field::make('checkbox', 'is_popular', 'Популярный тур')
                 ->set_help_text('Попадает в фильтр «Популярные туры» в разделе выездных горных туров'),
-            Field::make('select', 'tour_duration', 'Длительность')
+            Field::make('select', 'tour_duration', 'Длительность (для фильтра)')
+                ->set_help_text('Нужна для кнопок-фильтров по длительности. Сам текст на сайте задаётся ниже, в поле «Продолжительность»')
                 ->add_options(array(
                     '1' => 'Однодневный',
                     '2' => 'Двухдневный',
@@ -124,8 +125,10 @@ function crb_attach_tour_type() {
                     '7' => '7-ми дневный',
                     'other' => 'Другое',
                 )),
-            Field::make('text', 'tour_start_date', 'Дата начала (текстом, например: 28 июня 2026)'),
-            Field::make('select', 'tour_difficulty_stars', 'Уровень сложности (количество иконок)')
+            Field::make('text', 'tour_start_date', 'Дата начала (текстом, например: 28 июня 2026)')
+                ->set_help_text('Показывается в карточке тура. Если даты нет, в карточке будет продолжительность'),
+            Field::make('select', 'tour_difficulty_stars', 'Уровень сложности (иконки в карточке)')
+                ->set_help_text('У школьных поездок иконки сложности не показываются')
                 ->add_options(array(
                     '1' => '1 из 5',
                     '2' => '2 из 5',
@@ -151,10 +154,14 @@ function crb_attach_single_tour_fields() {
                 )),
 
             // 1. Блок "Описание тура" (желтая плашка)
-            Field::make('textarea', 'tour_hero_description', 'Описание тура'),
-            Field::make('text', 'tour_duration_days', 'Продолжительность (например: 4 дня / 3 ночи)'),
-            Field::make('text', 'tour_difficulty', 'Сложность (например: доступно всем)'),
-            Field::make('text', 'tour_format', 'Формат (например: Автобусно-пешеходный тур)'),
+            Field::make('textarea', 'tour_hero_description', 'Описание тура')
+                ->set_help_text('Текст в блоке «Описание тура» на странице тура. Абзацы разделяйте пустой строкой. Если пусто — берётся текст из «Отрывка»'),
+            Field::make('text', 'tour_duration_days', 'Продолжительность (например: 4 дня / 3 ночи)')
+                ->set_help_text('Текст на странице тура. В карточке показывается, если не указана дата начала'),
+            Field::make('text', 'tour_difficulty', 'Сложность (например: доступно всем)')
+                ->set_help_text('Текст на странице тура. У школьных поездок выводится как «Для кого»'),
+            Field::make('text', 'tour_format', 'Формат (например: Автобусно-пешеходный тур)')
+                ->set_help_text('Текст на странице тура, рядом с продолжительностью и сложностью'),
 
             // 2. Блок "Программа по дням" (Сложный повторяемый элемент)
             Field::make('complex', 'tour_program', 'Программа по дням')
@@ -162,8 +169,10 @@ function crb_attach_single_tour_fields() {
                 ->add_fields(array(
                     Field::make('text', 'day_number', 'Номер дня (например: 1 день)'),
                     Field::make('text', 'day_title', 'Название дня'),
-                    Field::make('image', 'day_img', 'Картинка дня')->set_value_type('url'),
-                    Field::make('media_gallery', 'day_images', 'Фотографии дня'),
+                    Field::make('media_gallery', 'day_images', 'Фотографии дня')
+                        ->set_help_text('Можно выбрать несколько — на сайте будет слайдер. Посетитель может увеличить фото нажатием'),
+                    Field::make('image', 'day_img', 'Картинка дня (старое поле)')->set_value_type('url')
+                        ->set_help_text('Лучше используйте «Фотографии дня». Эта картинка показывается, только если «Фотографии дня» пусты'),
 
                     Field::make('complex', 'day_points', 'Пункты программы на этот день')
                         ->add_fields(array(
@@ -176,7 +185,8 @@ function crb_attach_single_tour_fields() {
             // 3. Условия участия
             Field::make('textarea', 'tour_included', 'Что включено (каждый пункт с новой строки)'),
             Field::make('textarea', 'tour_excluded', 'Что НЕ включено (каждый пункт с новой строки)'),
-            Field::make('text', 'tour_price', 'Стоимость от (цифра или строка, например: 25 000)'),
+            Field::make('text', 'tour_price', 'Стоимость от (цифра или строка, например: 25 000)')
+                ->set_help_text('На сайте выводится как «от 25 000 ₽». Если пусто — «по запросу»'),
             Field::make('select', 'tour_currency', 'Валюта стоимости')
                 ->add_options(array(
                     'rub' => '₽',
@@ -184,19 +194,7 @@ function crb_attach_single_tour_fields() {
                 ))
                 ->set_default_value('rub'),
 
-            // 4. Галерея тура
-            Field::make('media_gallery', 'tour_gallery', 'Галерея картинок'),
-
-            // 5. Выбор команды (Гид / Инструктор) — Сюда можно подтягивать кастомный CPT гидов или пользователей
-            Field::make('association', 'tour_guides', 'Выберите гидов/команду')
-                ->set_types(array(
-                    array(
-                        'type'      => 'post',
-                        'post_type' => 'guides', // Предположим, у вас будет CPT 'guides' для команды
-                    )
-                ))
-                ->set_help_text('Для экскурсий этот блок автоматически скроется на сайте'),
-
+            // Галерея и гиды скрыты из формы: в шаблоне тура эти блоки сейчас не выводятся (данные в базе сохраняются)
             Field::make('association', 'tour_reviews', 'Отзывы для страницы тура')
                 ->set_types(array(
                     array(
@@ -207,6 +205,7 @@ function crb_attach_single_tour_fields() {
                 ->set_help_text('Если отзывы не выбраны, на странице будут показаны последние опубликованные отзывы.'),
 
             Field::make('complex', 'tour_more_info', 'Дополнительная информация')
+                ->set_help_text('Необязательно. Например, что взять с собой: разделы «Обувь», «Одежда» с пунктами')
                 ->set_layout('tabbed-vertical')
                 ->add_fields(array(
                     Field::make('text', 'more_info_title', 'Заголовок раздела')

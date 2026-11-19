@@ -232,7 +232,7 @@ $currency_symbol = isset($currency_symbols[$currency]) ? $currency_symbols[$curr
     </section>
 
 <?php
-$gallery = carbon_get_post_meta($tour_id, 'tour_gallery');
+$gallery = array(); // Галерея тура отключена (поле скрыто из админки), разметка ниже оставлена закомментированной
 if (!empty($gallery)) : ?>
 <!--    <section class="tour-gallery">-->
 <!--        <div class="container">-->
