@@ -26,8 +26,8 @@ function crb_attach_page_and_tour_fields() {
             Field::make('select', 'tour_type_filter', ' Какие туры выводить на этой странице?')
                 ->add_options(array(
                     'all' => 'Все',
-                    'local_tours' => 'Горы: местные туры (Саяны, Байкал)',
-                    'intl_tours' => 'Горы: выездные туры (Кавказ, Памир и другие)',
+                    'local_tours' => 'Горы: местные туры',
+                    'intl_tours' => 'Горы: выездные туры',
                     'intl_excursions' => 'Экскурсионные туры',
                     'kids_tours' => 'Школьные поездки',
                     'jeep_tours' => 'Jeep Trip',
@@ -90,8 +90,8 @@ function crb_attach_tour_type() {
         ->add_fields(array(
             Field::make('select', 'tour_type', 'Раздел сайта')
                 ->add_options(array(
-                    'local_tours' => 'Горы: местные туры (Саяны, Байкал)',
-                    'intl_tours' => 'Горы: выездные туры (Кавказ, Памир и другие)',
+                    'local_tours' => 'Горы: местные туры',
+                    'intl_tours' => 'Горы: выездные туры',
                     'intl_excursions' => 'Экскурсионные туры',
                     'kids_tours' => 'Школьные поездки',
                     'jeep_tours' => 'Jeep Trip',
@@ -99,8 +99,8 @@ function crb_attach_tour_type() {
                 ->set_help_text('Основной раздел, в котором тур показывается на сайте'),
             Field::make('set', 'tour_extra_types', 'Показывать также в разделах')
                 ->add_options(array(
-                    'local_tours' => 'Горы: местные туры (Саяны, Байкал)',
-                    'intl_tours' => 'Горы: выездные туры (Кавказ, Памир и другие)',
+                    'local_tours' => 'Горы: местные туры',
+                    'intl_tours' => 'Горы: выездные туры',
                     'intl_excursions' => 'Экскурсионные туры',
                     'kids_tours' => 'Школьные поездки',
                     'jeep_tours' => 'Jeep Trip',
