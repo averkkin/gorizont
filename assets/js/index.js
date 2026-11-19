@@ -54,7 +54,11 @@ const initGlideSliders = () => {
             gap: 0,
             focusAt: 'center',
             autoplay: isHeroSlider ? 3000 : false,
-            animationDuration: 600,
+            animationDuration: isHeroSlider ? 800 : 600,
+            // В хиро — плавный разгон и торможение без длинного «доползания»:
+            // у стандартной кривой Glide последние сотни миллисекунд слайд сдвигается
+            // на доли пикселя, и текст с фото мелко дрожат при остановке
+            animationTimingFunc: isHeroSlider ? 'cubic-bezier(0.65, 0, 0.35, 1)' : 'cubic-bezier(0.165, 0.840, 0.440, 1)',
         })
 
         const currentSlideElement = sliderElement.querySelector('#current')
