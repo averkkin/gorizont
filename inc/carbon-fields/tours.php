@@ -28,8 +28,7 @@ function crb_attach_page_and_tour_fields() {
                     'all' => 'Все',
                     'local_tours' => 'Местные туры',
                     'intl_tours' => 'Выездные туры',
-                    'local_excursions' => 'Местные экскурсии',
-                    'intl_excursions' => 'Выездные экскурсии',
+                    'intl_excursions' => 'Экскурсионные туры',
                     'kids_tours' => 'Школьные поездки',
                     'jeep_tours' => 'Jeep Trip',
                 )),
@@ -93,8 +92,7 @@ function crb_attach_tour_type() {
                 ->add_options(array(
                     'local_tours' => 'Местные туры',
                     'intl_tours' => 'Выездные туры',
-                    'local_excursions' => 'Местные экскурсии',
-                    'intl_excursions' => 'Выездные экскурсии',
+                    'intl_excursions' => 'Экскурсионные туры',
                     'kids_tours' => 'Школьные поездки',
                     'jeep_tours' => 'Jeep Trip',
                 )),
@@ -102,18 +100,18 @@ function crb_attach_tour_type() {
                 ->add_options(array(
                     'local_tours' => 'Местные туры',
                     'intl_tours' => 'Выездные туры',
-                    'local_excursions' => 'Местные экскурсии',
-                    'intl_excursions' => 'Выездные экскурсии',
+                    'intl_excursions' => 'Экскурсионные туры',
                     'kids_tours' => 'Школьные поездки',
                     'jeep_tours' => 'Jeep Trip',
                 ))
-                ->set_help_text('Например, школьная поездка в Японию может выводиться и среди экскурсионных туров'),
-            Field::make('select', 'tour_region', 'Куда (для фильтра школьных поездок и Jeep Trip)')
+                ->set_help_text('Например, школьная поездка в Японию выводится и среди экскурсионных туров'),
+            Field::make('select', 'tour_region', 'Куда (кнопки-фильтры на странице раздела)')
                 ->add_options(array(
                     '' => '—',
                     'russia' => 'По России / Байкал',
                     'abroad' => 'За рубеж / Монголия',
-                )),
+                ))
+                ->set_help_text('Экскурсионные туры и школьные поездки: «По России» или «За рубеж». Jeep Trip: «Байкал» или «Монголия»'),
             Field::make('checkbox', 'is_popular', 'Популярный тур (для фильтра)'),
             Field::make('select', 'tour_duration', 'Длительность')
                 ->add_options(array(
