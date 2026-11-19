@@ -199,5 +199,10 @@ require get_template_directory() . '/inc/legal.php';
  */
 require get_template_directory() . '/inc/schedule.php';
 
+/**
+ * Страница «Обучение» в админке.
+ */
+require get_template_directory() . '/inc/guide.php';
+
 
 add_filter('show_admin_bar', '__return_false');
